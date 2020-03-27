@@ -1,11 +1,11 @@
 # Python Factory Template
 
-A cookiecutter template designed for production-ready projects, especially, but not limited to, projects in the AT Data Factory. The goal is to be able to quickly bootstrap a Python project with a clear target in sight, therefore no experimentation with Jupyter Notebooks, but lots of useful stuff to build, test & deploy your code.
+A cookiecutter template designed for production-ready projects, especially, but not limited to, projects in the AT Data Factory. The goal is to be able to quickly bootstrap a Python project with a clear target in sight, therefore no experimentation with Jupyter Notebooks, but lots of useful stuff to build, test & deploy your code without being overly convoluted like many of the publicly available packages.
 
 ## Getting Started
 
 1. [`pip install -U cookiecutter`](https://pypi.org/project/cookiecutter/)
-2. `cookiecutter https://bitbucket.alexanderthamm.com/scm/atu/python-app-template.git` (HTTPS) or  
+2. `cookiecutter https://bitbucket.alexanderthamm.com/scm/atu/python-app-template.git` (HTTPS) or
    `cookiecutter ssh://git@bitbucket.alexanderthamm.com:7999/atu/python-app-template.git` (SSH)
 3. profit!
 
@@ -34,7 +34,7 @@ Feedback and contributions are welcome!
 ## Other Templates
 
 * [atutils/python-app-template](https://bitbucket.alexanderthamm.com/projects/ATU/repos/python-app-template/browse): support for Jupyter Notebooks, focus on data exploration.
-* [Python templates on Github](https://github.com/cookiecutter/cookiecutter#python): a curated list of Python templates in cookiecutter's readme. 
+* [Python templates on Github](https://github.com/cookiecutter/cookiecutter#python): a curated list of Python templates in cookiecutter's readme.
 
 ## Contact
 
