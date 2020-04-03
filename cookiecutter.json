@@ -6,6 +6,7 @@
   "module_name": "{{ cookiecutter.project_slug.replace('-', '_') }}",
   "project_short_description": "a short summary of the project",
   "package_manager": ["conda", "pip"],
+  "use_notebooks": ["yes", "no"],
   "use_docker": ["no", "yes"],
   "config_file": ["yaml", "hocon", "none"],
   "code_formatter": ["none", "black"],
