@@ -60,7 +60,7 @@ class TestCovCommand(Command):
 setup(
     name="{{ cookiecutter.project_name }}",
     version=__version__,
-    author="Alexander Thamm GmbH",
+    author="{{ cookiecutter.full_name }}",
     author_email="{{ cookiecutter.email }}",
     description="{{ cookiecutter.project_short_description }}",
     license="proprietary",
