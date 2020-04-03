@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  {{ cookiecutter.project_slug }}:
+    image: 'at/{{ cookiecutter.project_slug }}:latest'
+    build:
+      context: .
+      args:
+        PYTHON_IMAGE_TAG: 3.7-stretch
+    command: ''
+    tty: true
