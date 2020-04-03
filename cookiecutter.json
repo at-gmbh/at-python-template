@@ -2,7 +2,12 @@
   "full_name": "Ada Lovelace",
   "email": "ada@example.com",
   "project_name": "My Project",
-  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
+  "module_name": "{{ cookiecutter.project_slug.replace('-', '_') }}",
   "project_short_description": "a short summary of the project",
-  "version": "0.1.0"
+  "package_manager": ["conda", "pip"],
+  "use_docker": ["no", "yes"],
+  "config_file": ["yaml", "hocon", "none"],
+  "code_formatter": ["none", "black"],
+  "editor_settings": ["none", "vscode", "pycharm"]
 }
