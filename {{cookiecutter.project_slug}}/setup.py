@@ -7,7 +7,7 @@ from runpy import run_path
 from setuptools import find_packages, setup
 
 # read the program version from version.py (without loading the module)
-__version__ = run_path('{{ cookiecutter.project_slug }}/version.py')['__version__']
+__version__ = run_path('src/{{ cookiecutter.project_slug }}/version.py')['__version__']
 
 
 def read(fname):
@@ -65,7 +65,8 @@ setup(
     description="{{ cookiecutter.project_short_description }}",
     license="proprietary",
     url="",
-    packages=find_packages(exclude=['tests*']),
+    packages=find_packages("src"),
+    package_dir={"": "src"},
     package_data={'{{ cookiecutter.project_slug }}': ['res/*']},
     long_description=read('README.md'),
     install_requires=[],
