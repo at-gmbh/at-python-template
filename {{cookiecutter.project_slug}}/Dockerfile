@@ -26,4 +26,4 @@ RUN pip install deps/*.whl && rm -rf deps
 # install the application from a wheel package in the 'dist' folder
 COPY --from=py-build /build/dist/ dist/
 RUN pip install dist/*.whl && rm -rf dist
-ENTRYPOINT ["python", "-OO", "-m", "{{ cookiecutter.project_slug }}"]
+ENTRYPOINT ["python", "-OO", "-m", "{{ cookiecutter.module_name }}"]

@@ -8,7 +8,7 @@ To set up your local development environment, please use a fresh virtualenv, the
 
     pip install -r requirements.txt
 
-You can now run the module with `python -m {{ cookiecutter.project_slug }}`
+You can now run the module from the `src` directory with `python -m {{ cookiecutter.module_name }}`.
 
 If you want to deploy this project as a docker container, please ensure that [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed, then run
 

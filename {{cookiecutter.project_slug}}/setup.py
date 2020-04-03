@@ -7,7 +7,7 @@ from runpy import run_path
 from setuptools import find_packages, setup
 
 # read the program version from version.py (without loading the module)
-__version__ = run_path('src/{{ cookiecutter.project_slug }}/version.py')['__version__']
+__version__ = run_path('src/{{ cookiecutter.module_name }}/version.py')['__version__']
 
 
 def read(fname):
@@ -52,13 +52,13 @@ class TestCovCommand(Command):
 
     def run(self):
         params = "tests --doctest-modules --junitxml=junit/test-results.xml " \
-                 "--cov={{ cookiecutter.project_slug }} --cov-report=xml --cov-report=html"
+                 "--cov=src --cov-report=xml --cov-report=html"
         import pytest
         return pytest.main(params.split(' '))
 
 
 setup(
-    name="{{ cookiecutter.project_name }}",
+    name="{{ cookiecutter.project_slug }}",
     version=__version__,
     author="{{ cookiecutter.full_name }}",
     author_email="{{ cookiecutter.email }}",
@@ -67,7 +67,7 @@ setup(
     url="",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    package_data={'{{ cookiecutter.project_slug }}': ['res/*']},
+    package_data={'{{ cookiecutter.module_name }}': ['res/*']},
     long_description=read('README.md'),
     install_requires=[],
     tests_require=[
