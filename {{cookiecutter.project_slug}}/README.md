@@ -5,9 +5,15 @@
 ## Getting Started
 
 To set up your local development environment, please use a fresh virtualenv, then run
+{% if cookiecutter.package_manager == 'conda' %}
+    conda env create -n {{ cookiecutter.project_slug }} -f environment-dev.yml
 
+To activate this environment run:
+
+    conda activate {{ cookiecutter.project_slug }}
+{% else %}
     pip install -r requirements.txt
-
+{% endif %}
 You can now run the module from the `src` directory with `python -m {{ cookiecutter.module_name }}`.
 
 If you want to deploy this project as a docker container, please ensure that [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed, then run

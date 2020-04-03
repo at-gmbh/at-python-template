@@ -1,0 +1,7 @@
+# This file defines the requirements for a productive project deployment.
+# It should not contain dependencies for tests, developer tools, etc. (see environment-dev.yml)
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7.*

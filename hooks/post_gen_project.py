@@ -1,18 +1,17 @@
 import os
 import sys
 
+files_pip = ['requirements.txt', 'requirements-dev.txt']
+files_conda = ['environment.yml', 'environment-dev.yml']
 files_docker = ['Dockerfile', 'docker-compose.yml', '.dockerignore']
 
 
 def handle_package_manager():
-    # TODO implement
     package_manager = "{{ cookiecutter.package_manager }}"
-    print("WARNING: package_manager is not yet implemented")
-
     if package_manager == 'conda':
-        pass
+        _delete_files(files_pip)
     elif package_manager == 'pip':
-        pass
+        _delete_files(files_conda)
     else:
         print(f"Error: unsupported package manager {package_manager}")
         sys.exit(1)
@@ -27,12 +26,7 @@ def handle_notebooks():
 def handle_docker():
     use_docker = "{{ cookiecutter.use_docker }}"
     if use_docker == 'no':
-        try:
-            for file in files_docker:
-                os.remove(file)
-        except OSError as e:
-            print(f"Error: failed to remove files - {e}")
-            sys.exit(1)
+        _delete_files(files_docker)
 
 
 def handle_config():
@@ -51,6 +45,15 @@ def handle_editor_settings():
     # TODO implement
     editor_settings = "{{ cookiecutter.editor_settings }}"
     print("WARNING: editor_settings is not yet implemented")
+
+
+def _delete_files(files):
+    try:
+        for file in files:
+            os.remove(file)
+    except OSError as e:
+        print(f"Error: failed to remove files - {e}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
