@@ -36,6 +36,12 @@ To build a distribution package (wheel), please use
 
 this will clean up the build folder and then run the `bdist_wheel` command.
 
+### Contributions
+
+Before contributing, please set up the pre-commit hooks to reduce errors and ensure consistency
+
+    pip install -U pre-commit && pre-commit install
+
 ## License
 
 © Alexander Thamm GmbH
