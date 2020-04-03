@@ -5,8 +5,8 @@ A cookiecutter template designed for production-ready projects, especially, but 
 ## Getting Started
 
 1. [`pip install -U cookiecutter`](https://pypi.org/project/cookiecutter/)
-2. `cookiecutter https://bitbucket.alexanderthamm.com/scm/atu/python-app-template.git` (HTTPS) or
-   `cookiecutter ssh://git@bitbucket.alexanderthamm.com:7999/atu/python-app-template.git` (SSH)
+2. `cookiecutter https://bitbucket.alexanderthamm.com/scm/at-commons/python-project-template.git` (HTTPS) or
+   `cookiecutter ssh://git@bitbucket.alexanderthamm.com:7999/at-commons/python-project-template.git` (SSH)
 3. profit!
 
 Feedback and contributions are welcome!
