@@ -37,8 +37,8 @@ Feedback and contributions are welcome!
 
 ## Contact
 
-Sebastian Straub (sebastian.straub@alexanderthamm.com)
-Steffen Bunzel (steffen.bunzel@alexanderthamm.com)
-Hans Rauer (hans.rauer@alexanderthamm.com)
-Simon Weiß (simon.weiss@alexanderthamm.com)
-Jan Bilek (jan.bilek@alexanderthamm.com)
+* Sebastian Straub (sebastian.straub@alexanderthamm.com)
+* Steffen Bunzel (steffen.bunzel@alexanderthamm.com)
+* Hans Rauer (hans.rauer@alexanderthamm.com)
+* Simon Weiß (simon.weiss@alexanderthamm.com)
+* Jan Bilek (jan.bilek@alexanderthamm.com)
