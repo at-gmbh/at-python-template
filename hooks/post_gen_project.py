@@ -1,16 +1,17 @@
 import os
+import shutil
 import sys
 
-files_pip = ['requirements.txt', 'requirements-dev.txt']
-files_conda = ['environment.yml', 'environment-dev.yml']
-files_docker = ['Dockerfile', 'docker-compose.yml', '.dockerignore']
+files_pip = ["requirements.txt", "requirements-dev.txt"]
+files_conda = ["environment.yml", "environment-dev.yml"]
+files_docker = ["Dockerfile", "docker-compose.yml", ".dockerignore"]
 
 
 def handle_package_manager():
     package_manager = "{{ cookiecutter.package_manager }}"
-    if package_manager == 'conda':
+    if package_manager == "conda":
         _delete_files(files_pip)
-    elif package_manager == 'pip':
+    elif package_manager == "pip":
         _delete_files(files_conda)
     else:
         print(f"Error: unsupported package manager {package_manager}")
@@ -18,14 +19,14 @@ def handle_package_manager():
 
 
 def handle_notebooks():
-    # TODO implement
     use_notebooks = "{{ cookiecutter.use_notebooks }}"
-    print("WARNING: use_notebooks is not yet implemented")
+    if use_notebooks == "no":
+        shutil.rmtree("notebooks", ignore_errors=True)
 
 
 def handle_docker():
     use_docker = "{{ cookiecutter.use_docker }}"
-    if use_docker == 'no':
+    if use_docker == "no":
         _delete_files(files_docker)
 
 
