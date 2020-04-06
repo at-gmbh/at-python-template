@@ -48,6 +48,15 @@ def handle_editor_settings():
     print("WARNING: editor_settings is not yet implemented")
 
 
+def print_success():
+    full_name = "{{ cookiecutter.full_name }}"
+    print(
+        "Hey {0}! Your project was successfully created at {1}. Have fun with it!".format(
+            full_name, os.getcwd()
+        )
+    )
+
+
 def _delete_files(files):
     try:
         for file in files:
@@ -64,3 +73,4 @@ if __name__ == "__main__":
     handle_config()
     handle_formatter()
     handle_editor_settings()
+    print_success()
