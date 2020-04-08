@@ -45,9 +45,9 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
 
 * `README.md`: arguably *the* most important file of your project. Write it so that someone who knows nothing about your project can build the code, run the tests and start working on the code after reading this document.
 * code structure
-  - `src/{my_package}`
-  - `tests`
-  - notebooks
+  - `src/{my_package}`: 
+  - `tests`: 
+  - `notebooks`: 
   - config
 * setup
   - `setup.py`
@@ -57,17 +57,16 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
   - pip:
     * `requirements.txt`
     * `requirements-dev.txt`: Dependencies for developers. Please install to make full use of many useful features (e.g. tests, pre-commit hooks, etc.)
-* ignore
-  - `.gitignore`
-  - `.dockerirgnore`
 * Docker
   - `Dockerfile`
   - `docker-compose.yml`
-* code conventions
+  - `.dockerirgnore`
+* those files starting with a dot
+  - `.gitignore`
   - [`.editorconfig`](https://editorconfig.org/): ensures that all your text files use the same style, e.g. tabs vs. spaces, indent size, trailing whitespace, and so on. Supported by [many popular editors](https://editorconfig.org/#download), but not everywhere.
   - `.pre-commit-config.yaml`: notifies you of common issues when you make a commit, like committing a huge binary file. Relies on the [`pre-commit`](https://pre-commit.com/) package.
   - settings for specific editors
-    * vscode
+    * `.vscode`
     * pycharm
 
 ## Other Templates
