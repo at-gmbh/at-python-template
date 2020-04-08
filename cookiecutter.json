@@ -1,6 +1,6 @@
 {
-  "full_name": "Ada Lovelace",
-  "email": "ada@example.com",
+  "full_name": "Alexander Thamm GmbH",
+  "email": "contact@alexanderthamm.com",
   "project_name": "My Project",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
   "module_name": "{{ cookiecutter.project_slug.replace('-', '_') }}",

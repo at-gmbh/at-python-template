@@ -48,6 +48,6 @@ Before contributing, please set up the pre-commit hooks to reduce errors and ens
 
     pip install -U pre-commit && pre-commit install
 
-## License
+## Contact
 
-© Alexander Thamm GmbH
+{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>
