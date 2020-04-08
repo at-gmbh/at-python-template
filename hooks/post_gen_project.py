@@ -57,6 +57,7 @@ def handle_config():
     if config_file == "yaml":
         print("WARNING: yaml config is not yet implemented")
         _delete_files(files_config_hocon)
+        shutil.rmtree(f"{module_dir}/res")
         _rename_files(f"src/**/*__yaml.py", "__yaml", "")
     elif config_file == "hocon":
         _delete_files(files_config_yaml)
