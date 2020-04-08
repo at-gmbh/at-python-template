@@ -10,7 +10,36 @@ A [cookiecutter](https://cookiecutter.readthedocs.io/) template designed to brid
    `cookiecutter ssh://git@bitbucket.alexanderthamm.com:7999/at-commons/python-project-template.git` (SSH)
 3. profit!
 
+For more information, please have a look at [Python Project Template: AT Cookiecutter](https://confluence.alexanderthamm.com/display/ATTECH/Python+Project+Template%3A+AT+Cookiecutter) in Confluence.
+
 Feedback and contributions are welcome!
+
+## Choices Explained
+
+Unfortunately, cookiecutter does not allow us to show any description of the options in the setup dialogue, so here's some more info on that:
+
+* `full_name [Alexander Thamm GmbH]`: enter your name here (the default is *Alexander Thamm GmbH*). It will be used in the Readme and the setup script.
+* `email [contact@alexanderthamm.com]`: your email address, also for *Readme.md* and *setup.py*.
+* `project_name [My Project]`: the name of your project. This is the "pretty" version of your project name, it may contain whitespace and all of your favorite emojis.
+* `project_slug [my-project]`: this is the project slug. It is automatically derived from your project name, uses dashes instead of whitespace and must not contain any special characters. This will also be the name of your Python package.
+* `module_name [my_project]`: this is the name of your Python module. It is similar to the project slug, but uses underscores instead of dashes. This is because for Python module names, the same restrictions apply as for Python variable names and `-` cannot be used in a variable name.
+* `project_short_description [a short summary of the project]`: please write a short summary (ideally one sentence) of your project here. It will be used in the Readme and the setup script.
+* Select your `package_manager`
+  - `conda` (default): use [conda](https://docs.conda.io/) as your package manager and `environment.yml` to track your dependencies. Conda allows you to easily manage virtual environments and Python versions and there are hardly any issues with installing packages on Windows. Therefore we recommend this option for most users.
+  - `pip`: use [pip](https://pip.pypa.io/) as your package manager and `requirements.txt` to track your dependencies. Unlinke conda, pip is only a package manager: it does not manage your Python environment and there might be some issues with package installation on Windows if no pre-compiled binaries are available. However, pip is lightweight, comes with every Python distribution and is the default in the Python community. Recommended for power users or projects that will be used in production environments or when Docker is your target (most Python-based Docker images don't include conda).
+* `use_notebooks` (yes or no): if you want to use Jupyter Notebooks, we'll set you up so that all your notebooks will be stored in the `notebooks` folder and you can easily call functions that are defined in your Python package from the notebooks. This should ease the transition from exploration (using notebooks) to production (using code specified in the module) and allow early sharing of code.
+* `use_docker` (yes or no): if you plan to build a Docker image, select *yes* and we'll set you up with a Dockerfile and other docker-related stuff.
+* `config_file`: select your preferred config format. It is best practice to store your configuration separate from your code, even for small projects, but because there are a gazillion ways to do this, each project seems to reinvents the wheel. We want to provide a few options to set you up with a working configuration:
+  - `yaml`: use [YAML](https://yaml.org/) as your configuration file format. Easy to read and write, widely adopted, relies on the [PyYAML](https://pyyaml.org/) package.
+  - `hocon`: use [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) as your configuration file format. It is a superset of JSON, very resilient (it's really hard to make a breaking syntax error) and comes with powerful functions, e.g. for inheritance or variable substitution. Relies on the [pyhocon](https://github.com/chimpler/pyhocon/) package.
+  - `none`: don't need any configuration or want to do your own thing? choose this option.
+* `code_formatter`: a code formatter is a powerful tool that can help teams to stick to a common code style. However, a formatter cannot solve every code style problem for you and it may lead to issues for users that are not aware of how it works. Always talk to your team about [PEP 8](https://www.python.org/dev/peps/pep-0008/) and a common code style, then choose the right formatter for you (or none at all):
+  - [`black`](https://github.com/psf/black): *the uncompromising Python code formatter*. 
+  - `none`: don't use a code formatter.
+* `editor_settings`: there are many editors out there with great support for Python projects. However, because Python gives you a lot of freedom in terms of structuring your project or the tools you use, configuring your editor for each project can be intricate and repetitive. If your favourite editor is in the list, we'll get you started with a working config for your project. Please note that this config will not be checked into the git repo (that would be bad practice; every developer should be free to use whatever editor they like) and therefore this config will only be available to you.
+  - `vscode`: add config for [Visual Studio Code](https://code.visualstudio.com/)
+  - `pycharm`: add config for [PyCharm](https://www.jetbrains.com/pycharm/)
+  - `none`: no editor config / set it up by yourself
 
 ## Features
 
