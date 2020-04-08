@@ -4,24 +4,28 @@
 
 ## Getting Started
 
-To set up your local development environment, please use a fresh virtualenv, then run
+To set up your local development environment, please use a fresh virtual environment.
 {% if cookiecutter.package_manager == 'conda' %}
+To create the environment run:
+
     conda env create -n {{ cookiecutter.project_slug }} -f environment-dev.yml
 
-To activate this environment run:
+To activate the environment run:
 
     conda activate {{ cookiecutter.project_slug }}
 {% else %}
+Then run:
+
     pip install -r requirements.txt
 {% endif %}
 You can now run the module from the `src` directory with `python -m {{ cookiecutter.module_name }}`.
-
+{% if cookiecutter.use_docker == 'yes' %}
 If you want to deploy this project as a docker container, please ensure that [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed, then run
 
     docker-compose up
 
 this will build the entire project with all dependencies inside a docker container. You may use the command line interface of the application now, e.g. by editing the `command` tag in the [`docker-compose.yml`](./docker-compose.yml).
-
+{% endif %}
 ### Testing
 
 We use `pytest` as test framework. To execute the tests, please run
@@ -50,4 +54,8 @@ Before contributing, please set up the pre-commit hooks to reduce errors and ens
 
 ## Contact
 
-{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>
+{{ cookiecutter.full_name }} ({{ cookiecutter.email }})
+
+## License
+
+© Alexander Thamm GmbH
