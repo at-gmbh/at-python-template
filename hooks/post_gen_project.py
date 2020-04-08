@@ -1,10 +1,32 @@
 import os
 import shutil
 import sys
+from glob import glob
+from pathlib import Path
 
-files_pip = ["requirements.txt", "requirements-dev.txt"]
-files_conda = ["environment.yml", "environment-dev.yml"]
-files_docker = ["Dockerfile", "docker-compose.yml", ".dockerignore"]
+module_dir = "src/{{ cookiecutter.module_name }}"
+files_pip = [
+    "requirements.txt",
+    "requirements-dev.txt",
+]
+files_conda = [
+    "environment.yml",
+    "environment-dev.yml",
+]
+files_docker = [
+    "Dockerfile",
+    "docker-compose.yml",
+    ".dockerignore",
+]
+files_config_yaml = [
+    f"{module_dir}/util__yaml.py",
+    "config/config.yml",
+]
+files_config_hocon = [
+    f"{module_dir}/util__hocon.py",
+    f"{module_dir}/res/default.conf",
+    "config/debug.conf",
+]
 
 
 def handle_package_manager():
@@ -31,9 +53,17 @@ def handle_docker():
 
 
 def handle_config():
-    # TODO implement
     config_file = "{{ cookiecutter.config_file }}"
-    print("WARNING: config_file is not yet implemented")
+    if config_file == "yaml":
+        print("WARNING: yaml config is not yet implemented")
+        _delete_files(files_config_hocon)
+        _rename_files(f"src/**/*__yaml.py", "__yaml", "")
+    elif config_file == "hocon":
+        _delete_files(files_config_yaml)
+        _rename_files(f"src/**/*__hocon.py", "__hocon", "")
+    else:
+        shutil.rmtree(f"{module_dir}/res")
+        shutil.rmtree("config")
 
 
 def handle_formatter():
@@ -50,11 +80,14 @@ def handle_editor_settings():
 
 def print_success():
     full_name = "{{ cookiecutter.full_name }}"
-    print(
-        "Hey {0}! Your project was successfully created at {1}. Have fun with it!".format(
-            full_name, os.getcwd()
-        )
-    )
+    print(f"Hey {full_name}! Your project was successfully created at {os.getcwd()}. "
+          f"Have fun with it!")
+
+
+def _rename_files(file_pattern, old, new):
+    for file in glob(file_pattern, recursive=True):
+        path = Path(file)
+        path.rename(path.with_name(path.name.replace(old, new)))
 
 
 def _delete_files(files):
