@@ -55,7 +55,6 @@ def handle_docker():
 def handle_config():
     config_file = "{{ cookiecutter.config_file }}"
     if config_file == "yaml":
-        print("WARNING: yaml config is not yet implemented")
         _delete_files(files_config_hocon)
         shutil.rmtree(f"{module_dir}/res")
         _rename_files(f"src/**/*__yaml.py", "__yaml", "")
@@ -68,15 +67,30 @@ def handle_config():
 
 
 def handle_formatter():
-    # TODO implement
     code_formatter = "{{ cookiecutter.code_formatter }}"
-    print("WARNING: code_formatter is not yet implemented")
+    if code_formatter == "black":
+        # TODO implement
+        print("WARNING: code_formatter 'black' is not yet implemented")
+    elif code_formatter == "none":
+        pass
+    else:
+        print(f"Error: unsupported formatter {code_formatter}")
+        sys.exit(1)
 
 
 def handle_editor_settings():
-    # TODO implement
     editor_settings = "{{ cookiecutter.editor_settings }}"
-    print("WARNING: editor_settings is not yet implemented")
+    if editor_settings == "vscode":
+        # TODO implement
+        print("WARNING: editor settings for vscode are not yet implemented")
+    elif editor_settings == "pycharm":
+        # TODO implement
+        print("WARNING: editor settings for PyCharm are not yet implemented")
+    elif editor_settings == "none":
+        pass
+    else:
+        print(f"Error: unsupported editor {editor_settings}")
+        sys.exit(1)
 
 
 def print_success():
