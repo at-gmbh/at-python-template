@@ -67,7 +67,7 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
   - `.pre-commit-config.yaml`: notifies you of common issues when you make a commit, like committing a huge binary file. Relies on the [`pre-commit`](https://pre-commit.com/) package.
   - settings for specific editors
     * `.vscode`
-    * pycharm
+    * `.idea`: Settings for PyCharm. Marks `./src` as source folder, sets *pytest* as default test framework and *reStructuredText* as default docstring format.
 
 ## Other Templates
 

@@ -3,6 +3,7 @@ import shutil
 import sys
 from glob import glob
 from pathlib import Path
+from typing import List
 
 module_dir = "src/{{ cookiecutter.module_name }}"
 files_pip = [
@@ -27,6 +28,10 @@ files_config_hocon = [
     f"{module_dir}/res/default.conf",
     "config/debug.conf",
 ]
+folders_editor = [
+    '.idea__editor',
+    '.vscode__editor',
+]
 
 
 def handle_package_manager():
@@ -43,7 +48,7 @@ def handle_package_manager():
 def handle_notebooks():
     use_notebooks = "{{ cookiecutter.use_notebooks }}"
     if use_notebooks == "no":
-        shutil.rmtree("notebooks", ignore_errors=True)
+        shutil.rmtree("notebooks")
 
 
 def handle_docker():
@@ -81,13 +86,15 @@ def handle_formatter():
 def handle_editor_settings():
     editor_settings = "{{ cookiecutter.editor_settings }}"
     if editor_settings == "vscode":
-        # TODO implement
+        _rename_files('.vscode__editor', '__editor', '')
+        _delete_folders(folders_editor, exclude='.vscode')
+        # TODO remove this warning when the editor config has been added
         print("WARNING: editor settings for vscode are not yet implemented")
     elif editor_settings == "pycharm":
-        # TODO implement
-        print("WARNING: editor settings for PyCharm are not yet implemented")
+        _rename_files('.idea__editor', '__editor', '')
+        _delete_folders(folders_editor, exclude='.idea')
     elif editor_settings == "none":
-        pass
+        _delete_folders(folders_editor)
     else:
         print(f"Error: unsupported editor {editor_settings}")
         sys.exit(1)
@@ -112,6 +119,12 @@ def _delete_files(files):
     except OSError as e:
         print(f"Error: failed to remove files - {e}")
         sys.exit(1)
+
+
+def _delete_folders(folders: List[str], exclude: str = None):
+    for folder in folders:
+        if folder != exclude:
+            shutil.rmtree(folder, ignore_errors=True)
 
 
 if __name__ == "__main__":
