@@ -1,3 +1,5 @@
+import pytest
+
 from .util import check_project
 
 
@@ -65,3 +67,37 @@ def test_config_none():
         files_non_existent=['config', 'src/{module_name}/util.py', 'tests/util.py',
                             'src/{module_name}/res'],
         test_cli=True)
+
+
+@pytest.mark.skip(reason="not yet implemented")
+def test_formatter_black():
+    # TODO implement
+    check_project(
+        settings={'code_formatter': 'black'})
+
+
+@pytest.mark.skip(reason="nothing to test until black is implemented")
+def test_formatter_none():
+    # TODO implement
+    check_project(
+        settings={'code_formatter': 'none'})
+
+
+def test_editor_pycharm():
+    check_project(
+        settings={'editor_settings': 'pycharm'},
+        files_existent=['.idea'],
+        files_non_existent=['.vscode'])
+
+
+def test_editor_vscode():
+    check_project(
+        settings={'editor_settings': 'vscode'},
+        files_existent=['.vscode/settings.json'],
+        files_non_existent=['.idea'])
+
+
+def test_editor_none():
+    check_project(
+        settings={'editor_settings': 'none'},
+        files_non_existent=['.idea', '.vscode'])
