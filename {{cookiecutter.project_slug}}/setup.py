@@ -1,6 +1,7 @@
 import os
 import shutil
 import subprocess
+import sys
 from distutils.cmd import Command
 from runpy import run_path
 
@@ -38,6 +39,7 @@ class TestCommand(Command):
     def finalize_options(self): pass
 
     def run(self):
+        sys.path.append('src')
         import pytest
         return pytest.main(['tests', '--no-cov'])
 
@@ -51,6 +53,7 @@ class TestCovCommand(Command):
     def finalize_options(self): pass
 
     def run(self):
+        sys.path.append('src')
         params = "tests --doctest-modules --junitxml=junit/test-results.xml " \
                  "--cov=src --cov-report=xml --cov-report=html"
         import pytest
