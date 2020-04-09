@@ -1,2 +1,2 @@
-from .cli import main
+from {{ cookiecutter.module_name }}.cli import main
 main()

@@ -23,11 +23,14 @@ expected_files_base = [
 ]
 
 
-def resolve_module_dir(project_dir: Path, files: List[str]) -> List[str]:
-    # get the module name and replace it in the file paths, if specified
+def get_module_name(project_dir: Path) -> str:
     module_name = os.listdir(project_dir / 'src')[0]
     assert (project_dir / 'src' / module_name).is_dir()
-    return [s.format(module_name=module_name) if '{' in s else s for s in files]
+    return module_name
+
+
+def resolve_module_dir(files: List[str], module_name: str) -> List[str]:
+    return [(s.format(module_name=module_name) if '{' in s else s) for s in files] if files else []
 
 
 def check_files(project_dir: Path, files: List[str], exist=True):
@@ -38,7 +41,8 @@ def check_files(project_dir: Path, files: List[str], exist=True):
 
 def check_project(
         project_name="Test Project", settings: Dict[str, str] = None, files_existent: List = None,
-        files_non_existent: List = None, run_pytest=False, fun: Callable[[Path], None] = None):
+        files_non_existent: List = None, test_cli=False, run_pytest=False,
+        fun: Callable[[Path], None] = None):
     # define cookiecutter settings
     if settings is None:
         settings = {'project_name': project_name}
@@ -49,16 +53,19 @@ def check_project(
         # create the project files from the cookiecutter template
         project_dir = cookiecutter(root, extra_context=settings, no_input=True, output_dir=temp_dir)
         project_dir = Path(project_dir)
-        # check that certain files exist
-        paths_pos = resolve_module_dir(project_dir, expected_files_base + (files_existent or []))
+        module_name = get_module_name(project_dir)
+        src_dir = str(project_dir / 'src')
+        # check that certain files exist and make sure that others do not exist
+        paths_pos = resolve_module_dir(expected_files_base + (files_existent or []), module_name)
+        paths_neg = resolve_module_dir(files_non_existent, module_name)
         check_files(project_dir, paths_pos)
-        # check that certain other files do NOT exist
-        if files_non_existent:
-            paths_neg = resolve_module_dir(project_dir, files_non_existent)
-            check_files(project_dir, paths_neg, exist=False)
+        check_files(project_dir, paths_neg, exist=False)
+        # test the CLI
+        if test_cli:
+            result = subprocess.run([sys.executable, '-m', module_name], cwd=src_dir)
+            assert result.returncode == 0, "cli call returned a nonzero exit code"
         # run pytests, if specified
         if run_pytest:
-            src_dir = str(project_dir / 'src')
             result = subprocess.run([sys.executable, '-m', 'pytest', '..'], cwd=src_dir)
             assert result.returncode == 0, "some pytest cases had errors"
         # run additional code, if specified
