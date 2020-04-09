@@ -10,7 +10,7 @@ A [cookiecutter](https://cookiecutter.readthedocs.io/) template designed to brid
    `cookiecutter ssh://git@bitbucket.alexanderthamm.com:7999/at-commons/python-project-template.git` (SSH)
 3. profit!
 
-For more information, please have a look at [Python Project Template: AT Cookiecutter](https://confluence.alexanderthamm.com/display/ATTECH/Python+Project+Template%3A+AT+Cookiecutter) in Confluence.
+For more information, please have a look at [Python Project Template: AT Cookiecutter](https://confluence.alexanderthamm.com/display/ATTECH/Python+Project+Template%3A+AT+Cookiecutter) in Confluence. Please note: Python >=3.6 is required for this template.
 
 Feedback and contributions are welcome!
 
@@ -43,20 +43,20 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
 
 ## Features
 
-* `README.md`: arguably *the* most important file of your project. Write it so that someone who knows nothing about your project can build the code, run the tests and start working on the code after reading this document.
-* code structure
-  - `src/{my_package}`: 
-  - `tests`: 
-  - `notebooks`: 
-  - config
+* `README.md`: arguably *the* most important file of your project. It's the first thing anyone will see who looks at your project. Write it so that someone who doesn't know anything about your project can build the code, run tests and start working on the code after reading this document. Check out [makeareadme.com](https://www.makeareadme.com/) for best practices.
+* Code structure
+  - `src/{my_module}`: this is your module - all your Python code should be stored here. Make sure to add the `src` folder to your `PYTHONPATH` or tell your IDE that this is where your sources are, if it didn't figure that out by itself.
+  - `tests`: tests are defined under this folder. We use [pytest](https://docs.pytest.org/) as our test framework by default.
+  - `notebooks`: drop your Jupyter notebooks in this folder and remember to move frequently used code to the module folder as soon as possible, or you'll end up with a bunch of spaghetti code spread out over way too many notebooks.
+  - `config`: store your config files in this folder. Don't hesitate to create variants of your config files for different environments (e.g. debugging, integration, production)
 * setup
-  - `setup.py`
+  - `setup.py`: this is the standard Python [Setup Script](https://setuptools.readthedocs.io/en/latest/setuptools.html). It allows you to install your module, create distribution packages and much more.
   - conda:
-    * `environment.yml`
-    * `environment-dev.yml`
+    * `environment.yml`: definition of an environment that can run the module. Does not include tests or developer tools. 
+    * `environment-dev.yml`: definition of an environment for developers. Please install to make full use of many useful features (e.g. tests, pre-commit hooks, etc.)
   - pip:
-    * `requirements.txt`
-    * `requirements-dev.txt`: Dependencies for developers. Please install to make full use of many useful features (e.g. tests, pre-commit hooks, etc.)
+    * `requirements.txt`: dependencies that are required to run the module. Does not include tests or developer tools. 
+    * `requirements-dev.txt`: dependencies for developers. Please install to make full use of many useful features (e.g. tests, pre-commit hooks, etc.)
 * Docker
   - `Dockerfile`
   - `docker-compose.yml`
