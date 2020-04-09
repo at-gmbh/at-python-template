@@ -67,8 +67,9 @@ def handle_config():
         _delete_files(files_config_yaml)
         _rename_files(f'src/**/*__hocon.py', '__hocon', '')
     else:
-        shutil.rmtree(f'{module_dir}/res')
-        shutil.rmtree('config')
+        _delete_files(files_config_hocon + files_config_yaml + ['tests/test_util.py'])
+        os.rmdir(f'{module_dir}/res')
+        os.rmdir('config')
 
 
 def handle_formatter():

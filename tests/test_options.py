@@ -18,10 +18,28 @@ def test_conda():
         files_existent=['environment.yml', 'environment-dev.yml'])
 
 
-def test_docker():
+def test_notebooks_yes():
+    check_project(
+        settings={'use_notebooks': 'yes'},
+        files_existent=['notebooks'])
+
+
+def test_notebooks_no():
+    check_project(
+        settings={'use_notebooks': 'no'},
+        files_non_existent=['notebooks'])
+
+
+def test_docker_yes():
     check_project(
         settings={'use_docker': 'yes'},
         files_existent=['Dockerfile', 'docker-compose.yml', '.dockerignore'])
+
+
+def test_docker_no():
+    check_project(
+        settings={'use_docker': 'no'},
+        files_non_existent=['Dockerfile', 'docker-compose.yml', '.dockerignore'])
 
 
 def test_config_hocon():

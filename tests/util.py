@@ -39,6 +39,16 @@ def check_files(project_dir: Path, files: List[str], exist=True):
         assert path.exists() == exist, f"file '{path}' should {'' if exist else 'not '}have existed"
 
 
+def list_files(base_dir, indent=4):
+    for base, dirs, files in os.walk(base_dir):
+        level = len(Path(base).relative_to(base_dir).parents)
+        space = ' ' * indent * level
+        print('{}{}/'.format(space, os.path.basename(base)))
+        space_sub = ' ' * indent * (level + 1)
+        for f in files:
+            print('{}{}'.format(space_sub, f))
+
+
 def check_project(
         project_name="Test Project", settings: Dict[str, str] = None, files_existent: List = None,
         files_non_existent: List = None, test_cli=False, run_pytest=False,
@@ -55,6 +65,7 @@ def check_project(
         project_dir = Path(project_dir)
         module_name = get_module_name(project_dir)
         src_dir = str(project_dir / 'src')
+        list_files(project_dir)
         # check that certain files exist and make sure that others do not exist
         paths_pos = resolve_module_dir(expected_files_base + (files_existent or []), module_name)
         paths_neg = resolve_module_dir(files_non_existent, module_name)
