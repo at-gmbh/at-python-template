@@ -6,8 +6,12 @@ from {{ cookiecutter.module_name }} import util{% endif %}
 
 
 def main():
-    args = parse_args(){% if cookiecutter.config_file != 'none' %}
-    config = util.load_config(args.config) if args.config else None{% endif %}
+    args = parse_args(){% if cookiecutter.config_file == 'hocon' %}
+    config = util.load_config(args.config)
+    util.logging_setup(config){% elif cookiecutter.config_file == 'yaml' %}
+    if args.config:
+        config = util.load_config(args.config)
+        util.logging_setup(config){% endif %}
     # TODO your journey starts here
 
 
