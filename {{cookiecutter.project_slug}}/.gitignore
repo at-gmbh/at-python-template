@@ -27,6 +27,7 @@ wheels/
 
 # Unit test / coverage reports
 htmlcov/
+junit/
 .tox/
 .coverage
 .coverage.*
