@@ -3,7 +3,7 @@ import subprocess
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Union
 
 from cookiecutter.main import cookiecutter
 
@@ -82,3 +82,12 @@ def check_project(
         # run additional code, if specified
         if fun:
             fun(project_dir)
+
+
+def assert_file_contains(file: Union[str, Path], contains: str = None, not_contains: str = None):
+    with open(file, 'r') as fp:
+        content = fp.read()
+        if contains:
+            assert contains in content, f"'{contains}' should have been found in '{file}'"
+        if not_contains:
+            assert not_contains not in content, f"'{contains}' should not exist in '{file}'"

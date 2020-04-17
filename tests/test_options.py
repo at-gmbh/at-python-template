@@ -1,6 +1,6 @@
-import pytest
+from pathlib import Path
 
-from .util import check_project
+from .util import assert_file_contains, check_project
 
 
 def test_base():
@@ -69,18 +69,24 @@ def test_config_none():
         test_cli=True)
 
 
-@pytest.mark.skip(reason="not yet implemented")
 def test_formatter_black():
-    # TODO implement
+    def check_black(project_dir: Path):
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='psf/black')
+        assert_file_contains(project_dir / 'environment-dev.yml', contains='black=')
+
     check_project(
-        settings={'code_formatter': 'black'})
+        settings={'code_formatter': 'black'},
+        fun=check_black)
 
 
-@pytest.mark.skip(reason="nothing to test until black is implemented")
 def test_formatter_none():
-    # TODO implement
+    def check_white(project_dir: Path):
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', not_contains='psf/black')
+        assert_file_contains(project_dir / 'environment-dev.yml', not_contains='black=')
+
     check_project(
-        settings={'code_formatter': 'none'})
+        settings={'code_formatter': 'none'},
+        fun=check_white)
 
 
 def test_editor_pycharm():

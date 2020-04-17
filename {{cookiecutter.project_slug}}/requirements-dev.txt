@@ -1,6 +1,7 @@
 # This file defines the additional requirements for a developer working
 # with this project (e.g. for testing or useful development tools).
 # The regular project dependencies are defined in requirements.txt
+{% if cookiecutter.code_formatter == 'black' %}black~=19.10b0{% endif -%}
+pre-commit~=2.2.0
 pytest~=5.4.0
 pytest-cov~=2.8.0
-pre-commit~=2.2.0

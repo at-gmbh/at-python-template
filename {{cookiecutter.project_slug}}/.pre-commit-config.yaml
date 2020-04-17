@@ -6,4 +6,10 @@ repos:
     -   id: check-yaml
     -   id: requirements-txt-fixer
     -   id: end-of-file-fixer
-    -   id: trailing-whitespace
+    -   id: trailing-whitespace{% if cookiecutter.code_formatter == 'black' %}
+-   repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+    -   id: black
+        language_version: python3.7
+        exclude: ^notebooks{% endif %}

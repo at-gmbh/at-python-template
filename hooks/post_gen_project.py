@@ -74,10 +74,8 @@ def handle_config():
 
 def handle_formatter():
     code_formatter = '{{ cookiecutter.code_formatter }}'
-    if code_formatter == 'black':
-        # TODO implement
-        print("WARNING: code_formatter 'black' is not yet implemented")
-    elif code_formatter == 'none':
+    if code_formatter in ['none', 'black']:
+        # no action necessary
         pass
     else:
         print(f"Error: unsupported formatter {code_formatter}")
