@@ -69,6 +69,16 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
     * `.vscode`
     * `.idea`: Settings for PyCharm. Marks `./src` as source folder, sets *pytest* as default test framework and *reStructuredText* as default docstring format.
 
+## Contributing
+
+Contributions to this project are very welcome. This Readme file contains our technical documentation, a user guide can be found in [Confluence](https://confluence.alexanderthamm.com/display/ATTECH/Python+Project+Template%3A+AT+Cookiecutter) and our Teams channel is [AT Commons - Python App Template](https://teams.microsoft.com/l/channel/19%3a5c4a54a84e144283818450bb6316fa58%40thread.tacv2/Python%2520App%2520Template?groupId=5907ba79-097d-4906-8c58-fdbfa98fe901&tenantId=44d8cd30-12b4-46ab-82b4-56bec7d7a555). Please don't hesitate to contact one of the persons listed at the end of this document to get started.
+
+Hints for developers:
+
+* install dependencies with in a fresh virtualenv with `pip install -r requirements.txt`
+* run unit tests with `pytest tests`. There are unit tests for every available choice in [`tests/test_options.py`](./tests/test_options.py). If you add more choices, please update these tests.
+* be careful with code formatters: Many files in this project contain [jinja2 templates](https://jinja.palletsprojects.com) (you'll find statements like `{% if cookiecutter.config_file == 'yaml' %}...{% endif %}` all over the place). These templates mean that the source code becomes syntactically incorrect and some formatters might do unexpected things.
+
 ## Other Templates
 
 * [Python templates on Github](https://github.com/cookiecutter/cookiecutter#python): a curated list of Python templates in cookiecutter's readme.
