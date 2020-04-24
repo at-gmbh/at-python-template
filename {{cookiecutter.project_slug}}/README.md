@@ -37,7 +37,17 @@ To run the tests with coverage information, please use
     python setup.py testcov
 
 and have a look at the `htmlcov` folder, after the tests are done.
+{% if cookiecutter.use_notebooks == 'yes' %}
+### Notebooks
 
+To use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors, make sure to install the source locally
+
+    pip install -e .
+
+This way, you'll always use the latest version of your module code in your notebooks via `import {{ cookiecutter.module_name }}`.
+Note that we mainly use notebooks for experiments, visualizations and reports. Every piece of functionality that is meant to be reused should go into module code
+and be imported into notebooks.
+{% endif %}
 ### Distribution Package
 
 To build a distribution package (wheel), please use
