@@ -1,1 +1,5 @@
-{}
+{
+  "python.testing.pytestEnabled": true,
+  {% if cookiecutter.code_formatter == 'black' %}"python.formatting.provider": "black",
+  "editor.formatOnSave": true{% endif -%}
+}
