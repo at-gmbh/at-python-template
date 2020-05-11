@@ -18,7 +18,7 @@ RUN python setup.py install && python setup.py bdist_wheel
 #
 
 FROM python:${PYTHON_IMAGE_TAG}
-MAINTAINER Alexander Thamm GmbH
+LABEL maintainer="Alexander Thamm GmbH"
 WORKDIR /app
 # install all dependencies from wheel packages in the 'deps' folder
 COPY --from=py-build /build/deps/ deps/
