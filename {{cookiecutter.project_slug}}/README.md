@@ -16,7 +16,7 @@ To activate the environment run:
 {% else %}
 Then run:
 
-    pip install -r requirements-dev.txt
+    pip install -r requirements.txt -r requirements-dev.txt
 {% endif %}
 You can now run the module from the `src` directory with `python -m {{ cookiecutter.module_name }}`.
 {% if cookiecutter.use_docker == 'yes' %}

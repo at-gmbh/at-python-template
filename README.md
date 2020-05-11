@@ -75,7 +75,7 @@ Contributions to this project are very welcome. This Readme file contains our te
 
 Hints for developers:
 
-* install dependencies with in a fresh virtualenv with `pip install -r requirements.txt`
+* install dependencies in a fresh virtualenv with `pip install -r requirements.txt`
 * run unit tests with `pytest tests`. There are unit tests for every available choice in [`tests/test_options.py`](./tests/test_options.py). If you add more choices, please update these tests.
 * be careful with code formatters: Many files in this project contain [jinja2 templates](https://jinja.palletsprojects.com) (you'll find statements like `{% if cookiecutter.config_file == 'yaml' %}...{% endif %}` all over the place). These templates mean that the source code becomes syntactically incorrect and some formatters might do unexpected things.
 
