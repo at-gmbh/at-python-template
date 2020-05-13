@@ -107,3 +107,16 @@ def test_editor_none():
     check_project(
         settings={'editor_settings': 'none'},
         files_non_existent=['.idea', '.vscode'])
+
+
+def test_random_combination():
+    check_project(
+        settings={
+            'package_manager': 'pip',
+            'use_notebooks': 'no',
+            'config_file': 'hocon',
+            'use_docker': 'yes',
+            'code_formatter': 'none',
+            'editor_settings': 'pycharm',
+        },
+        test_cli=True)
