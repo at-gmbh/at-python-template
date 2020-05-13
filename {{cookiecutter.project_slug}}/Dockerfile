@@ -22,7 +22,7 @@ LABEL maintainer="Alexander Thamm GmbH"
 WORKDIR /app
 # install all dependencies from wheel packages in the 'deps' folder
 COPY --from=py-build /build/deps/ deps/
-RUN pip install deps/*.whl && rm -rf deps
+RUN [ -n "$(ls -A deps)" ] && pip install deps/*.whl && rm -rf deps || echo "no dependencies to install"
 # install the application from a wheel package in the 'dist' folder
 COPY --from=py-build /build/dist/ dist/
 RUN pip install dist/*.whl && rm -rf dist
