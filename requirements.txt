@@ -1,5 +1,5 @@
-cookiecutter~=1.7.0
-pre-commit~=2.2.0
+cookiecutter~=1.7.2
+pre-commit~=2.4.0
 
 # test dependencies
 pytest~=5.4.0
