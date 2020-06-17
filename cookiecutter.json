@@ -8,6 +8,7 @@
   "package_manager": ["conda", "pip"],
   "use_notebooks": ["yes", "no"],
   "use_docker": ["no", "yes"],
+  "create_cli": ["yes", "no"],
   "config_file": ["yaml", "hocon", "none"],
   "code_formatter": ["none", "black"],
   "editor_settings": ["none", "vscode", "pycharm"]

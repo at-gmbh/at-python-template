@@ -19,6 +19,10 @@ files_docker = [
     'docker-compose.yml',
     '.dockerignore',
 ]
+files_cli = [
+    f'{module_dir}/__main__.py',
+    f'{module_dir}/cli.py'
+]
 files_config_yaml = [
     f'{module_dir}/util__yaml.py',
     'config/config.yml',
@@ -55,6 +59,12 @@ def handle_docker():
     use_docker = '{{ cookiecutter.use_docker }}'
     if use_docker == 'no':
         _delete_files(files_docker)
+
+
+def handle_cli():
+    create_cli = '{{ cookiecutter.create_cli }}'
+    if create_cli == 'no':
+        _delete_files(files_cli)
 
 
 def handle_config():
@@ -128,6 +138,7 @@ def _delete_folders(folders: List[str], exclude: str = None):
 
 if __name__ == '__main__':
     handle_package_manager()
+    handle_cli()
     handle_notebooks()
     handle_docker()
     handle_config()

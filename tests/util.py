@@ -17,8 +17,8 @@ expected_files_base = [
     'setup.py',
     #'tests/__init__.py',
     'src/{module_name}/__init__.py',
-    'src/{module_name}/__main__.py',
-    'src/{module_name}/cli.py',
+    #'src/{module_name}/__main__.py',
+    #'src/{module_name}/cli.py',
     'src/{module_name}/version.py',
 ]
 

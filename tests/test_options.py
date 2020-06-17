@@ -44,6 +44,20 @@ def test_docker_no():
         files_non_existent=['Dockerfile', 'docker-compose.yml', '.dockerignore'])
 
 
+def test_cli_yes():
+    check_project(
+        settings={'create_cli': 'yes'},
+        files_existent=['src/{module_name}/cli.py', 'src/{module_name}/__main__.py']
+    )
+
+
+def test_cli_no():
+    check_project(
+        settings={'create_cli': 'no'},
+        files_non_existent=['src/{module_name}/cli.py', 'src/{module_name}/__main__.py']
+    )
+
+
 def test_config_hocon():
     check_project(
         settings={'config_file': 'hocon'},
