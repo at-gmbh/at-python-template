@@ -47,15 +47,14 @@ def test_docker_no():
 def test_cli_yes():
     check_project(
         settings={'create_cli': 'yes'},
-        files_existent=['src/{module_name}/cli.py', 'src/{module_name}/__main__.py']
-    )
+        files_existent=['src/{module_name}/main.py', 'src/{module_name}/__main__.py'],
+        test_cli=True)
 
 
 def test_cli_no():
     check_project(
         settings={'create_cli': 'no'},
-        files_non_existent=['src/{module_name}/cli.py', 'src/{module_name}/__main__.py']
-    )
+        test_cli=False)
 
 
 def test_config_hocon():

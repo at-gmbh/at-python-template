@@ -20,8 +20,7 @@ files_docker = [
     '.dockerignore',
 ]
 files_cli = [
-    f'{module_dir}/__main__.py',
-    f'{module_dir}/cli.py'
+    f'{module_dir}/main__cli.py'
 ]
 files_config_yaml = [
     f'{module_dir}/util__yaml.py',
@@ -63,7 +62,11 @@ def handle_docker():
 
 def handle_cli():
     create_cli = '{{ cookiecutter.create_cli }}'
-    if create_cli == 'no':
+    if create_cli == 'yes':
+        _delete_files([f'{module_dir}/main.py'])
+        _rename_files('src/**/*__cli.py', '__cli', '')
+        pass
+    else:
         _delete_files(files_cli)
 
 
