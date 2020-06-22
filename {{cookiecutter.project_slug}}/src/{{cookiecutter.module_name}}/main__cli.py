@@ -30,14 +30,11 @@ VersionOption = typer.Option(
 @app.command()
 def main(config_file: str = ConfigOption, version: bool = VersionOption):
     """
-    This is the main function. It is only there for the CLI and allows you to use
-    the --version parameter.
+    This is the entry point of your command line application. The values of the CLI params that
+    are passed to this application will show up als parameters to this function.
 
     This docstring is where you describe what your command line application does.
     Try running `python -m {{ cookiecutter.module_name }} --help` to see how this shows up in the command line.
-
-    :param config_file: path to the program configuration
-    :param version: print the version number and exit, if set to True
     """
     {% if cookiecutter.config_file != 'none' %}config = util.load_config(config_file)
     util.logging_setup(config){% endif %}
