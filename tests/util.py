@@ -15,10 +15,9 @@ expected_files_base = [
     '.pre-commit-config.yaml',
     'README.md',
     'setup.py',
-    #'tests/__init__.py',
     'src/{module_name}/__init__.py',
     'src/{module_name}/__main__.py',
-    'src/{module_name}/cli.py',
+    'src/{module_name}/main.py',
     'src/{module_name}/version.py',
 ]
 
@@ -73,7 +72,7 @@ def check_project(
         check_files(project_dir, paths_neg, exist=False)
         # test the CLI
         if test_cli:
-            result = subprocess.run([sys.executable, '-m', module_name], cwd=src_dir)
+            result = subprocess.run([sys.executable, '-m', module_name, '--version'], cwd=src_dir)
             assert result.returncode == 0, "cli call returned a nonzero exit code"
         # run pytests, if specified
         if run_pytest:

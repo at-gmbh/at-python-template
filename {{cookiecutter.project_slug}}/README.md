@@ -13,6 +13,10 @@ To create the environment run:
 To activate the environment run:
 
     conda activate {{ cookiecutter.project_slug }}
+
+To update this environment with your production dependencies run:
+
+    conda env update -f environment.yml
 {% else %}
 Then run:
 
