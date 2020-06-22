@@ -100,8 +100,6 @@ def handle_editor_settings():
     if editor_settings == 'vscode':
         _rename_files('.vscode__editor', '__editor', '')
         _delete_folders(folders_editor, exclude='.vscode')
-        # TODO remove this warning when the editor config has been added
-        print("WARNING: editor settings for vscode are not yet implemented")
     elif editor_settings == 'pycharm':
         _rename_files('.idea__editor', '__editor', '')
         _delete_folders(folders_editor, exclude='.idea')

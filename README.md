@@ -61,13 +61,13 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
 * Docker
   - `Dockerfile`
   - `docker-compose.yml`
-  - `.dockerirgnore`
+  - `.dockerignore`
 * those files starting with a dot
   - `.gitignore`
   - [`.editorconfig`](https://editorconfig.org/): ensures that all your text files use the same style, e.g. tabs vs. spaces, indent size, trailing whitespace, and so on. Supported by [many popular editors](https://editorconfig.org/#download), but not everywhere.
   - `.pre-commit-config.yaml`: notifies you of common issues when you make a commit, like committing a huge binary file. Relies on the [`pre-commit`](https://pre-commit.com/) package.
   - settings for specific editors
-    * `.vscode`
+    * `.vscode`: Settings for VSCode. Sets *pytest* as default test framework and configures automatic code formatting if requested, among other things.
     * `.idea`: Settings for PyCharm. Marks `./src` as source folder, sets *pytest* as default test framework and *reStructuredText* as default docstring format.
 
 ## Contributing
