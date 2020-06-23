@@ -5,7 +5,7 @@
     "**/.git/subtree-cache/**": true,
     "**/.venv/**": true
   },
-  // TODO: Insert path to the Python installation, e.g.:
+  // TODO: Insert path to the Python installation or just use the option "Select Interpreter" in VSCode, e.g.:
   // "python.pythonPath": ".venv/bin/python",
   // Use pytest as our test framework
   "python.testing.pytestEnabled": true,
