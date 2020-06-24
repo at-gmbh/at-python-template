@@ -9,7 +9,7 @@ module_name = '{{ cookiecutter.module_name }}'
 
 if not re.match(SLUG_REGEX, project_slug):
     print(f"ERROR: {project_slug} is not a valid slug! It may only consist of numbers and letters "
-          f"of the english alphabet and it must use dashes instead of whitespace.")
+          f"of the english alphabet, begin with a letter, and must use dashes instead of whitespace.")
     sys.exit(1)
 
 if not re.match(MODULE_REGEX, module_name):
