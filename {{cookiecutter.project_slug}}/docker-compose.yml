@@ -5,8 +5,8 @@ services:
     image: 'at/{{ cookiecutter.project_slug }}:latest'
     build:
       context: .
-      args:
-        PYTHON_IMAGE_TAG: "4.8.2"
-        # 3.7-stretch
+      args:{% if cookiecutter.package_manager=='conda' %}
+        PYTHON_IMAGE_TAG: "4.8.2"{% elif cookiecutter.package_manager=='pip' %}
+        PYTHON_IMAGE_TAG: 3.7-stretch{% endif %}
     command: ''
     tty: true
