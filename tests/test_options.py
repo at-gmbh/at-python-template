@@ -32,9 +32,15 @@ def test_notebooks_no():
         files_non_existent=['notebooks'])
 
 
-def test_docker_yes():
+def test_docker_pip():
     check_project(
-        settings={'use_docker': 'yes'},
+        settings={'use_docker': 'yes', 'package_manager': 'pip',},
+        files_existent=['Dockerfile', 'docker-compose.yml', '.dockerignore'])
+
+
+def test_docker_conda():
+    check_project(
+        settings={'use_docker': 'yes', 'package_manager': 'conda',},
         files_existent=['Dockerfile', 'docker-compose.yml', '.dockerignore'])
 
 

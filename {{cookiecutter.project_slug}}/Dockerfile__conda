@@ -1,0 +1,16 @@
+ARG PYTHON_IMAGE_TAG=4.8.2
+
+FROM continuumio/miniconda3:${PYTHON_IMAGE_TAG}
+WORKDIR /{{cookiecutter.module_name}}
+COPY . . 
+
+RUN conda config --set channel_priority strict && \
+    conda env create -n {{cookiecutter.module_name}}_env -f environment.yml
+
+# Make RUN commands use the new environment (see: https://pythonspeed.com/articles/activate-conda-dockerfile/)
+SHELL ["conda", "run", "-n", "{{cookiecutter.module_name}}_env", "/bin/bash", "-c"]
+
+RUN python setup.py install
+
+# ENTRYPOINT doesn't use the same shell as RUN so you need the conda stuff
+ENTRYPOINT ["conda", "run", "-n", "{{cookiecutter.module_name}}_env", "python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
