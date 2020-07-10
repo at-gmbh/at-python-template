@@ -1,10 +1,11 @@
 {
-  "full_name": "Alexander Thamm GmbH",
+  "full_name": "Jane Doe",
+  "company_name": "",
   "email": "contact@alexanderthamm.com",
   "project_name": "My Project",
   "project_slug": "{{ cookiecutter.project_name | slugify }}",
   "module_name": "{{ cookiecutter.project_slug | slugify | replace('-', '_') }}",
-  "project_short_description": "a short summary of the project",
+  "project_short_description": "A short summary of the project",
   "package_manager": ["conda", "pip"],
   "use_notebooks": ["yes", "no"],
   "use_docker": ["no", "yes"],

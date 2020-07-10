@@ -18,7 +18,8 @@ Feedback and contributions are welcome!
 
 Unfortunately, cookiecutter does not allow us to show any description of the options in the setup dialogue, so here's some more info on that:
 
-* `full_name [Alexander Thamm GmbH]`: enter your name here (the default is *Alexander Thamm GmbH*). It will be used in the Readme and the setup script.
+* `full_name [Jane Doe]`: enter your name here. It will be used in the Readme and the setup script.
+* `company_name []`: enter your company's name here. The default is to leave this blank. 
 * `email [contact@alexanderthamm.com]`: your email address, also for *Readme.md* and *setup.py*.
 * `project_name [My Project]`: the name of your project. This is the "pretty" version of your project name, it may contain whitespace and all of your favorite emojis.
 * `project_slug [my-project]`: this is the project slug. It is automatically derived from your project name, uses dashes instead of whitespace and must not contain any special characters. This will also be the name of your Python package.
