@@ -70,8 +70,10 @@ Before contributing, please set up the pre-commit hooks to reduce errors and ens
 
 {{ cookiecutter.full_name }} ({{ cookiecutter.email }})
 
-{%- if cookiecutter.company_name%}
 ## License
 
+{% if cookiecutter.company_name %}
 © {{cookiecutter.company_name}}
+{% else %}
+© {{cookiecutter.full_name}}
 {% endif %}
