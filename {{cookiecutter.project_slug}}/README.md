@@ -72,4 +72,8 @@ Before contributing, please set up the pre-commit hooks to reduce errors and ens
 
 ## License
 
-© Alexander Thamm GmbH
+{% if cookiecutter.company_name %}
+© {{cookiecutter.company_name}}
+{% else %}
+© {{cookiecutter.full_name}}
+{% endif %}
