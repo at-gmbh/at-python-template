@@ -1,25 +1,23 @@
-# Python Project Template
+# AT Python Template
 
-A [cookiecutter](https://cookiecutter.readthedocs.io/) template designed to bridge the gap between exploratory work and production-ready projects. The goal is to be able to quickly bootstrap a Python project that provides lots of useful stuff to build, test & deploy your code without being overly convoluted like many of the publicly available packages.
+This is the official Python Project Template of Alexander Thamm GmbH (AT). It is built with [cookiecutter](https://cookiecutter.readthedocs.io/) and was designed to bridge the gap between exploratory work and production-ready projects. The goal is to be able to quickly bootstrap a Python project that provides lots of useful stuff to build, test & deploy your code without being overly convoluted like many of the publicly available packages.
 
 ## Getting Started
 
-1. [`conda install -c conda-forge cookiecutter`](https://anaconda.org/conda-forge/cookiecutter) or  
-   [`pip install -U cookiecutter`](https://pypi.org/project/cookiecutter/)
-2. `cookiecutter https://bitbucket.alexanderthamm.com/scm/at-commons/python-project-template.git` (HTTPS) or  
-   `cookiecutter ssh://git@bitbucket.alexanderthamm.com:7999/at-commons/python-project-template.git` (SSH)
+1. [`conda install -c conda-forge cookiecutter`](https://anaconda.org/conda-forge/cookiecutter) or [`pip install -U cookiecutter`](https://pypi.org/project/cookiecutter/)
+2. `cookiecutter https://github.com/at-gmbh/at-python-template`
 3. profit!
 
-For more information, please have a look at [Python Project Template: AT Cookiecutter](https://confluence.alexanderthamm.com/display/ATTECH/Python+Project+Template%3A+AT+Cookiecutter) in Confluence. Please note: Python >=3.6 is required for this template.
+This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.6 or higher is required.
 
 Feedback and contributions are welcome!
 
 ## Choices Explained
 
-Unfortunately, cookiecutter does not allow us to show any description of the options in the setup dialogue, so here's some more info on that:
+Unfortunately, cookiecutter does not allow us to show any description of the options in the setup dialogue (though this will change when [cookiecutter 2.0](https://github.com/cookiecutter/cookiecutter/projects/3) is released), so here's some more info on that:
 
 * `full_name [Jane Doe]`: enter your name here. It will be used in the Readme and the setup script.
-* `company_name []`: enter your company's name here. The default is to leave this blank. 
+* `company_name []`: enter your company's name here. The default is to leave this blank.
 * `email [contact@alexanderthamm.com]`: your email address, also for *Readme.md* and *setup.py*.
 * `project_name [My Project]`: the name of your project. This is the "pretty" version of your project name, it may contain whitespace and all of your favorite emojis.
 * `project_slug [my-project]`: this is the project slug. It is automatically derived from your project name, uses dashes instead of whitespace and must not contain any special characters. This will also be the name of your Python package.
@@ -73,7 +71,9 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
 
 ## Contributing
 
-Contributions to this project are very welcome. This Readme file contains our technical documentation, a user guide can be found in [Confluence](https://confluence.alexanderthamm.com/display/ATTECH/Python+Project+Template%3A+AT+Cookiecutter) and our Teams channel is [AT Commons - Python App Template](https://teams.microsoft.com/l/channel/19%3a5c4a54a84e144283818450bb6316fa58%40thread.tacv2/Python%2520App%2520Template?groupId=5907ba79-097d-4906-8c58-fdbfa98fe901&tenantId=44d8cd30-12b4-46ab-82b4-56bec7d7a555). Please don't hesitate to contact one of the persons listed at the end of this document to get started.
+Contributions to this project are very welcome. Please open a ticket on the [issues page](https://github.com/at-gmbh/at-python-template/issues) if you have found any bugs or if you have ideas for improvements. If you want to contribute code, we'd love to review your [pull request](https://github.com/at-gmbh/at-python-template/pulls)!
+
+This Readme file contains our technical documentation, a user guide can be found in [Confluence](https://confluence.alexanderthamm.com/display/ATTECH/Python+Project+Template%3A+AT+Cookiecutter) and our Teams channel is [AT Commons - Python App Template](https://teams.microsoft.com/l/channel/19%3a5c4a54a84e144283818450bb6316fa58%40thread.tacv2/Python%2520App%2520Template?groupId=5907ba79-097d-4906-8c58-fdbfa98fe901&tenantId=44d8cd30-12b4-46ab-82b4-56bec7d7a555). Please don't hesitate to contact one of the persons listed at the end of this document to get started. Confluence and Teams can only be accessed by AT employees; however, you're very welcome to discuss issues, submit PRs and contact the developers by mail (see below) if you're not an AT employee.
 
 Hints for developers:
 
@@ -83,7 +83,7 @@ Hints for developers:
 
 ## Other Templates
 
-* [Python templates on Github](https://github.com/cookiecutter/cookiecutter#python): a curated list of Python templates in cookiecutter's readme.
+You may find lots of other templates under the [cookiecutter-template](https://github.com/topics/cookiecutter-template) tag on GitHub. Some of the most popular templates (by Github Stars) can be found on [awesomeopensource.com](https://awesomeopensource.com/projects/cookiecutter).
 
 ## Contact
 
