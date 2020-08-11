@@ -8,7 +8,7 @@ To set up your local development environment, please use a fresh virtual environ
 {% if cookiecutter.package_manager == 'conda' %}
 To create the environment run:
 
-    conda env create -n {{ cookiecutter.project_slug }} -f environment-dev.yml
+    conda env create --name {{ cookiecutter.project_slug }} --file=environment-dev.yml
 
 To activate the environment run:
 
@@ -16,7 +16,7 @@ To activate the environment run:
 
 To update this environment with your production dependencies run:
 
-    conda env update -f environment.yml
+    conda env update --file=environment.yml
 {% else %}
 Then run:
 
