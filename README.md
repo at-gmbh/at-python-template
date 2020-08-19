@@ -10,7 +10,7 @@ This is the official Python Project Template of Alexander Thamm GmbH (AT). It is
 
 This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.6 or higher is required.
 
-Feedback and contributions are welcome!
+Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
 
 ## Choices Explained
 
@@ -43,9 +43,9 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
 
 ## Features
 
-* `README.md`: arguably *the* most important file of your project. It's the first thing anyone will see who looks at your project. Write it so that someone who doesn't know anything about your project can build the code, run tests and start working on the code after reading this document. Check out [makeareadme.com](https://www.makeareadme.com/) for best practices.
+* `README.md`: arguably *the* most important file of your project. It's the first thing anyone will see who looks at your project. Write it so that someone who doesn't know anything about your project can build the code, run tests and start working on the code after reading this document. Check out [makeareadme.com](https://www.makeareadme.com/) to learn about best practices and have a look at [awesome-readme](https://github.com/matiassingers/awesome-readme) for examples of awesome readme files.
 * Code structure
-  - `src/{my_module}`: this is your module - all your Python code should be stored here. Make sure to add the `src` folder to your `PYTHONPATH` or tell your IDE that this is where your sources are, if it didn't figure that out by itself.
+  - `src/{my_module}`: this is your module - all your Python code should be stored here. Make sure to add the `src` folder to your `PYTHONPATH` or tell your IDE that this is where your sources are, if it didn't figure that out by itself. While you could have your module folder at the root of your git repo, there are [some good reasons](https://blog.ionelmc.ro/2014/05/25/python-packaging/#the-structure) why using a `src` folder may be the better solution.
   - `tests`: tests are defined under this folder. We use [pytest](https://docs.pytest.org/) as our test framework by default.
   - `notebooks`: drop your Jupyter notebooks in this folder and remember to move frequently used code to the module folder as soon as possible, or you'll end up with a bunch of spaghetti code spread out over way too many notebooks.
   - `config`: store your config files in this folder. Don't hesitate to create variants of your config files for different environments (e.g. debugging, integration, production)
