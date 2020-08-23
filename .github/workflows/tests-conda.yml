@@ -1,0 +1,35 @@
+name: pytest
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.6, 3.8]
+        os: [ubuntu-latest, windows-latest, mac-latest]
+    name: Test with Python ${{ matrix.python-version }} using conda on ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: goanpeca/setup-miniconda@v1
+      with:
+        auto-update-conda: true
+        activate-environment: at-python-template
+        environment-file: environment.yml
+        python-version: ${{ matrix.python-version }}
+        condarc-file: etc/example-condarc.yml
+        auto-activate-base: false
+    - name: Check conda setup
+      run: |
+        conda info
+        conda list
+    - name: Test with pytest
+      run: |
+        pytest tests
