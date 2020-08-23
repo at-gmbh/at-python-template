@@ -34,7 +34,7 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
   - `hocon`: use [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) as your configuration file format. It is a superset of JSON, very resilient (it's really hard to make a breaking syntax error) and comes with powerful functions, e.g. for inheritance or variable substitution. Relies on the [pyhocon](https://github.com/chimpler/pyhocon/) package.
   - `none`: don't need any configuration or want to do your own thing? choose this option.
 * `code_formatter`: a code formatter is a powerful tool that can help teams to stick to a common code style. However, a formatter cannot solve every code style problem for you and it may lead to issues for users that are not aware of how it works. Always talk to your team about [PEP 8](https://www.python.org/dev/peps/pep-0008/) and a common code style, then choose the right formatter for you (or none at all):
-  - [`black`](https://github.com/psf/black): *the uncompromising Python code formatter*. 
+  - [`black`](https://github.com/psf/black): *the uncompromising Python code formatter*.
   - `none`: don't use a code formatter.
 * `editor_settings`: there are many editors out there with great support for Python projects. However, because Python gives you a lot of freedom in terms of structuring your project or the tools you use, configuring your editor for each project can be intricate and repetitive. If your favourite editor is in the list, we'll get you started with a working config for your project. Please note that this config will not be checked into the git repo (that would be bad practice; every developer should be free to use whatever editor they like) and therefore this config will only be available to you.
   - `vscode`: add config for [Visual Studio Code](https://code.visualstudio.com/)
@@ -52,10 +52,10 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
 * setup
   - `setup.py`: this is the standard Python [Setup Script](https://setuptools.readthedocs.io/en/latest/setuptools.html). It allows you to install your module, create distribution packages and much more.
   - conda:
-    * `environment.yml`: definition of an environment that can run the module. Does not include tests or developer tools. 
+    * `environment.yml`: definition of an environment that can run the module. Does not include tests or developer tools.
     * `environment-dev.yml`: definition of an environment for developers. Please install to make full use of many useful features (e.g. tests, pre-commit hooks, etc.)
   - pip:
-    * `requirements.txt`: dependencies that are required to run the module. Does not include tests or developer tools. 
+    * `requirements.txt`: dependencies that are required to run the module. Does not include tests or developer tools.
     * `requirements-dev.txt`: dependencies for developers. Please install to make full use of many useful features (e.g. tests, pre-commit hooks, etc.)
 * Docker
   - `Dockerfile`
@@ -80,6 +80,7 @@ Hints for developers:
 * install dependencies in a fresh virtualenv with `pip install -r requirements.txt`
 * run unit tests with `pytest tests`. There are unit tests for every available choice in [`tests/test_options.py`](./tests/test_options.py). If you add more choices, please update these tests.
 * be careful with code formatters: Many files in this project contain [jinja2 templates](https://jinja.palletsprojects.com) (you'll find statements like `{% if cookiecutter.config_file == 'yaml' %}...{% endif %}` all over the place). These templates mean that the source code becomes syntactically incorrect and some formatters might do unexpected things.
+* before your first commit, set up pre-commit hooks by running `pre-commit install`
 
 ## Other Templates
 
@@ -96,13 +97,13 @@ You may find lots of other templates under the [cookiecutter-template](https://g
 ## License
 
     Copyright 2020 Alexander Thamm GmbH
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-    
+
         http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
