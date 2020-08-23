@@ -1,4 +1,4 @@
-name: pytest
+name: pytest-conda
 
 on:
   push:
@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6, 3.8]
-        os: [ubuntu-latest, windows-latest, mac-latest]
-    name: Test with Python ${{ matrix.python-version }} using conda on ${{ matrix.os }}
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    name: "Test: Python ${{ matrix.python-version }}, conda, ${{ matrix.os }}"
     steps:
     - uses: actions/checkout@v2
     - uses: goanpeca/setup-miniconda@v1
@@ -24,7 +24,6 @@ jobs:
         activate-environment: at-python-template
         environment-file: environment.yml
         python-version: ${{ matrix.python-version }}
-        condarc-file: etc/example-condarc.yml
         auto-activate-base: false
     - name: Check conda setup
       run: |

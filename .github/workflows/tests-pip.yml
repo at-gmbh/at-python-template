@@ -1,4 +1,4 @@
-name: pytest
+name: pytest-pip
 
 on:
   push:
@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6, 3.8]
-        os: [ubuntu-latest, windows-latest, mac-latest]
-    name: Test with Python ${{ matrix.python-version }} using pip on ${{ matrix.os }}
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    name: "Test: Python ${{ matrix.python-version }}, pip, ${{ matrix.os }}"
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
