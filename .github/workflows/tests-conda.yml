@@ -20,16 +20,18 @@ jobs:
     - uses: actions/checkout@v2
     - uses: goanpeca/setup-miniconda@v1
       with:
-        activate-environment: at-python-template
-        environment-file: environment.yml
-        python-version: ${{ matrix.python-version }}
         auto-activate-base: false
+        python-version: ${{ matrix.python-version }}
+        environment-file: environment.yml
+        activate-environment: at-python-template
+    # need to run tests in pwsh, or conda env won't be activated
     - name: Check conda setup
+      shell: pwsh
       run: |
         conda info
-        conda activate at-python-template
         python --version
         conda list
     - name: Test with pytest
+      shell: pwsh
       run: |
         python -m pytest tests
