@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.7.*
+  # no python version specified here, we use different versions in the CI pipeline
   - pytest=5.*
   - cookiecutter~=1.7.2
   - pyhocon=0.3.*

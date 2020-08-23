@@ -26,9 +26,9 @@ jobs:
         auto-activate-base: false
     - name: Check conda setup
       run: |
-        conda activate {{ cookiecutter.project_slug }}
-        python --version
         conda info
+        conda activate at-python-template
+        python --version
         conda list
     - name: Test with pytest
       run: |
