@@ -7,7 +7,7 @@ LABEL maintainer="{{ cookiecutter.company_name }}"
 LABEL maintainer="{{ cookiecutter.full_name }}"
 {% endif %}
 WORKDIR /{{cookiecutter.module_name}}
-COPY . . 
+COPY . .
 
 RUN conda config --set channel_priority strict && \
     conda env create -n {{cookiecutter.module_name}}_env -f environment.yml

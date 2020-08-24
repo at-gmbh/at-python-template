@@ -72,8 +72,4 @@ Before contributing, please set up the pre-commit hooks to reduce errors and ens
 
 ## License
 
-{% if cookiecutter.company_name %}
-© {{cookiecutter.company_name}}
-{% else %}
-© {{cookiecutter.full_name}}
-{% endif %}
+{% if cookiecutter.company_name %}© {{cookiecutter.company_name}}{% else %}© {{cookiecutter.full_name}}{% endif %}
