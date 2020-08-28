@@ -22,7 +22,7 @@ Then run:
 
     pip install -r requirements.txt -r requirements-dev.txt
 {% endif %}
-You can now run the module from the `src` directory with `python -m {{ cookiecutter.module_name }}`.
+You can now {% if cookiecutter.create_cli == 'yes' %}run the module from the `src` directory with `python -m {{ cookiecutter.module_name }}`{% else %}import functions and classes from the module with `import {{ cookiecutter.module_name }}`{% endif %}.
 {% if cookiecutter.use_docker == 'yes' %}
 If you want to deploy this project as a docker container, please ensure that [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed, then run
 
