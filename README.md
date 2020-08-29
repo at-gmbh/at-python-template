@@ -19,7 +19,7 @@ This will install or update cookiecutter on your system and create a
 new project in the current folder using the AT Python Template.
 Please note: Python 3.6 or higher is required.
 
-![image](setup_prompt.gif "Setup a professional python project in seconds")
+![image](terminalizer_template_setup.gif "Setup a professional python project in seconds")
 
 Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
 
