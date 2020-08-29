@@ -15,10 +15,11 @@ This is the official Python Project Template of Alexander Thamm GmbH (AT). It is
 2. `cookiecutter https://github.com/at-gmbh/at-python-template`
 3. profit!
 
+This will install or update cookiecutter on your system and create a 
+new project in the current folder using the AT Python Template.
+Please note: Python 3.6 or higher is required.
 
 ![image](setup_prompt.gif "Setup a professional python project in seconds")
-
-This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.6 or higher is required.
 
 Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
 
