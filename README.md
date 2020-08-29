@@ -5,21 +5,14 @@ This is the official Python Project Template of Alexander Thamm GmbH (AT). It is
 ## Getting Started
 
 1. [`conda install -c conda-forge cookiecutter`](https://anaconda.org/conda-forge/cookiecutter) or [`pip install -U cookiecutter`](https://pypi.org/project/cookiecutter/)
-
-> This template requires `cookiecutter>=1.7.2`.
-  If you experience issues installing it into your default
-  (virtual) environment in (`pip`) `conda`, we recommend to create a 
-  new clean environment with nothing but the `cookiecutter` package
-  installed.
-
 2. `cookiecutter https://github.com/at-gmbh/at-python-template`
 3. profit!
 
-This will install or update cookiecutter on your system and create a 
-new project in the current folder using the AT Python Template.
-Please note: Python 3.6 or higher is required.
+This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.6 or higher is required.
 
-![image](terminalizer_template_setup.gif "Setup a professional python project in seconds")
+> This template requires `cookiecutter>=1.7.2`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
+
+![image](docs/terminalizer_template_setup.gif "Setup a professional python project in seconds")
 
 Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
 

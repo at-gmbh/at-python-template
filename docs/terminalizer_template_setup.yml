@@ -1,4 +1,7 @@
-# The configurations that used for the recording, feel free to edit them
+# The configurations that is used for the recording, feel free to edit them
+# to reduce the size of the gif, you may use gifsicle - http://www.lcdf.org/gifsicle/
+# gifsicle --optimize=3 --colors 16 -i input.gif -o compressed.gif
+
 config:
 
   # Specify a command to be executed
@@ -115,187 +118,187 @@ records:
     content: "\e]0;batman@batbook:~\e\\"
   - delay: 100
     content: "\e]0;batman@batbook: ~\a\e[01;32mbatman@batbook\e[00m:\e[01;34m~\e[00m$ "
-  - delay: 1009
+  - delay: 1000
     content: c
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: 'n'
-  - delay: 100
+  - delay: 50
     content: d
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: i
-  - delay: 100
+  - delay: 50
     content: v
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: k
-  - delay: 100
+  - delay: 50
     content: i
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: u
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: r
-  - delay: 100
+  - delay: 50
     content: '-'
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: 'n'
-  - delay: 100
+  - delay: 50
     content: v
-  - delay: 1008
+  - delay: 1000
     content: "\r\n"
   - delay: 660
     content: "\e]0;batman@batbook:~\e\\\e]7;file://batbook/home/batman\e\\(cookiecutter-env) \e]0;batman@batbook: ~\a\e[01;32mbatman@batbook\e[00m:\e[01;34m~\e[00m$ "
   - delay: 800
     content: c
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: k
-  - delay: 100
+  - delay: 50
     content: i
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: u
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: r
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: h
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: p
-  - delay: 100
+  - delay: 50
     content: s
-  - delay: 100
+  - delay: 50
     content: ':'
-  - delay: 100
+  - delay: 50
     content: /
-  - delay: 100
+  - delay: 50
     content: /
-  - delay: 100
+  - delay: 50
     content: g
-  - delay: 100
+  - delay: 50
     content: i
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: h
-  - delay: 100
+  - delay: 50
     content: u
-  - delay: 100
+  - delay: 50
     content: b
-  - delay: 100
+  - delay: 50
     content: .
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: m
-  - delay: 100
+  - delay: 50
     content: /
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: '-'
-  - delay: 100
+  - delay: 50
     content: g
-  - delay: 100
+  - delay: 50
     content: m
-  - delay: 100
+  - delay: 50
     content: b
-  - delay: 100
+  - delay: 50
     content: h
-  - delay: 100
+  - delay: 50
     content: /
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: '-'
-  - delay: 100
+  - delay: 50
     content: p
-  - delay: 100
+  - delay: 50
     content: 'y'
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: h
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: 'n'
-  - delay: 100
+  - delay: 50
     content: '-'
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: m
-  - delay: 100
+  - delay: 50
     content: p
-  - delay: 100
+  - delay: 50
     content: l
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: e
   - delay: 1000
     content: "\r\n"
@@ -303,103 +306,103 @@ records:
     content: 'full_name [Jane Doe]: '
   - delay: 800
     content: B
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: m
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: 'n'
   - delay: 500
     content: "\r\ncompany_name []: "
   - delay: 800
     content: W
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: y
-  - delay: 100
+  - delay: 50
     content: n
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: E
-  - delay: 100
+  - delay: 50
     content: n
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: r
-  - delay: 100
+  - delay: 50
     content: p
-  - delay: 100
+  - delay: 50
     content: r
-  - delay: 100
+  - delay: 50
     content: i
-  - delay: 100
+  - delay: 50
     content: s
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: s
   - delay: 500
     content: "\r\nemail [contact@alexanderthamm.com]: "
   - delay: 800
     content: b
-  - delay: 100
+  - delay: 50
     content: r
-  - delay: 100
+  - delay: 50
     content: u
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: .
-  - delay: 100
+  - delay: 50
     content: w
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: 'y'
-  - delay: 100
+  - delay: 50
     content: 'n'
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: '@'
-  - delay: 100
+  - delay: 50
     content: w
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: .
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: m
   - delay: 500
     content: "\r\nproject_name [My Project]: "
   - delay: 800
     content: b
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: b
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: t
   - delay: 500
     content: "\r\nproject_slug [batbot]: "
@@ -411,105 +414,105 @@ records:
     content: "\r\nproject_short_description [A short summary of the project]: "
   - delay: 800
     content: a
-  - delay: 100
+  - delay: 50
     content: 'n'
-  - delay: 100
+  - delay: 50
     content: s
-  - delay: 100
+  - delay: 50
     content: w
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: r
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: l
-  - delay: 100
+  - delay: 50
     content: l
-  - delay: 100
+  - delay: 50
     content: s
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: a
-  - delay: 100
+  - delay: 50
     content: 'n'
-  - delay: 100
+  - delay: 50
     content: d
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: f
-  - delay: 100
+  - delay: 50
     content: i
-  - delay: 100
+  - delay: 50
     content: g
-  - delay: 100
+  - delay: 50
     content: h
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: r
-  - delay: 100
+  - delay: 50
     content: i
-  - delay: 100
+  - delay: 50
     content: m
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: w
-  - delay: 100
+  - delay: 50
     content: h
-  - delay: 100
+  - delay: 50
     content: e
-  - delay: 100
+  - delay: 50
     content: 'n'
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: I
-  - delay: 100
+  - delay: 50
     content: ''''
-  - delay: 100
+  - delay: 50
     content: m
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: u
-  - delay: 100
+  - delay: 50
     content: t
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: f
-  - delay: 100
+  - delay: 50
     content: ' '
-  - delay: 100
+  - delay: 50
     content: o
-  - delay: 100
+  - delay: 50
     content: f
-  - delay: 100
+  - delay: 50
     content: f
-  - delay: 100
+  - delay: 50
     content: i
-  - delay: 100
+  - delay: 50
     content: c
-  - delay: 100
+  - delay: 50
     content: e
   - delay: 500
     content: "\r\nSelect package_manager:\r\n1 - conda\r\n2 - pip\r\nChoose from 1, 2 [1]: "
@@ -543,7 +546,7 @@ records:
     content: "\r\n"
   - delay: 500
     content: "Hey Batman! Your project was successfully created at /home/batman/batbot. Have fun with it!\r\n"
-  - delay: 2000
+  - delay: 5000
     content: ' '
     #content: "\e]0;batman@batbook:~\e\\\e]7;file://batbook/home/batman\e\\(cookiecutter-env) \e]0;batman@batbook: ~\a\e[01;32mbatman@batbook\e[00m:\e[01;34m~\e[00m$ "
     #content: "\e]0;batman@batbook:~\e\\\e]7;file://batbook/home/batman\e\\(cookiecutter-env) \e]0;batman@batbook: ~\a\e[01;32mbatman@batbook\e[00m:\e[01;34m~\e[00m$ "
