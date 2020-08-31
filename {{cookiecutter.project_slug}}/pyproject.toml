@@ -8,7 +8,10 @@ packages = [
     { include = "{{ cookiecutter.module_name }}", from = "src" },
 ]
 include = ["src/{{ cookiecutter.module_name }}/res/*"]
-
+{% if cookiecutter.create_cli == "yes" %}
+[tool.poetry.scripts]
+{{ cookiecutter.project_slug }} = "{{ cookiecutter.module_name }}.main:app"
+{% endif %}
 [tool.poetry.dependencies]
 python = "^3.7"
 {% if cookiecutter.config_file == 'hocon' %}pyhocon = "^0.3.54"{% elif cookiecutter.config_file == 'yaml' %}PyYAML = "^5.3.1"{% endif %}
