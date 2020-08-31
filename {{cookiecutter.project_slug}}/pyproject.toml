@@ -15,7 +15,8 @@ python = "^3.7"
 {% if cookiecutter.create_cli == 'yes' %}typer = "^0.2.1"{% endif %}
 
 [tool.poetry.dev-dependencies]{% if cookiecutter.code_formatter == 'black' %}
-black = "^19.10b0"{% endif %}
+black = "^19.10b0"{% endif %}{% if cookiecutter.use_notebooks == 'true' %}
+jupyter = "^1.0.0"{% endif %}
 pre-commit = "^2.2.0"
 pytest = "^5.4.0"
 pytest-cov = "^2.8.0"
