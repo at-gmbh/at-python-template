@@ -6,14 +6,25 @@ from pathlib import Path
 from typing import Iterable, Optional
 
 module_dir = 'src/{{ cookiecutter.module_name }}'
-files_pip = [
+
+files_pip = {
     'requirements.txt',
     'requirements-dev.txt',
-]
-files_conda = [
+    'setup.py',
+}
+
+files_conda = {
     'environment.yml',
     'environment-dev.yml',
-]
+    'setup.py',
+}
+
+files_poetry = {
+    'pyproject.toml',
+}
+
+files_package_managers = files_pip | files_conda | files_poetry
+
 files_docker_aux = [
     'docker-compose.yml',
     '.dockerignore',
@@ -48,9 +59,11 @@ folders_editor = [
 def handle_package_manager():
     package_manager = '{{ cookiecutter.package_manager }}'
     if package_manager == 'conda':
-        _delete_files(files_pip)
+        _delete_files(files_package_managers - files_conda)
     elif package_manager == 'pip':
-        _delete_files(files_conda)
+        _delete_files(files_package_managers - files_pip)
+    elif package_manager == 'poetry':
+        _delete_files(files_package_managers - files_poetry)
     else:
         print(f"Error: unsupported package manager {package_manager}")
         sys.exit(1)
