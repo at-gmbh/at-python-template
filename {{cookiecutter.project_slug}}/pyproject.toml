@@ -7,7 +7,7 @@ license = "Proprietary"
 packages = [
     { include = "{{ cookiecutter.module_name }}", from = "src" },
 ]
-include = ["{{ cookiecutter.module_name }}/res/*"]
+include = ["src/{{ cookiecutter.module_name }}/res/*"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
