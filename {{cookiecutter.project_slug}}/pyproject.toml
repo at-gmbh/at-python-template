@@ -16,6 +16,7 @@ include = ["src/{{ cookiecutter.module_name }}/res/*"]
 python = "^3.7"
 {% if cookiecutter.config_file == 'hocon' %}pyhocon = "^0.3.54"{% elif cookiecutter.config_file == 'yaml' %}PyYAML = "^5.3.1"{% endif %}
 {% if cookiecutter.create_cli == 'yes' %}typer = "^0.2.1"{% endif %}
+importlib-metadata = {version = "^1.0", python = "<3.8"}
 
 [tool.poetry.dev-dependencies]{% if cookiecutter.code_formatter == 'black' %}
 black = "^19.10b0"{% endif %}{% if cookiecutter.use_notebooks == 'true' %}
