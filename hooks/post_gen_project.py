@@ -85,7 +85,7 @@ def handle_notebooks():
 def handle_docker():
     use_docker = '{{ cookiecutter.use_docker }}'
     if use_docker == 'no':
-        _delete_files(files_docker_aux + files_dockerfile_all)
+        _delete_files(files_docker_aux | files_dockerfile_all)
     else:
         package_manager = '{{ cookiecutter.package_manager }}'
         if package_manager == "conda":
