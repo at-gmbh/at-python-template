@@ -30,6 +30,7 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
 * Select your `package_manager`
   - `conda` (default): use [conda](https://docs.conda.io/) as your package manager and `environment.yml` to track your dependencies. Conda allows you to easily manage virtual environments and Python versions and there are hardly any issues with installing packages on Windows. Therefore we recommend this option for most users.
   - `pip`: use [pip](https://pip.pypa.io/) as your package manager and `requirements.txt` to track your dependencies. Unlinke conda, pip is only a package manager: it does not manage your Python environment and there might be some issues with package installation on Windows if no pre-compiled binaries are available. However, pip is lightweight, comes with every Python distribution and is the default in the Python community. Recommended for power users or projects that will be used in production environments or when Docker is your target (most Python-based Docker images don't include conda).
+  - `poetry`: use [poetry](https://python-poetry.org/) as your package manager and `pyproject.toml` to track your dependencies and store package metadata. Poetry, like Conda, makes it easy to manage virtual environments and python versions. Poetry ensures that your build is reproducible, simplifies project configuration (there's only one file to keep track of), and makes it _hard_ to use the wrong virtual environment. On the other hand, Poetry doesn't let you install Conda packages. Recommended as an alternative to pip.
 * `use_notebooks` (yes or no): if you want to use Jupyter Notebooks, we'll set you up so that all your notebooks will be stored in the `notebooks` folder and you can easily call functions that are defined in your Python package from the notebooks. This should ease the transition from exploration (using notebooks) to production (using code specified in the module) and allow early sharing of code.
 * `use_docker` (yes or no): if you plan to build a Docker image, select *yes* and we'll set you up with a Dockerfile and other docker-related stuff.
 * `create_cli` (yes or no): if you plan to build an application with a command line interface (CLI), select *yes* here. This will integrate a template for the CLI into your project - minimal boilerplate guaranteed! (We're leveraging the awesome [typer](https://typer.tiangolo.com/) library for this.)
@@ -61,6 +62,8 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
   - pip:
     * `requirements.txt`: dependencies that are required to run the module. Does not include tests or developer tools.
     * `requirements-dev.txt`: dependencies for developers. Please install to make full use of many useful features (e.g. tests, pre-commit hooks, etc.)
+  - poetry:
+    * `pyproject.toml`: project metadata, dependencies, and developer dependencies. See [here](https://python-poetry.org/docs/pyproject/) for full documentation.
 * Docker
   - `Dockerfile`
   - `docker-compose.yml`
