@@ -7,6 +7,7 @@ from typing import Iterable, Optional
 
 module_dir = 'src/{{ cookiecutter.module_name }}'
 
+
 files_pip = {
     'requirements.txt',
     'requirements-dev.txt',
@@ -23,20 +24,26 @@ files_poetry = {
     'pyproject.toml',
 }
 
-files_package_managers = files_pip | files_conda | files_poetry
+files_package_manager_all = files_pip | files_conda | files_poetry
 
-files_docker_aux = [
+files_docker_aux = {
     'docker-compose.yml',
     '.dockerignore',
-]
+}
 
-files_dockerfile_pip = [
+files_dockerfile_pip = {
     'Dockerfile__pip',
-]
+}
 
-files_dockerfile_conda = [
+files_dockerfile_conda = {
     'Dockerfile__conda',
-]
+}
+
+files_dockerfile_poetry = {
+    'Dockerfile__poetry',
+}
+
+files_dockerfile_all = files_dockerfile_pip | files_dockerfile_conda | files_dockerfile_poetry
 
 files_cli = [
     f'{module_dir}/main__cli.py'
@@ -59,11 +66,11 @@ folders_editor = [
 def handle_package_manager():
     package_manager = '{{ cookiecutter.package_manager }}'
     if package_manager == 'conda':
-        _delete_files(files_package_managers - files_conda)
+        _delete_files(files_package_manager_all - files_conda)
     elif package_manager == 'pip':
-        _delete_files(files_package_managers - files_pip)
+        _delete_files(files_package_manager_all - files_pip)
     elif package_manager == 'poetry':
-        _delete_files(files_package_managers - files_poetry)
+        _delete_files(files_package_manager_all - files_poetry)
     else:
         print(f"Error: unsupported package manager {package_manager}")
         sys.exit(1)
@@ -78,15 +85,18 @@ def handle_notebooks():
 def handle_docker():
     use_docker = '{{ cookiecutter.use_docker }}'
     if use_docker == 'no':
-        _delete_files(files_docker_aux + files_dockerfile_pip + files_dockerfile_conda)
+        _delete_files(files_docker_aux + files_dockerfile_all)
     else:
         package_manager = '{{ cookiecutter.package_manager }}'
         if package_manager == "conda":
-            _delete_files(files_dockerfile_pip)
+            _delete_files(files_dockerfile_all - files_dockerfile_conda)
             _rename_files("Dockerfile__conda", "__conda", "")
         elif package_manager == "pip":
-            _delete_files(files_dockerfile_conda)
+            _delete_files(files_dockerfile_all - files_dockerfile_pip)
             _rename_files("Dockerfile__pip", "__pip", "")
+        elif package_manager == "poetry":
+            _delete_files(files_dockerfile_all - files_dockerfile_poetry)
+            _rename_files("Dockerfile__poetry", "__poetry", "")
 
     
 
