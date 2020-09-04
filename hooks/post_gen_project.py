@@ -46,17 +46,21 @@ files_dockerfile_poetry = {
 files_dockerfile_all = files_dockerfile_pip | files_dockerfile_conda | files_dockerfile_poetry
 
 files_cli = [
-    f'{module_dir}/main__cli.py'
+    f'{module_dir}/__main__.py',
+    f'{module_dir}/main__cli.py',
 ]
+
 files_config_yaml = [
     f'{module_dir}/util__yaml.py',
     'config/config.yml',
 ]
+
 files_config_hocon = [
     f'{module_dir}/util__hocon.py',
     f'{module_dir}/res/default.conf',
     'config/debug.conf',
 ]
+
 folders_editor = [
     '.idea__editor',
     '.vscode__editor',
@@ -98,15 +102,12 @@ def handle_docker():
             _delete_files(files_dockerfile_all - files_dockerfile_poetry)
             _rename_files("Dockerfile__poetry", "__poetry", "")
 
-    
-
 
 def handle_cli():
     create_cli = '{{ cookiecutter.create_cli }}'
     if create_cli == 'yes':
         _delete_files([f'{module_dir}/main.py'])
         _rename_files('src/**/*__cli.py', '__cli', '')
-        pass
     else:
         _delete_files(files_cli)
 
@@ -149,7 +150,6 @@ def handle_editor_settings():
     else:
         print(f"Error: unsupported editor {editor_settings}")
         sys.exit(1)
-
 
 
 def print_success():

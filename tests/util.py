@@ -15,7 +15,6 @@ expected_files_base = [
     '.pre-commit-config.yaml',
     'README.md',
     'src/{module_name}/__init__.py',
-    'src/{module_name}/__main__.py',
     'src/{module_name}/main.py',
     'src/{module_name}/version.py',
 ]

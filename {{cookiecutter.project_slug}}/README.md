@@ -27,7 +27,7 @@ Then run:
 To set up your local development environment, run:
     poetry install
 {% endif %}
-You can now run the module from the `src` directory with `{% if cookiecutter.package_manager == 'poetry' %}poetry run {% endif %}python -m {{ cookiecutter.module_name }}`.
+You can now {% if cookiecutter.create_cli == 'yes' %}run the module from the `src` directory with `{{ 'poetry run ' if cookiecutter.package_manager == 'poetry' else '' }}python -m {{ cookiecutter.module_name }}`{% else %}import functions and classes from the module with `import {{ cookiecutter.module_name }}`{% endif %}.
 {% if cookiecutter.use_docker == 'yes' %}
 If you want to deploy this project as a docker container, please ensure that [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed, then run
 

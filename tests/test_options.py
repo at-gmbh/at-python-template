@@ -4,7 +4,7 @@ from .util import assert_file_contains, check_project
 
 
 def test_base():
-    check_project(test_cli=True, run_pytest=True)
+    check_project(run_pytest=True)
 
 
 def test_pip():
@@ -72,12 +72,13 @@ def test_cli_yes():
 def test_cli_no():
     check_project(
         settings={'create_cli': 'no'},
+        files_non_existent=['src/{module_name}/__main__.py'],
         test_cli=False)
 
 
 def test_config_hocon():
     check_project(
-        settings={'config_file': 'hocon'},
+        settings={'config_file': 'hocon', 'create_cli': 'yes'},
         files_existent=['src/{module_name}/util.py', 'src/{module_name}/res/default.conf',
                         'config/debug.conf'],
         files_non_existent=['config/config.yml'],
@@ -89,15 +90,14 @@ def test_config_yaml():
         settings={'config_file': 'yaml'},
         files_existent=['src/{module_name}/util.py', 'config/config.yml'],
         files_non_existent=['config/debug.conf', 'src/{module_name}/res/default.conf'],
-        test_cli=True, run_pytest=True)
+        run_pytest=True)
 
 
 def test_config_none():
     check_project(
         settings={'config_file': 'none'},
         files_non_existent=['config', 'src/{module_name}/util.py', 'tests/util.py',
-                            'src/{module_name}/res'],
-        test_cli=True)
+                            'src/{module_name}/res'])
 
 
 def test_formatter_black_pip():
@@ -167,7 +167,8 @@ def test_random_combination():
             'use_notebooks': 'no',
             'config_file': 'hocon',
             'use_docker': 'yes',
+            'create_cli': 'yes',
             'code_formatter': 'none',
             'editor_settings': 'pycharm',
         },
-        test_cli=True)
+        test_cli=True, run_pytest=True)
