@@ -1,7 +1,9 @@
 # {{ cookiecutter.project_name }}
-
 {{ cookiecutter.project_short_description }}
-
+{% set py_command = 'poetry run python' if cookiecutter.package_manager == 'poetry' else 'python' -%}
+{% set test_command = 'poetry run pytest tests' if cookiecutter.package_manager == 'poetry' else 'python setup.py test' -%}
+{% set test_cov_command = 'poetry run pytest tests --cov=src --cov-report=xml' if cookiecutter.package_manager == 'poetry' else 'python setup.py testcov' -%}
+{% set build_command = 'poetry build' if cookiecutter.package_manager == 'poetry' else 'python setup.py dist' %}
 ## Getting Started
 {% if cookiecutter.package_manager == 'conda' %}
 To set up your local development environment, please use a fresh virtual environment.
@@ -25,9 +27,16 @@ Then run:
     pip install -r requirements.txt -r requirements-dev.txt
 {% else %}
 To set up your local development environment, run:
+
     poetry install
-{% endif %}
-You can now {% if cookiecutter.create_cli == 'yes' %}run the module from the `src` directory with `{{ 'poetry run ' if cookiecutter.package_manager == 'poetry' else '' }}python -m {{ cookiecutter.module_name }}`{% else %}import functions and classes from the module with `import {{ cookiecutter.module_name }}`{% endif %}.
+{% endif -%}
+
+{% if cookiecutter.create_cli == 'yes' %}
+You can now run the module from the `src` directory with `{{ py_command }} -m {{ cookiecutter.module_name }}`.
+{% else %}
+You can now import functions and classes from the module with `import {{ cookiecutter.module_name }}`.
+{% endif -%}
+
 {% if cookiecutter.use_docker == 'yes' %}
 If you want to deploy this project as a docker container, please ensure that [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed, then run
 
@@ -39,17 +48,18 @@ this will build the entire project with all dependencies inside a docker contain
 
 We use `pytest` as test framework. To execute the tests, please run
 
-    {% if cookiecutter.package_manager == 'poetry' %}poetry run pytest tests{% else %}python setup.py test{% endif %}
+    {{ test_command }}
 
 To run the tests with coverage information, please use
 
-    {% if cookiecutter.package_manager == 'poetry' %}poetry run pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=src --cov-report=xml --cov-report=html{% else %}python setup.py testcov{% endif %}
+    {{ test_cov_command }}
 
 and have a look at the `htmlcov` folder, after the tests are done.
 {% if cookiecutter.use_notebooks == 'yes' %}
 ### Notebooks
 {% if cookiecutter.package_manager == 'poetry' %}
 You can use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors by running:
+
     poetry run jupyter notebook
 {% else %}
 To use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors, make sure to install the source locally
@@ -65,7 +75,7 @@ and be imported into notebooks.
 
 To build a distribution package (wheel), please use
 
-    {% if cookiecutter.package_manager == 'poetry' %}poetry build{% else %}python setup.py dist{% endif %}
+    {{ build_command }}
 
 this will clean up the build folder and then run the `bdist_wheel` command.
 
