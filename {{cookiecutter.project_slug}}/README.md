@@ -29,6 +29,8 @@ Then run:
 To set up your local development environment, run:
 
     poetry install
+
+Behind the scenes, this creates a virtual environment and installs your dependencies into it. Whenever you run `poetry run <command>`, that `<command>` is actually run inside the virtualenv managed by poetry.
 {% endif -%}
 
 {% if cookiecutter.create_cli == 'yes' %}
