@@ -56,7 +56,7 @@ To use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without run
 
     pip install -e .
 
-This way, you'll always use the latest version of your module code in your notebooks via `import {{ cookiecutter.module_name }}`. 
+This way, you'll always use the latest version of your module code in your notebooks via `import {{ cookiecutter.module_name }}`.
 {% endif %}
 Note that we mainly use notebooks for experiments, visualizations and reports. Every piece of functionality that is meant to be reused should go into module code
 and be imported into notebooks.
