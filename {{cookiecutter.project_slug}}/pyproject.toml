@@ -19,8 +19,7 @@ python = "^3.7"
 importlib-metadata = {version = "^1.0", python = "<3.8"}
 
 [tool.poetry.dev-dependencies]{% if cookiecutter.code_formatter == 'black' %}
-black = "^19.10b0"{% endif %}{% if cookiecutter.use_notebooks == 'true' %}
-jupyter = "^1.0.0"{% endif %}
+black = "^19.10b0"{% endif %}
 pre-commit = "^2.2.0"
 pytest = "^5.4.0"
 pytest-cov = "^2.8.0"
