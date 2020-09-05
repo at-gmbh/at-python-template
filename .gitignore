@@ -65,4 +65,7 @@ venv*/
 .idea/
 *.iws
 
+# Pyenv
+.python-version
+
 # project-specific stuff

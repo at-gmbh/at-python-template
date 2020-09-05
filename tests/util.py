@@ -14,7 +14,6 @@ expected_files_base = [
     '.gitignore',
     '.pre-commit-config.yaml',
     'README.md',
-    'setup.py',
     'src/{module_name}/__init__.py',
     'src/{module_name}/main.py',
     'src/{module_name}/version.py',

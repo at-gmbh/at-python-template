@@ -1,0 +1,50 @@
+# Modified from https://github.com/michael0liver/python-poetry-docker-example/blob/master/docker/Dockerfile
+# Provided under the MIT license: https://github.com/michael0liver/python-poetry-docker-example/blob/master/LICENCE
+
+ARG PYTHON_IMAGE_TAG=3.7-stretch
+
+# Creating a python base with shared environment variables
+FROM python:${PYTHON_IMAGE_TAG} as python-base
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
+    POETRY_NO_INTERACTION=1 \
+    PYSETUP_PATH="/opt/pysetup" \
+    VENV_PATH="/opt/pysetup/.venv"
+
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+
+
+# builder-base is used to build dependencies
+FROM python-base as builder-base
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+        curl \
+        build-essential
+
+# Install Poetry
+ENV POETRY_VERSION=1.0.5
+RUN pip install "poetry==$POETRY_VERSION"
+
+# We copy our Python requirements here to cache them
+# and install only runtime deps using poetry
+WORKDIR $PYSETUP_PATH
+COPY ./poetry.lock ./pyproject.toml ./
+RUN poetry install --no-dev --no-root
+
+
+# 'production' stage uses the clean 'python-base' stage and copyies
+# in only our runtime deps that were installed in the 'builder-base'
+FROM python-base as production
+
+LABEL maintainer="{{ cookiecutter.company_name if cookiecutter.company_name else cookiecutter.full_name }}"
+COPY --from=builder-base $VENV_PATH $VENV_PATH
+
+COPY ./src /app
+WORKDIR /app
+
+ENTRYPOINT ["python", "-OO", "-m", "{{ cookiecutter.module_name }}.main"]
