@@ -4,6 +4,7 @@
 {% set test_command = 'poetry run pytest tests' if cookiecutter.package_manager == 'poetry' else 'python setup.py test' -%}
 {% set test_cov_command = 'poetry run pytest tests --cov=src --cov-report=xml' if cookiecutter.package_manager == 'poetry' else 'python setup.py testcov' -%}
 {% set build_command = 'poetry build' if cookiecutter.package_manager == 'poetry' else 'python setup.py dist' %}
+{% set install_command = 'poetry add' if cookiecutter.package_manager == 'poetry' else 'conda install' if cookiecutter.package_manager == 'conda' else 'pip install' %}
 ## Getting Started
 {% if cookiecutter.package_manager == 'conda' %}
 To set up your local development environment, please use a fresh virtual environment.
@@ -72,6 +73,12 @@ To use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without run
 
 This way, you'll always use the latest version of your module code in your notebooks via `import {{ cookiecutter.module_name }}`.
 {% endif %}
+
+Assuming you already have Jupyter installed, you can make your virtual environment available as a separate kernel by running:
+
+    {{ install_command }} ipykernel
+    {{ py_command }} -m ipykernel install --user --name="{{ cookiecutter.project_name }}"
+
 Note that we mainly use notebooks for experiments, visualizations and reports. Every piece of functionality that is meant to be reused should go into module code
 and be imported into notebooks.
 {% endif %}
