@@ -172,3 +172,23 @@ def test_random_combination():
             'editor_settings': 'pycharm',
         },
         test_cli=True, run_pytest=True)
+
+
+def test_poetry_regression():
+    """
+    Regression test for the bug:
+    Template test failure after creating template with package_manager=poetry
+    """
+    check_project(
+        settings={
+            "package_manager": "poetry",
+            "use_notebooks": "no",
+            "config_file": "none",
+            "use_docker": "no",
+            "create_cli": "no",
+            "code_formatter": "none",
+            "editor_settings": "none",
+        },
+        test_cli=False,
+        run_pytest=True,
+    )
