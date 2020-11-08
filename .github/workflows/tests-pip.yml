@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         python-version: [2.7, 3.5]
-        os: ubuntu-latest
+        os: [ubuntu-latest]
     name: "Version Check: Python ${{ matrix.python-version }}"
     steps:
     - uses: actions/checkout@v2
