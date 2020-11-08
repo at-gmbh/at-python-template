@@ -1,3 +1,9 @@
+"""
+This file contains the Post-Generate Hooks for Cookiecutter.
+They are executed AFTER the project has been generated, so you can adjust the final
+contents of the project folder, based on the user configuration. More details:
+https://cookiecutter.readthedocs.io/en/1.7.2/advanced/hooks.html
+"""
 import os
 import shutil
 import sys

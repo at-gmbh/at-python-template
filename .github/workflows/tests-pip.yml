@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6, 3.8]
+        python-version: [3.6, 3.9]
         os: [ubuntu-latest, windows-latest]
     name: "Test: Python ${{ matrix.python-version }}, pip, ${{ matrix.os }}"
     steps:
@@ -29,3 +29,25 @@ jobs:
     - name: Test with pytest
       run: |
         pytest tests
+
+  version-check:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [2.7, 3.5]
+        os: [ubuntu-latest]
+    name: "Version Check: Python ${{ matrix.python-version }}"
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Cookiecutter
+      run: |
+        python -m pip install --upgrade pip
+        pip install cookiecutter~=1.7.2
+    - name: Run Version Check
+      run: |
+        python tests/version_check.py --fail
