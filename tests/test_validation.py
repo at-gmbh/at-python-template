@@ -1,5 +1,5 @@
 from runpy import run_path
-from typing import Any, Callable, Tuple
+from typing import Any, Callable
 
 import pytest
 from cookiecutter.exceptions import CookiecutterException
@@ -24,11 +24,11 @@ def test_editor():
 
 
 def test_fail_python_3_5(mocker: MockerFixture):
-    fail_python_version(mocker, (3, 5, 0))
+    fail_python_version(mocker, "3.5.0")
 
 
 def test_fail_python_2_7(mocker: MockerFixture):
-    fail_python_version(mocker, (2, 7, 0))
+    fail_python_version(mocker, "2.7.0")
 
 
 def test_fail_cookiecutter_1_6_0(mocker: MockerFixture):
@@ -39,9 +39,9 @@ def test_fail_cookiecutter_1_7_1(mocker: MockerFixture):
     fail_cookiecutter_version(mocker, "1.7.1")
 
 
-def fail_python_version(mocker: MockerFixture, version_info: Tuple[int, int, int]):
+def fail_python_version(mocker: MockerFixture, version_info: str):
     patch_cookiecutter_run_script(
-        mocker, lambda mocker: mocker.patch('sys.version_info', version_info))
+        mocker, lambda mocker: mocker.patch('platform.python_version', lambda: version_info))
     with pytest.raises(SystemExit):
         check_project()
 
