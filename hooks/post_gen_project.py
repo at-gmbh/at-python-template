@@ -164,10 +164,10 @@ def handle_editor_settings():
         sys.exit(1)
 
 def handle_ci():
-    ci_settings = '{{ cookiecutter.ci_settings }}'
-    if ci_settings == "gitlab": 
+    ci_pipeline = '{{ cookiecutter.ci_pipeline }}'
+    if ci_pipeline == "gitlab": 
         _delete_files(files_ci_all - files_ci_gitlab)
-    elif ci_settings == 'none':
+    elif ci_pipeline == 'none':
         _delete_files(files_ci_all)
 
 

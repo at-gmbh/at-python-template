@@ -1,0 +1,73 @@
+# templates
+# ------------
+
+.deploy-template: 
+  image: alpine:latest
+  script:
+    - echo "Deploying to ${CI_ENVIRONMENT_NAME}"
+  variables:
+    GIT_STRATEGY: none  # prevents fetching repo (we only need the artifact here)
+
+# ------------
+# Pipeline Definition
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+
+stages: 
+  - build-wheel
+  - test-unit
+  - deploy-nonprod
+  - deploy-prod
+
+# Build and Test 
+build-wheel:
+  image: python:3.7-alpine
+  stage: build-wheel
+  script:
+    - python setup.py dist
+  artifacts:
+    name: 'app-wheel'
+    paths:
+      - dist/ci_test_project-*.whl
+    expire_in: 1 week
+
+test-unit:
+  stage: test-unit
+  image: continuumio/miniconda3:4.7.12-alpine
+  before_script: 
+    - export PATH="/opt/conda/bin:$PATH"
+    - conda env create -n app -f environment-dev.yml
+    - source activate app
+  script:
+    - pip install dist/ci_test_project-*.whl
+    - pytest tests
+
+# Nonprod deployments
+
+dev:
+  extends: .deploy-template
+  stage: deploy-nonprod
+  environment:
+    name: dev
+  only:
+    - branches
+
+staging:
+  extends: .deploy-template
+  stage: deploy-nonprod
+  environment:
+    name: staging
+
+# Prod deployment
+
+prod:
+  extends: .deploy-template
+  stage: deploy-prod
+  environment:
+    name: prod
+  only:
+    - master
