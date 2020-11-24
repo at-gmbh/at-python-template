@@ -1,5 +1,10 @@
 # AT Python Template
 
+[![build](https://img.shields.io/github/workflow/status/at-gmbh/at-python-template/pytest-pip)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
+![Python Version](https://img.shields.io/badge/python-3.6%20--%203.9-blue)
+[![License](https://img.shields.io/github/license/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/blob/master/LICENSE)
+![GitHub Repo stars](https://img.shields.io/github/stars/at-gmbh/at-python-template?style=social)
+
 This is the official Python Project Template of Alexander Thamm GmbH (AT). It is built with [cookiecutter](https://cookiecutter.readthedocs.io/) and was designed to bridge the gap between exploratory work and production-ready projects. The goal is to be able to quickly bootstrap a Python project that provides lots of useful stuff to build, test & deploy your code without being overly convoluted like many of the publicly available packages.
 
 ## Getting Started
