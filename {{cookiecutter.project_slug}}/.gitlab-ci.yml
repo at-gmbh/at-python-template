@@ -1,0 +1,96 @@
+# templates
+# ------------
+
+.deploy-template: 
+  image: alpine:latest
+  script:
+    - echo "Deploying to ${CI_ENVIRONMENT_NAME}"
+  variables:
+    GIT_STRATEGY: none  # prevents fetching repo (we only need the artifact here)
+
+# ------------
+# Pipeline Definition
+
+variables: 
+  PIP_CACHE_DIR: $CI_PROJECT_DIR/pip-cache
+  {%- if cookiecutter.package_manager == 'conda' %} 
+  CONDA_PKGS_DIRS: $CI_PROJECT_DIR/conda-cache
+  {%- endif %}
+
+cache: &python_cache
+  paths:
+    - $PIP_CACHE_DIR
+    {%- if cookiecutter.package_manager == 'conda' %} 
+    - $CONDA_PKGS_DIRS/*.tar.bz2
+    - $CONDA_PKGS_DIRS/urls.txt
+    {%- endif %}
+
+stages: 
+  - build-wheel
+  - test-unit
+  - deploy-nonprod
+  - deploy-prod
+
+# Build and Test 
+build-wheel:
+  image: python:3.7-alpine
+  stage: build-wheel
+  artifacts:
+    name: 'app-wheel'
+    paths:
+      - dist/{{ cookiecutter.module_name }}-*.whl
+    expire_in: 1 week 
+  script:
+    - python setup.py dist
+
+{% if cookiecutter.package_manager == 'conda' -%} 
+test-unit:
+  stage: test-unit
+  image: continuumio/miniconda3:4.7.12-alpine 
+  cache:
+    <<: *python_cache
+  before_script: 
+    - export PATH="/opt/conda/bin:$PATH"
+    - conda env create -n {{ cookiecutter.module_name }} -f environment-dev.yml
+    - source activate {{ cookiecutter.module_name }} 
+    - pip install dist/{{ cookiecutter.module_name }}-*.whl
+  script:
+    - pytest tests
+{% elif cookiecutter.package_manager == 'pip' -%} 
+test-unit:
+  stage: test-unit
+  image: python:3.7-alpine
+  cache:
+    <<: *python_cache
+  before_script: 
+    - pip install -r requirements-dev.txt
+    - pip install dist/{{ cookiecutter.module_name }}-*.whl
+  script:
+    - pytest tests
+{%- endif %}
+
+# Nonprod deployments
+
+dev:
+  extends: .deploy-template
+  stage: deploy-nonprod
+  environment:
+    name: dev
+  only:
+    - branches
+
+staging:
+  extends: .deploy-template
+  stage: deploy-nonprod
+  environment:
+    name: staging
+
+# Prod deployment
+
+prod:
+  extends: .deploy-template
+  stage: deploy-prod
+  environment:
+    name: prod
+  only:
+    - master
