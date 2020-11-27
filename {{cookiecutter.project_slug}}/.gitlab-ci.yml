@@ -12,9 +12,9 @@
 # Pipeline Definition
 
 variables: 
-  PIP_CACHE_DIR: $CI_PROJECT_DIR/pip-cache
+  PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
   {%- if cookiecutter.package_manager == 'conda' %} 
-  CONDA_PKGS_DIRS: $CI_PROJECT_DIR/conda-cache
+  CONDA_PKGS_DIRS: $CI_PROJECT_DIR/.cache/conda
   {%- endif %}
 
 cache: &python_cache
@@ -63,6 +63,8 @@ test-unit:
   cache:
     <<: *python_cache
   before_script: 
+    - python -m venv {{ cookiecutter.module_name }} 
+    - source {{ cookiecutter.module_name }}/bin/activate
     - pip install -r requirements-dev.txt
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
