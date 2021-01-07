@@ -7,7 +7,7 @@ on:
 
   # TODO plz remove, just for testing
   pull_request:
-    branches: [ feature/save-traffic ]
+    branches: [ master ]
 
 jobs:
   # This workflow contains a single job called "traffic"
