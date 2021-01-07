@@ -1,8 +1,14 @@
+name: github-traffic
+
 on:
-  schedule: 
+  schedule:
     # runs once a week on sunday
     - cron: "55 23 * * 0"
-    
+
+  # TODO plz remove, just for testing
+  pull_request:
+    branches: [ feature/save-traffic ]
+
 jobs:
   # This workflow contains a single job called "traffic"
   traffic:
@@ -16,13 +22,13 @@ jobs:
       with:
         repository: at-gmbh/at-python-template
         ref: "traffic"
-    
+
     # Calculates traffic and clones and stores in CSV file
-    - name: GitHub traffic 
+    - name: GitHub traffic
       uses: sangonzal/repository-traffic-action@v0.1.3
       env:
-        TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }} 
-     
+        TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }}
+
     # Commits files to repository
     - name: Commit changes
       uses: EndBug/add-and-commit@v4
@@ -30,4 +36,4 @@ jobs:
         author_name: GH-Action-Traffic
         message: "GitHub traffic"
         add: "./traffic/*"
-        ref: "traffic"  # commits to branch "traffic" 
+        ref: "traffic"  # commits to branch "traffic"
