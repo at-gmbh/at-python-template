@@ -33,4 +33,4 @@ jobs:
         author_name: GH-Action-Traffic
         message: "GitHub traffic"
         add: "./traffic/*"
-        ref: "traffic"  # commits to branch "traffic"
+        branch: "traffic"
