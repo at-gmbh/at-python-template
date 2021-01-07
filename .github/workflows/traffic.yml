@@ -31,7 +31,7 @@ jobs:
 
     # Commits files to repository
     - name: Commit changes
-      uses: EndBug/add-and-commit@v4
+      uses: EndBug/add-and-commit@v6.2.0
       with:
         author_name: GH-Action-Traffic
         message: "GitHub traffic"
