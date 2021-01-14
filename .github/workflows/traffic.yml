@@ -7,7 +7,7 @@ on:
       # TODO plz remove, just for testing
   push:
     paths:
-    - '.github'
+    - '.github/**'
 
 jobs:
   # This workflow contains a single job called "traffic"
