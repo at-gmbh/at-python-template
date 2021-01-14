@@ -5,8 +5,9 @@ on:
     # runs once a week on sunday
     - cron: "55 23 * * 0"
       # TODO plz remove, just for testing
-  pull_request:
-    branches: [ master ]
+  push:
+    paths:
+    - '.github'
 
 jobs:
   # This workflow contains a single job called "traffic"
