@@ -20,7 +20,7 @@ jobs:
 
     # Calculates traffic and clones and stores in CSV file
     - name: GitHub traffic
-      uses: sangonzal/repository-traffic-action@v0.1.3
+      uses: sangonzal/repository-traffic-action@v0.1.4
       env:
         TRAFFIC_ACTION_TOKEN: ${{ secrets.TRAFFIC_ACTION_TOKEN }}
 
@@ -28,6 +28,7 @@ jobs:
     - name: Commit changes
       uses: EndBug/add-and-commit@v6.2.0
       with:
+        token: ${{ secrets.TRAFFIC_ACTION_TOKEN }}
         author_name: GH-Action-Traffic
         message: "GitHub traffic"
         add: "./traffic/*"
