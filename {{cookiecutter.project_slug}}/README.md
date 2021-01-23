@@ -65,6 +65,10 @@ You can use your module code (`src/`) in Jupyter notebooks (`notebooks/`) withou
 
     poetry run jupyter notebook
 
+or
+
+    poetry run jupyter-lab
+
 This starts the jupyter server inside the project's virtualenv.
 {% else %}
 To use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors, make sure to install the source locally
