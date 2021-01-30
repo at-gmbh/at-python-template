@@ -196,3 +196,23 @@ def test_poetry_regression():
         test_cli=False,
         run_pytest=True,
     )
+
+def test_gitlab_pip():
+    check_project(
+        settings={
+            "package_manager": "pip",
+            "ci_pipeline": "gitlab"
+        },
+        files_existent=[".gitlab-ci.yml"],
+        test_cli=True, run_pytest=True
+    )
+
+def test_gitlab_conda():
+    check_project(
+        settings={
+            "package_manager": "conda",
+            "ci_pipeline": "gitlab"
+        },
+        files_existent=[".gitlab-ci.yml"],
+        test_cli=True, run_pytest=True
+    )
