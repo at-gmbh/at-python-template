@@ -19,12 +19,14 @@ def test_conda():
         settings={'package_manager': 'conda'},
         files_existent=['environment.yml', 'environment-dev.yml', 'setup.py'])
 
+
 def test_poetry():
     check_project(
         settings={'package_manager': 'poetry'},
         files_existent=['pyproject.toml'],
         files_non_existent=['environment.yml, environment-dev.yml', 'requirements.txt', 'requirements-dev.txt', 'setup.py']
     )
+
 
 def test_notebooks_yes():
     check_project(
@@ -55,6 +57,7 @@ def test_docker_poetry():
         settings={'use_docker': 'yes', 'package_manager': 'poetry',},
         files_existent=['Dockerfile', 'docker-compose.yml', '.dockerignore']
     )
+
 
 def test_docker_no():
     check_project(
@@ -118,6 +121,7 @@ def test_formatter_black_conda():
     check_project(
         settings={'code_formatter': 'black', 'package_manager': 'conda'},
         fun=check_black)
+
 
 def test_formatter_black_poetry():
     def check_black(project_dir: Path):

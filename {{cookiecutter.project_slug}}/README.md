@@ -1,10 +1,15 @@
+{#- ------------------------------------------ -#}
+{#- Definition of Template Variables -#}
+{%- set py_command = 'poetry run python' if cookiecutter.package_manager == 'poetry' else 'python' -%}
+{%- set test_command = 'poetry run pytest tests' if cookiecutter.package_manager == 'poetry' else 'python setup.py test' -%}
+{%- set test_cov_command = 'poetry run pytest tests --cov=src --cov-report=xml' if cookiecutter.package_manager == 'poetry' else 'python setup.py testcov' -%}
+{%- set build_command = 'poetry build' if cookiecutter.package_manager == 'poetry' else 'python setup.py dist' -%}
+{%- set install_command = 'poetry add' if cookiecutter.package_manager == 'poetry' else 'conda install' if cookiecutter.package_manager == 'conda' else 'pip install' -%}
+{#- ------------------------------------------ -#}
 # {{ cookiecutter.project_name }}
+
 {{ cookiecutter.project_short_description }}
-{% set py_command = 'poetry run python' if cookiecutter.package_manager == 'poetry' else 'python' -%}
-{% set test_command = 'poetry run pytest tests' if cookiecutter.package_manager == 'poetry' else 'python setup.py test' -%}
-{% set test_cov_command = 'poetry run pytest tests --cov=src --cov-report=xml' if cookiecutter.package_manager == 'poetry' else 'python setup.py testcov' -%}
-{% set build_command = 'poetry build' if cookiecutter.package_manager == 'poetry' else 'python setup.py dist' %}
-{% set install_command = 'poetry add' if cookiecutter.package_manager == 'poetry' else 'conda install' if cookiecutter.package_manager == 'conda' else 'pip install' %}
+
 ## Getting Started
 {% if cookiecutter.package_manager == 'conda' %}
 To set up your local development environment, please use a fresh virtual environment.
@@ -65,6 +70,10 @@ You can use your module code (`src/`) in Jupyter notebooks (`notebooks/`) withou
 
     poetry run jupyter notebook
 
+or
+
+    poetry run jupyter-lab
+
 This starts the jupyter server inside the project's virtualenv.
 {% else %}
 To use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors, make sure to install the source locally
@@ -73,7 +82,6 @@ To use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without run
 
 This way, you'll always use the latest version of your module code in your notebooks via `import {{ cookiecutter.module_name }}`.
 {% endif %}
-
 Assuming you already have Jupyter installed, you can make your virtual environment available as a separate kernel by running:
 
     {{ install_command }} ipykernel
