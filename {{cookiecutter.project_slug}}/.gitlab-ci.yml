@@ -1,7 +1,7 @@
 # templates
 # ------------
 
-.deploy-template: 
+.deploy-template:
   image: alpine:latest
   script:
     - echo "Deploying to ${CI_ENVIRONMENT_NAME}"
@@ -11,27 +11,46 @@
 # ------------
 # Pipeline Definition
 
-variables: 
+variables:
   PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
-  {%- if cookiecutter.package_manager == 'conda' %} 
+  {%- if cookiecutter.package_manager == 'conda' %}
   CONDA_PKGS_DIRS: $CI_PROJECT_DIR/.cache/conda
+  {%- elif cookiecutter.package_manager == 'poetry' %}
+  POETRY_VERSION: 1.0.5
+  POETRY_CACHE_DIR: $CI_PROJECT_DIR/.cache/poetry
   {%- endif %}
 
 cache: &python_cache
   paths:
     - $PIP_CACHE_DIR
-    {%- if cookiecutter.package_manager == 'conda' %} 
+    { %- if cookiecutter.package_manager == 'conda' % }
     - $CONDA_PKGS_DIRS/*.tar.bz2
     - $CONDA_PKGS_DIRS/urls.txt
+    {%- elif cookiecutter.package_manager == 'poetry' %}
+    - $POETRY_CACHE_DIR
     {%- endif %}
 
-stages: 
+stages:
   - build-wheel
   - test-unit
   - deploy-nonprod
   - deploy-prod
 
-# Build and Test 
+# Build and Test
+{% if cookiecutter.package_manager == 'poetry' -%}
+build-wheel:
+  image: python:3.7-stretch
+  stage: build-wheel
+  artifacts:
+    name: 'app-wheel'
+    paths:
+      - dist/{{ cookiecutter.module_name }}-*.whl
+    expire_in: 1 week
+  before_script:
+    - pip install poetry==$POETRY_VERSION
+  script:
+    - poetry build -f wheel
+{% else -%}
 build-wheel:
   image: python:3.7-alpine
   stage: build-wheel
@@ -39,31 +58,45 @@ build-wheel:
     name: 'app-wheel'
     paths:
       - dist/{{ cookiecutter.module_name }}-*.whl
-    expire_in: 1 week 
+    expire_in: 1 week
   script:
     - python setup.py dist
+{%- endif %}
 
-{% if cookiecutter.package_manager == 'conda' -%} 
+{% if cookiecutter.package_manager == 'poetry' -%}
 test-unit:
   stage: test-unit
-  image: continuumio/miniconda3:4.7.12-alpine 
+  image: python:3.7-stretch
   cache:
     <<: *python_cache
-  before_script: 
-    - export PATH="/opt/conda/bin:$PATH"
-    - conda env create -n {{ cookiecutter.module_name }} -f environment-dev.yml
-    - source activate {{ cookiecutter.module_name }} 
+  before_script:
+    - pip install poetry==$POETRY_VERSION
+    - poetry install --no-root
+    - source `poetry env info --path`/bin/activate
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
     - pytest tests
-{% elif cookiecutter.package_manager == 'pip' -%} 
+{% elif cookiecutter.package_manager == 'conda' -%}
+test-unit:
+  stage: test-unit
+  image: continuumio/miniconda3:4.7.12-alpine
+  cache:
+    <<: *python_cache
+  before_script:
+    - export PATH="/opt/conda/bin:$PATH"
+    - conda env create -n {{ cookiecutter.module_name }} -f environment-dev.yml
+    - source activate {{ cookiecutter.module_name }}
+    - pip install dist/{{ cookiecutter.module_name }}-*.whl
+  script:
+    - pytest tests
+{% elif cookiecutter.package_manager == 'pip' -%}
 test-unit:
   stage: test-unit
   image: python:3.7-alpine
   cache:
     <<: *python_cache
-  before_script: 
-    - python -m venv {{ cookiecutter.module_name }} 
+  before_script:
+    - python -m venv {{ cookiecutter.module_name }}
     - source {{ cookiecutter.module_name }}/bin/activate
     - pip install -r requirements-dev.txt
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
