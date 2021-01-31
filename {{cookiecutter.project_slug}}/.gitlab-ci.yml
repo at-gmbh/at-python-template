@@ -23,7 +23,7 @@ variables:
 cache: &python_cache
   paths:
     - $PIP_CACHE_DIR
-    { %- if cookiecutter.package_manager == 'conda' % }
+    {%- if cookiecutter.package_manager == 'conda' %}
     - $CONDA_PKGS_DIRS/*.tar.bz2
     - $CONDA_PKGS_DIRS/urls.txt
     {%- elif cookiecutter.package_manager == 'poetry' %}
