@@ -203,8 +203,7 @@ def test_gitlab_pip():
             "package_manager": "pip",
             "ci_pipeline": "gitlab"
         },
-        files_existent=[".gitlab-ci.yml"],
-        test_cli=True, run_pytest=True
+        files_existent=[".gitlab-ci.yml"]
     )
 
 def test_gitlab_conda():
@@ -213,6 +212,22 @@ def test_gitlab_conda():
             "package_manager": "conda",
             "ci_pipeline": "gitlab"
         },
-        files_existent=[".gitlab-ci.yml"],
-        test_cli=True, run_pytest=True
+        files_existent=[".gitlab-ci.yml"]
+    )
+
+def test_gitlab_poetry():
+    check_project(
+        settings={
+            "package_manager": "poetry",
+            "ci_pipeline": "gitlab"
+        },
+        files_existent=[".gitlab-ci.yml"]
+    )
+
+def test_no_ci_pipeline():
+    check_project(
+        settings={
+            "ci_pipeline": "none"
+        },
+        files_non_existent=[".gitlab-ci.yml"]
     )
