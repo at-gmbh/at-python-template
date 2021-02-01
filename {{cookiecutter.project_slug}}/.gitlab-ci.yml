@@ -39,7 +39,7 @@ stages:
 # Build and Test
 {% if cookiecutter.package_manager == 'poetry' -%}
 build-wheel:
-  image: python:3.7-stretch
+  image: python:3-stretch
   stage: build-wheel
   artifacts:
     name: 'app-wheel'
@@ -52,7 +52,7 @@ build-wheel:
     - poetry build -f wheel
 {% else -%}
 build-wheel:
-  image: python:3.7-alpine
+  image: python:3-alpine
   stage: build-wheel
   artifacts:
     name: 'app-wheel'
@@ -66,7 +66,7 @@ build-wheel:
 {% if cookiecutter.package_manager == 'poetry' -%}
 test-unit:
   stage: test-unit
-  image: python:3.7-stretch
+  image: python:3-stretch
   cache:
     <<: *python_cache
   before_script:
@@ -92,7 +92,7 @@ test-unit:
 {% elif cookiecutter.package_manager == 'pip' -%}
 test-unit:
   stage: test-unit
-  image: python:3.7-alpine
+  image: python:3-alpine
   cache:
     <<: *python_cache
   before_script:
