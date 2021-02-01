@@ -45,7 +45,7 @@ build-wheel:
     name: 'app-wheel'
     paths:
       - dist/{{ cookiecutter.module_name }}-*.whl
-    expire_in: 1 week
+    expire_in: 6 mos
   before_script:
     - pip install poetry==$POETRY_VERSION
   script:
@@ -58,7 +58,7 @@ build-wheel:
     name: 'app-wheel'
     paths:
       - dist/{{ cookiecutter.module_name }}-*.whl
-    expire_in: 1 week
+    expire_in: 6 mos
   script:
     - python setup.py dist
 {%- endif %}
@@ -84,8 +84,8 @@ test-unit:
     <<: *python_cache
   before_script:
     - export PATH="/opt/conda/bin:$PATH"
-    - conda env create -n {{ cookiecutter.module_name }} -f environment-dev.yml
-    - source activate {{ cookiecutter.module_name }}
+    - conda env create -n .venv -f environment-dev.yml
+    - source activate .venv
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
     - pytest tests
@@ -96,8 +96,8 @@ test-unit:
   cache:
     <<: *python_cache
   before_script:
-    - python -m venv {{ cookiecutter.module_name }}
-    - source {{ cookiecutter.module_name }}/bin/activate
+    - python -m venv .venv
+    - source .venv/bin/activate
     - pip install -r requirements-dev.txt
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
