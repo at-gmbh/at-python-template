@@ -20,7 +20,7 @@ variables:
   POETRY_CACHE_DIR: $CI_PROJECT_DIR/.cache/poetry
   {%- endif %}
 
-cache: &python_cache
+cache:
   paths:
     - $PIP_CACHE_DIR
     {%- if cookiecutter.package_manager == 'conda' %}
@@ -67,8 +67,6 @@ build-wheel:
 test-unit:
   stage: test-unit
   image: python:3-stretch
-  cache:
-    <<: *python_cache
   before_script:
     - pip install poetry==$POETRY_VERSION
     - poetry install --no-root
@@ -80,8 +78,6 @@ test-unit:
 test-unit:
   stage: test-unit
   image: continuumio/miniconda3:4.7.12-alpine
-  cache:
-    <<: *python_cache
   before_script:
     - export PATH="/opt/conda/bin:$PATH"
     - conda env create -n .venv -f environment-dev.yml
@@ -93,8 +89,6 @@ test-unit:
 test-unit:
   stage: test-unit
   image: python:3-alpine
-  cache:
-    <<: *python_cache
   before_script:
     - python -m venv .venv
     - source .venv/bin/activate
