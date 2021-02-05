@@ -11,6 +11,17 @@
 # -------------
 # Pipeline Definition
 
+variables:
+  {%- if cookiecutter.package_manager == 'pip' %}
+  PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
+  {%- elif cookiecutter.package_manager == 'conda' %}
+  PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
+  CONDA_PKGS_DIRS: $CI_PROJECT_DIR/.cache/conda
+  {%- elif cookiecutter.package_manager == 'poetry' %}
+  POETRY_VERSION: 1.0.5
+  POETRY_CACHE_DIR: $CI_PROJECT_DIR/.cache/poetry
+  {%- endif %}
+
 stages:
   - build
   - test
@@ -47,10 +58,6 @@ build-wheel:
 test-unit:
   stage: test
   image: python:3-slim
-  variables:
-    PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
-    POETRY_VERSION: 1.0.5
-    POETRY_CACHE_DIR: $CI_PROJECT_DIR/.cache/poetry
   cache:
     key:
       files:
@@ -62,16 +69,12 @@ test-unit:
     - pip install poetry==$POETRY_VERSION
     - poetry install --no-root
     - source `poetry env info --path`/bin/activate
-    - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
     - pytest tests
 {% elif cookiecutter.package_manager == 'conda' -%}
 test-unit:
   stage: test
   image: continuumio/miniconda3
-  variables:
-    PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
-    CONDA_PKGS_DIRS: $CI_PROJECT_DIR/.cache/conda
   cache:
     key:
       files:
@@ -92,8 +95,6 @@ test-unit:
 test-unit:
   stage: test
   image: python:3-slim
-  variables:
-    PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
   cache:
     key:
       files:
