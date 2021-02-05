@@ -12,10 +12,8 @@
 # Pipeline Definition
 
 variables:
-  {%- if cookiecutter.package_manager == 'pip' %}
   PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
-  {%- elif cookiecutter.package_manager == 'conda' %}
-  PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
+  {%- if cookiecutter.package_manager == 'conda' %}
   CONDA_PKGS_DIRS: $CI_PROJECT_DIR/.cache/conda
   {%- elif cookiecutter.package_manager == 'poetry' %}
   POETRY_VERSION: 1.0.5
