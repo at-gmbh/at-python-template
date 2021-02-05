@@ -11,49 +11,29 @@
 # -------------
 # Pipeline Definition
 
-variables:
-  PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
-  {%- if cookiecutter.package_manager == 'conda' %}
-  CONDA_PKGS_DIRS: $CI_PROJECT_DIR/.cache/conda
-  {%- elif cookiecutter.package_manager == 'poetry' %}
-  POETRY_VERSION: 1.0.5
-  POETRY_CACHE_DIR: $CI_PROJECT_DIR/.cache/poetry
-  {%- endif %}
-
-cache:
-  paths:
-    - $PIP_CACHE_DIR
-    {%- if cookiecutter.package_manager == 'conda' %}
-    - $CONDA_PKGS_DIRS/*.tar.bz2
-    - $CONDA_PKGS_DIRS/urls.txt
-    {%- elif cookiecutter.package_manager == 'poetry' %}
-    - $POETRY_CACHE_DIR
-    {%- endif %}
-
 stages:
-  - build-wheel
-  - test-unit
+  - build
+  - test
   - deploy-nonprod
   - deploy-prod
 
 # Build and Test
 {% if cookiecutter.package_manager == 'poetry' -%}
 build-wheel:
-  image: python:3-stretch
-  stage: build-wheel
+  image: python:3-slim
+  stage: build
   artifacts:
     name: 'app-wheel'
     paths:
       - dist/{{ cookiecutter.module_name }}-*.whl
     expire_in: 6 mos
-  before_script:
-    - pip install poetry==$POETRY_VERSION
   script:
+    - pip install poetry==$POETRY_VERSION
     - poetry build -f wheel
 {% else -%}
 build-wheel:
-  image: python:3-alpine
-  stage: build-wheel
+  image: python:3-slim
+  stage: build
   artifacts:
     name: 'app-wheel'
     paths:
@@ -65,8 +45,19 @@ build-wheel:
 
 {% if cookiecutter.package_manager == 'poetry' -%}
 test-unit:
-  stage: test-unit
-  image: python:3-stretch
+  stage: test
+  image: python:3-slim
+  variables:
+    PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
+    POETRY_VERSION: 1.0.5
+    POETRY_CACHE_DIR: $CI_PROJECT_DIR/.cache/poetry
+  cache:
+    key:
+      files:
+        - pyproject.toml
+    paths:
+      - $PIP_CACHE_DIR
+      - $POETRY_CACHE_DIR
   before_script:
     - pip install poetry==$POETRY_VERSION
     - poetry install --no-root
@@ -76,23 +67,44 @@ test-unit:
     - pytest tests
 {% elif cookiecutter.package_manager == 'conda' -%}
 test-unit:
-  stage: test-unit
-  image: continuumio/miniconda3:4.7.12-alpine
+  stage: test
+  image: continuumio/miniconda3
+  variables:
+    PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
+    CONDA_PKGS_DIRS: $CI_PROJECT_DIR/.cache/conda
+  cache:
+    key:
+      files:
+        - environment.yml
+        - environment-dev.yml
+    paths:
+      - $PIP_CACHE_DIR
+      - $CONDA_PKGS_DIRS/*.tar.bz2
+      - $CONDA_PKGS_DIRS/urls.txt
   before_script:
     - export PATH="/opt/conda/bin:$PATH"
-    - conda env create -n .venv -f environment-dev.yml
+    - conda env create -n .venv -f environment-dev.yml environment.yml
     - source activate .venv
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
     - pytest tests
 {% elif cookiecutter.package_manager == 'pip' -%}
 test-unit:
-  stage: test-unit
-  image: python:3-alpine
+  stage: test
+  image: python:3-slim
+  variables:
+    PIP_CACHE_DIR: $CI_PROJECT_DIR/.cache/pip
+  cache:
+    key:
+      files:
+        - requirements.txt
+        - requirements-dev.txt
+    paths:
+      - $PIP_CACHE_DIR
   before_script:
     - python -m venv .venv
     - source .venv/bin/activate
-    - pip install -r requirements-dev.txt
+    - pip install -r requirements.txt -r requirements-dev.txt
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
     - pytest tests
@@ -107,12 +119,6 @@ dev:
     name: dev
   only:
     - branches
-
-staging:
-  extends: .deploy-template
-  stage: deploy-nonprod
-  environment:
-    name: staging
 
 # Prod deployment
 
