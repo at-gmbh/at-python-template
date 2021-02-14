@@ -67,4 +67,4 @@ venv*/
 
 # project-specific stuff
 # exclude data from source control
-data/
+# data/
