@@ -1,21 +1,19 @@
-{% if cookiecutter.config_file != 'none' %}{% if cookiecutter.config_file == 'yaml' %}import os
-{% endif %}import logging
+import logging
+
 from {{ cookiecutter.module_name }} import util
 
-logger = logging.getLogger("{{ cookiecutter.module_name }}")
+logger = logging.getLogger('{{ cookiecutter.module_name }}')
 
-{% endif %}
+
 def main():
-    {% if cookiecutter.config_file != 'none' %}config = util.load_config({% if cookiecutter.config_file == 'yaml' %}os.path.join(os.path.abspath(__file__),
-                                           *[os.pardir]*3,
-                                           "config",
-                                           "config.yml"){% endif %})
+    {% if cookiecutter.config_file != 'none' -%}
+    config = util.load_config({% if cookiecutter.config_file == 'yaml' %}'config/config.yml'{% else %}None{% endif %})
     util.logging_setup(config)
-
+    {% else -%}
+    logging.basicConfig(level=logging.INFO)
+    {% endif -%}
     logger.info("Looks like you're all set up. Let's get going!")
-
-    {% endif %}# TODO your journey starts here
-    print("hello :)")
+    # TODO your journey starts here
 
 
 if __name__ == "__main__":
