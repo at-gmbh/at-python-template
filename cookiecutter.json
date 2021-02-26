@@ -9,6 +9,7 @@
   "package_manager": ["conda", "pip", "poetry"],
   "use_notebooks": ["yes", "no"],
   "use_docker": ["no", "yes"],
+  "ci_pipeline": ["none", "gitlab"], 
   "create_cli": ["no", "yes"],
   "config_file": ["yaml", "hocon", "none"],
   "code_formatter": ["none", "black"],

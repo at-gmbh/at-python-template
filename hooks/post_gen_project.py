@@ -67,6 +67,12 @@ files_config_hocon = [
     'config/debug.conf',
 ]
 
+files_ci_gitlab = {
+    ".gitlab-ci.yml",
+}
+
+files_ci_all = files_ci_gitlab 
+
 folders_editor = [
     '.idea__editor',
     '.vscode__editor',
@@ -157,6 +163,13 @@ def handle_editor_settings():
         print(f"Error: unsupported editor {editor_settings}")
         sys.exit(1)
 
+def handle_ci():
+    ci_pipeline = '{{ cookiecutter.ci_pipeline }}'
+    if ci_pipeline == "gitlab": 
+        _delete_files(files_ci_all - files_ci_gitlab)
+    elif ci_pipeline == 'none':
+        _delete_files(files_ci_all)
+
 
 def print_success():
     full_name = '{{ cookiecutter.full_name }}'
@@ -194,4 +207,5 @@ if __name__ == '__main__':
     handle_config()
     handle_formatter()
     handle_editor_settings()
+    handle_ci()
     print_success()
