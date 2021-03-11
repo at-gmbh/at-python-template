@@ -7,6 +7,8 @@
   },
   // Use pytest as our test framework
   "python.testing.pytestEnabled": true,
+  // Automatically organize imports
+  "editor.codeActionsOnSave": {"source.organizeImports": true},
   {% if cookiecutter.code_formatter == 'black' %} // Use black as our formatter and run it every time we save a file
   "python.formatting.provider": "black",
   // TODO: Insert path to black installation, e.g.:
