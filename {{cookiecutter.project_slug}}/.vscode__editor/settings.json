@@ -14,7 +14,7 @@
   // TODO: Insert path to black installation, e.g.:
   // "python.formatting.blackPath": ".venv/bin/black",
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "vscode.python"
+  "editor.defaultFormatter": "ms-python.python"
   {% endif -%}
   // Other useful (categories of) settings to look at are
   // "python.linting"
