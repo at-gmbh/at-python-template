@@ -12,7 +12,7 @@
   {% if cookiecutter.code_formatter == 'black' %} // Use black as our formatter and run it every time we save a file
   "python.formatting.provider": "black",
   // TODO: Insert path to black installation, e.g.:
-  // "python.formatting.blackPath": ".venv/bin/black"
+  // "python.formatting.blackPath": ".venv/bin/black",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "vscode.python"
   {% endif -%}
