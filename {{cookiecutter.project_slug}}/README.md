@@ -85,7 +85,7 @@ This way, you'll always use the latest version of your module code in your noteb
 Assuming you already have Jupyter installed, you can make your virtual environment available as a separate kernel by running:
 
     {{ install_command }} ipykernel
-    {{ py_command }} -m ipykernel install --user --name="{{ cookiecutter.project_name }}"
+    {{ py_command }} -m ipykernel install --user --name="{{ cookiecutter.project_slug }}"
 
 Note that we mainly use notebooks for experiments, visualizations and reports. Every piece of functionality that is meant to be reused should go into module code
 and be imported into notebooks.
