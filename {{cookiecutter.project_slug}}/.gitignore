@@ -66,5 +66,6 @@ venv*/
 *.iws
 
 # project-specific stuff
-# exclude data from source control
-data/
+# exclude data from source control (but keep the folder)
+data/*
+!data/.gitkeep
