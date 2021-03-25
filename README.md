@@ -108,7 +108,8 @@ You may find lots of other templates under the [cookiecutter-template](https://g
 * Hans Rauer (hans.rauer [at] alexanderthamm.com)
 * Simon Weiß (simon.weiss [at] alexanderthamm.com)
 * Honza Bílek (jan.bilek [at] alexanderthamm.com)
-
+* Michael Gehring (michael.gehring [at] alexanderthamm.com)
+* Carsten Böhm (carsten.boehm [at] alexanderthamm.com)
 ## License
 
     Copyright 2020 Alexander Thamm GmbH
