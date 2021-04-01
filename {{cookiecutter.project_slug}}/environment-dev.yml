@@ -5,7 +5,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.7.*
+  - python=3.9.*
   - pytest=5.*
   - pytest-cov=2.*
   - pre-commit=2.*{% if cookiecutter.code_formatter == 'black' %}
