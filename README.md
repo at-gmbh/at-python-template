@@ -19,8 +19,8 @@ This will install or update cookiecutter on your system and create a new project
 
 ![image](docs/terminalizer_template_setup.gif "Setup a professional python project in seconds")
 
-The automatically created README.md will contain notes on how to set up your local development environment.
-You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://github.com/at-gmbh/at-python-template/wiki/Setup-Guideline-PyCharm) or [VSCode](https://github.com/at-gmbh/at-python-template/wiki/Setup-Guideline-VSCode) in our [Wiki](https://github.com/at-gmbh/at-python-template/wiki).
+The automatically created `README.md` will contain notes on how to set up your local development environment.
+You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://www.jetbrains.com/pycharm/) or [Visual Studio Code](https://code.visualstudio.com/) in the [Wiki](https://github.com/at-gmbh/at-python-template/wiki).
 
 Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
 
