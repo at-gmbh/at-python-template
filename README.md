@@ -9,7 +9,7 @@ This is the official Python Project Template of Alexander Thamm GmbH (AT). It is
 
 ## Getting Started
 
-1. [`conda install -c conda-forge "cookiecutter>=1.7.2"`](https://anaconda.org/conda-forge/cookiecutter) or [`pip install -U "cookiecutter>=1.7.2`](https://pypi.org/project/cookiecutter/)
+1. [`conda install -c conda-forge "cookiecutter>=1.7.2"`](https://anaconda.org/conda-forge/cookiecutter) or [`pip install -U "cookiecutter>=1.7.2"`](https://pypi.org/project/cookiecutter/)
 2. `cookiecutter https://github.com/at-gmbh/at-python-template`
 3. profit!
 
