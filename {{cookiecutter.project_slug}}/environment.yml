@@ -9,4 +9,4 @@ dependencies:
   - PyYAML=5.*{% endif %}{% if cookiecutter.create_cli == 'yes' %}
   - pip
   - pip:
-    - typer~=0.2.1{% endif %}
+      - typer~=0.4.0{% endif %}

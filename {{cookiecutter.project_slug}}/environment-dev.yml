@@ -6,7 +6,7 @@ channels:
   - defaults
 dependencies:
   - python=3.9.*
-  - pytest=5.*
+  - pytest=6.*
   - pytest-cov=2.*
   - pre-commit=2.*{% if cookiecutter.code_formatter == 'black' %}
-  - black=19.*{% endif %}
+  - black=21.*{% endif %}
