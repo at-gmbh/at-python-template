@@ -98,6 +98,7 @@ Hints for developers:
 * install dependencies in a fresh virtualenv with `pip install -r requirements.txt`
 * run unit tests with `pytest tests`. There are unit tests for every available choice in [`tests/test_options.py`](./tests/test_options.py). If you add more choices, please update these tests.
 * be careful with code formatters: Many files in this project contain [jinja2 templates](https://jinja.palletsprojects.com) (you'll find statements like `{% if cookiecutter.config_file == 'yaml' %}...{% endif %}` all over the place). These templates mean that the source code becomes syntactically incorrect and some formatters might do unexpected things.
+* you can make your life easier when updating templated files by using [cookiecutter-server](https://github.com/at-gmbh/cookiecutter-server) to get live previews of your templates
 * before your first commit, set up pre-commit hooks by running `pre-commit install`
 
 ## Other Templates
