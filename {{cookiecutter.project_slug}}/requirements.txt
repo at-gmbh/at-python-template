@@ -2,4 +2,3 @@
 # It should not contain dependencies for tests, developer tools, etc. (see requirements-dev.txt)
 {% if cookiecutter.config_file == 'hocon' %}pyhocon~=0.3.58{% elif cookiecutter.config_file == 'yaml' %}PyYAML~=5.4.1{% endif %}
 {% if cookiecutter.create_cli == 'yes' %}typer~=0.4.0{% endif %}
-wheel~=0.37.0
