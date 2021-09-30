@@ -69,3 +69,5 @@ venv*/
 .python-version
 
 # project-specific stuff
+serve/
+cookiecutter-server.yml
