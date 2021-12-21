@@ -28,6 +28,7 @@ files_conda = {
 
 files_poetry = {
     'pyproject.toml',
+    'poetry.toml',
 }
 
 files_package_manager_all = files_pip | files_conda | files_poetry
