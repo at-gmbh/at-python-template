@@ -87,8 +87,7 @@ Assuming you already have Jupyter installed, you can make your virtual environme
     {{ install_command }} ipykernel
     {{ py_command }} -m ipykernel install --user --name="{{ cookiecutter.project_slug }}"
 
-Note that we mainly use notebooks for experiments, visualizations and reports. Every piece of functionality that is meant to be reused should go into module code
-and be imported into notebooks.
+Note that we mainly use notebooks for experiments, visualizations and reports. Every piece of functionality that is meant to be reused should go into module code and be imported into notebooks.
 {% endif %}
 ### Distribution Package
 
@@ -102,7 +101,8 @@ this will clean up the build folder and then run the `bdist_wheel` command.
 
 Before contributing, please set up the pre-commit hooks to reduce errors and ensure consistency
 
-    pip install -U pre-commit && pre-commit install
+    pip install -U pre-commit
+    pre-commit install
 
 ## Contact
 
