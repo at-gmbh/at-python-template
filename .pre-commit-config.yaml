@@ -5,8 +5,6 @@ repos:
     -   id: check-added-large-files
     -   id: check-ast
     -   id: check-merge-conflict
-    -   id: check-yaml
-        exclude: \{\{cookiecutter.project_slug\}\}/.gitlab-ci.yml
     -   id: end-of-file-fixer
     -   id: mixed-line-ending
     -   id: trailing-whitespace
