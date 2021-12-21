@@ -1,5 +1,6 @@
 {#- ------------------------------------------ -#}
-{#- Definition of Template Variables -#}
+{#-      Definition of Template Variables      -#}
+{#- ------------------------------------------ -#}
 {%- set py_command = 'poetry run python' if cookiecutter.package_manager == 'poetry' else 'python' -%}
 {%- set test_command = 'poetry run pytest tests' if cookiecutter.package_manager == 'poetry' else 'python setup.py test' -%}
 {%- set test_cov_command = 'poetry run pytest tests --cov=src --cov-report=xml' if cookiecutter.package_manager == 'poetry' else 'python setup.py testcov' -%}
@@ -12,35 +13,34 @@
 
 ## Getting Started
 {% if cookiecutter.package_manager == 'conda' %}
-To set up your local development environment, please use a fresh virtual environment.
-
-To create the environment run:
+To set up your local development environment, please use a fresh virtual environment with:
 
     conda env create --name {{ cookiecutter.project_slug }} --file=environment-dev.yml
 
-To activate the environment run:
+Then activate the environment with:
 
     conda activate {{ cookiecutter.project_slug }}
 
-To update this environment with your production dependencies run:
+To update this environment with your production dependencies, please run:
 
     conda env update --file=environment.yml
 {% elif cookiecutter.package_manager == 'pip' %}
-To set up your local development environment, please use a fresh virtual environment.
-
-Then run:
+To set up your local development environment, please use a fresh virtual environment (`python -m venv .venv`), then run:
 
     pip install -r requirements.txt -r requirements-dev.txt
-{% else %}
-To set up your local development environment, run:
+    pip install -e .
+
+The first command will install all requirements for the application and to execute tests. With the second command, you'll get an editable installation of the module, so that imports work properly.
+{% elif cookiecutter.package_manager == 'poetry' %}
+To set up your local development environment, please run:
 
     poetry install
 
-Behind the scenes, this creates a virtual environment and installs {{ cookiecutter.module_name }} along with its dependencies (like `pip install -e .`) into that virtualenv. Whenever you run `poetry run <command>`, that `<command>` is actually run inside the virtualenv managed by poetry.
+Behind the scenes, this creates a virtual environment and installs `{{ cookiecutter.module_name }}` along with its dependencies into a new virtualenv. Whenever you run `poetry run <command>`, that `<command>` is actually run inside the virtualenv managed by poetry.
 {% endif -%}
 
 {% if cookiecutter.create_cli == 'yes' %}
-You can now run the module from the `src` directory with `{{ py_command }} -m {{ cookiecutter.module_name }}`.
+You can now access the CLI with `{{ py_command }} -m {{ cookiecutter.module_name }}`.
 {% else %}
 You can now import functions and classes from the module with `import {{ cookiecutter.module_name }}`.
 {% endif -%}
@@ -103,6 +103,8 @@ Before contributing, please set up the pre-commit hooks to reduce errors and ens
 
     pip install -U pre-commit
     pre-commit install
+
+If you run into any issues, you can remove the hooks again with `pre-commit uninstall`.
 
 ## Contact
 
