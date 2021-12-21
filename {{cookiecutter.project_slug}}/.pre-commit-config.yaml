@@ -11,9 +11,15 @@ repos:
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: mixed-line-ending
-      - id: trailing-whitespace
+      - id: trailing-whitespace{% if cookiecutter.code_formatter == 'black' %}
+  - repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+      - id: black
+        language_version: python3.7
+        exclude: ^notebooks{% else %}
   - repo: https://gitlab.com/pycqa/flake8
     rev: '4.0.1'
     hooks:
       - id: flake8
-        args: ['--max-line-length=100', '--ignore=F401,W503', '--exclude=tests/*']
+        args: ['--max-line-length=100', '--ignore=F401,W503', '--exclude=tests/*']{% endif %}
