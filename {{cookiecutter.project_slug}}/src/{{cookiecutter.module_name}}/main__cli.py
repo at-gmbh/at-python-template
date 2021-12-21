@@ -8,7 +8,6 @@ from {{ cookiecutter.module_name }} import util{% endif %}
 
 logger = logging.getLogger('{{ cookiecutter.module_name }}')
 
-
 app = typer.Typer(
     name='{{ cookiecutter.module_name }}',
     help="{{ cookiecutter.project_short_description }}")
