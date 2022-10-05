@@ -1,4 +1,4 @@
 # This file defines the requirements for a productive project deployment.
 # It should not contain dependencies for tests, developer tools, etc. (see requirements-dev.txt)
 {% if cookiecutter.config_file == 'hocon' %}pyhocon~=0.3.59{% elif cookiecutter.config_file == 'yaml' %}PyYAML~=6.0{% endif %}
-{% if cookiecutter.create_cli == 'yes' %}typer~=0.4.0{% endif %}
+{% if cookiecutter.create_cli == 'yes' %}typer~=0.6.1{% endif %}
