@@ -2,11 +2,10 @@
 # It should not contain dependencies for tests, developer tools, etc. (see environment-dev.yml)
 channels:
   - conda-forge
-  - defaults
+  - nodefaults
 dependencies:
   - python=3.9.*{% if cookiecutter.config_file == 'hocon' %}
   - pyhocon=0.3.*{% elif cookiecutter.config_file == 'yaml' %}
   - PyYAML=6.*{% endif %}{% if cookiecutter.create_cli == 'yes' %}
   - pip
-  - pip:
-      - typer~=0.4.0{% endif %}
+  - typer~=0.4{% endif %}
