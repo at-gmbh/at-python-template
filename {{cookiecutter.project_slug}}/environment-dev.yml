@@ -3,7 +3,7 @@
 # The regular project dependencies are defined in environment.yml
 channels:
   - conda-forge
-  - defaults
+  - nodefaults
 dependencies:
   - python=3.9.*
   - pytest=6.*
