@@ -1,9 +1,9 @@
-cookiecutter~=1.7.3
-pre-commit>=2.20.0
+cookiecutter~=2.1.1
+pre-commit~=2.20
 
 # test dependencies
-pytest>=7.1.0
-pytest-mock>=3.3.0
+pytest~=7.2
+pytest-mock~=3.10
 pyhocon~=0.3.59
-PyYAML>=6.0
-typer~=0.6.1
+PyYAML~=6.0
+typer[all]~=0.7.0
