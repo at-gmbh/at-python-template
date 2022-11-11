@@ -7,11 +7,11 @@
   "module_name": "{{ cookiecutter.project_slug | slugify | replace('-', '_') }}",
   "project_short_description": "A short summary of the project",
   "package_manager": ["conda", "pip", "poetry"],
-  "use_notebooks": ["yes", "no"],
+  "use_notebooks": ["no", "yes"],
   "use_docker": ["no", "yes"],
   "ci_pipeline": ["none", "gitlab"], 
   "create_cli": ["no", "yes"],
-  "config_file": ["yaml", "hocon", "none"],
+  "config_file": ["none", "hocon", "yaml"],
   "code_formatter": ["none", "black"],
-  "editor_settings": ["none", "vscode", "pycharm"]
+  "editor_settings": ["none", "pycharm", "vscode"]
 }
