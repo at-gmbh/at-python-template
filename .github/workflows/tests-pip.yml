@@ -35,7 +35,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [2.7, 3.5]
+        python-version: [3.5]
         os: [ubuntu-latest]
     name: "Version Check: Python ${{ matrix.python-version }}"
     steps:
