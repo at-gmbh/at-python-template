@@ -34,14 +34,22 @@ MODULE_REGEX = r'^[_a-zA-Z][_a-zA-Z0-9]+$'
 project_slug = '{{ cookiecutter.project_slug }}'
 module_name = '{{ cookiecutter.module_name }}'
 
+invalid_inputs = list()
 if not re.match(SLUG_REGEX, project_slug):
     print("ERROR: {} is not a valid slug! It may only consist of numbers and letters of the "
           "english alphabet, begin with a letter, and must use dashes instead of whitespace."
           .format(project_slug))
-    sys.exit(1)
+    invalid_inputs.append("project_slug")
 
 if not re.match(MODULE_REGEX, module_name):
     print("ERROR: {} is not a valid Python module name! "
           "See https://www.python.org/dev/peps/pep-0008/#package-and-module-names "
           "for naming standards.".format(module_name))
+    invalid_inputs.append("module_name")
+
+if invalid_inputs:
+    print("\nYou have entered invalid configuration values for: "
+          "{}".format(", ".join(invalid_inputs)))
+    print("\nPlease fix your inputs in ~/.cookiecutter_replay/at-python-template.json")
+    print("After that, rerun the template with: cookiecutter . --replay\n")
     sys.exit(1)
