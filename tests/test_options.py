@@ -196,6 +196,17 @@ def test_poetry_regression():
         test_cli=False,
         run_pytest=True,
     )
+def test_no_ci_pipeline():
+    check_project(
+        settings={
+            "ci_pipeline": "none"
+        },
+        files_non_existent=[
+            ".gitlab-ci.yml",
+            ".github/workflows/deploy.yml",
+            ".github/actions/deploy/action.yml",
+        ]
+    )
 
 def test_gitlab_pip():
     check_project(
@@ -224,10 +235,39 @@ def test_gitlab_poetry():
         files_existent=[".gitlab-ci.yml"]
     )
 
-def test_no_ci_pipeline():
+
+def test_github_pip():
     check_project(
         settings={
-            "ci_pipeline": "none"
+            "package_manager": "pip",
+            "ci_pipeline": "github"
         },
-        files_non_existent=[".gitlab-ci.yml"]
+        files_existent=[
+            ".github/workflows/deploy.yml",
+            ".github/actions/deploy/action.yml",
+        ]
+    )
+
+def test_github_conda():
+    check_project(
+        settings={
+            "package_manager": "conda",
+            "ci_pipeline": "github"
+        },
+        files_existent=[
+            ".github/workflows/deploy.yml",
+            ".github/actions/deploy/action.yml",
+        ]
+    )
+
+def test_github_poetry():
+    check_project(
+        settings={
+            "package_manager": "poetry",
+            "ci_pipeline": "github"
+        },
+        files_existent=[
+            ".github/workflows/deploy.yml",
+            ".github/actions/deploy/action.yml",
+        ]
     )
