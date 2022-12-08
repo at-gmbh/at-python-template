@@ -1,5 +1,5 @@
 {#- ------------------------------------------ -#}
-{#-      Definition of Template Variables      -#}
+{#- Definition of Template Variables -#}
 {#- ------------------------------------------ -#}
 {%- set py_command = 'poetry run python' if cookiecutter.package_manager == 'poetry' else 'python' -%}
 {%- set test_command = 'poetry run pytest tests' if cookiecutter.package_manager == 'poetry' else 'python setup.py test' -%}
@@ -7,11 +7,13 @@
 {%- set build_command = 'poetry build' if cookiecutter.package_manager == 'poetry' else 'python setup.py dist' -%}
 {%- set install_command = 'poetry add' if cookiecutter.package_manager == 'poetry' else 'conda install' if cookiecutter.package_manager == 'conda' else 'pip install' -%}
 {#- ------------------------------------------ -#}
+
 # {{ cookiecutter.project_name }}
 
 {{ cookiecutter.project_short_description }}
 
 ## Getting Started
+
 {% if cookiecutter.package_manager == 'conda' %}
 To set up your local development environment, please use a fresh virtual environment with:
 
@@ -24,6 +26,7 @@ Then activate the environment with:
 To update this environment with your production dependencies, please run:
 
     conda env update --file=environment.yml
+
 {% elif cookiecutter.package_manager == 'pip' %}
 To set up your local development environment, please use a fresh virtual environment (`python -m venv .venv`), then run:
 
@@ -52,19 +55,22 @@ If you want to deploy this project as a docker container, please ensure that [Do
 
 this will build the entire project with all dependencies inside a docker container. You may use the command line interface of the application now, e.g. by editing the `command` tag in the [`docker-compose.yml`](./docker-compose.yml).
 {% endif %}
+
 ### Testing
 
 We use `pytest` as test framework. To execute the tests, please run
 
-    {{ test_command }}
+    pytest tests
 
 To run the tests with coverage information, please use
 
-    {{ test_cov_command }}
+    pytest tests --cov=src --cov-report=html --cov-report=term
 
 and have a look at the `htmlcov` folder, after the tests are done.
 {% if cookiecutter.use_notebooks == 'yes' %}
+
 ### Notebooks
+
 {% if cookiecutter.package_manager == 'poetry' %}
 You can use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors by running:
 
@@ -89,11 +95,12 @@ Assuming you already have Jupyter installed, you can make your virtual environme
 
 Note that we mainly use notebooks for experiments, visualizations and reports. Every piece of functionality that is meant to be reused should go into module code and be imported into notebooks.
 {% endif %}
+
 ### Distribution Package
 
 To build a distribution package (wheel), please use
 
-    {{ build_command }}
+    python setup.py bdist_wheel
 
 this will clean up the build folder and then run the `bdist_wheel` command.
 
