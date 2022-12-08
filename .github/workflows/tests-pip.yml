@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
@@ -36,12 +36,12 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6]
-        os: [ubuntu-latest]
+        os: [ubuntu-20.04]
     name: "Version Check: Python ${{ matrix.python-version }}"
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Cookiecutter
