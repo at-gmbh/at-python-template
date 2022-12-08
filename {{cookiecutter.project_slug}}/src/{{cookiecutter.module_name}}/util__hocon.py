@@ -17,6 +17,7 @@ def get_resource_string(path: str, decode=True) -> Union[str, bytes]:
     :param decode: if true, decode the file contents as string (otherwise return bytes)
     :return: the contents of the resource file (as string or bytes)
     """
+
     s = pkg_resources.resource_string(__name__.split('.')[0], path)
     return s.decode(errors='ignore') if decode else s
 
@@ -29,8 +30,10 @@ def load_config(config_file: Union[str, Path] = None) -> ConfigTree:
     :param config_file: path of the config file to load
     :return: the parsed config
     """
+
     base_config_str = get_resource_string('res/default.conf')
     config: ConfigTree = ConfigFactory.parse_string(base_config_str)
+
     if config_file:
         try:
             config = ConfigFactory.parse_file(config_file).with_fallback(config)
@@ -45,10 +48,14 @@ def logging_setup(config: ConfigTree):
 
     :param config: the parsed config tree
     """
+
     fmt = config.get('logging.format')
+
     if config.get_bool('logging.enabled'):
         level = logging._nameToLevel[config.get('logging.level').upper()]
     else:
         level = logging.NOTSET
+
     logging.basicConfig(format=fmt, level=logging.WARNING)
+
     logger.setLevel(level)
