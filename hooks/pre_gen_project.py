@@ -15,9 +15,9 @@ from distutils.version import StrictVersion
 
 import cookiecutter
 
-# check Python version (3.6 or higher)
-if StrictVersion(platform.python_version()) < StrictVersion("3.6.0"):
-    print("ERROR: You are using Python {}, but Python 3.6 or higher is required "
+# check Python version (3.7 or higher)
+if StrictVersion(platform.python_version()) < StrictVersion("3.7.0"):
+    print("ERROR: You are using Python {}, but Python 3.7 or higher is required "
           "to use this template".format(platform.python_version()))
     sys.exit(1)
 
