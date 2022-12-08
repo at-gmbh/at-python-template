@@ -1,13 +1,17 @@
 ARG PYTHON_VERSION=3.11
 FROM python:${PYTHON_VERSION}-bullseye
+
 LABEL maintainer="{{ cookiecutter.company_name if cookiecutter.company_name else cookiecutter.full_name }}"
 
 RUN pip install poetry && poetry config virtualenvs.create false
-WORKDIR /app
+
+WORKDIR /install
 COPY pyproject.toml poetry.lock ./
 RUN poetry install --only main --no-root --no-interaction && \
     poetry cache clear pypi --all
-COPY ./src /app/src
+COPY ./src ./src
 RUN poetry install --only-root
+
+WORKDIR /
 
 ENTRYPOINT ["python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
