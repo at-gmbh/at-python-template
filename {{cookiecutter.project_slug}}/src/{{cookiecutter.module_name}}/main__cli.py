@@ -46,11 +46,8 @@ def main(config_file: str = ConfigOption, version: bool = VersionOption):
     This docstring is where you describe what your command line application does.
     Try running `python -m {{ cookiecutter.module_name }} --help` to see how this shows up in the command line.
     """
-
     {% if cookiecutter.config_file != 'none' %}config = util.load_config(config_file)
-
     util.logging_setup(config){% endif %}
-
     logger.info("Looks like you're all set up. Let's get going!")
     # TODO your journey starts here
 

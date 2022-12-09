@@ -4,8 +4,7 @@ version = "0.1.0"
 description = "{{ cookiecutter.project_short_description }}"
 authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
 license = "Proprietary"
-packages = [
-    { include = "{{ cookiecutter.module_name }}", from = "src" }, ]
+packages = [{ include = "{{ cookiecutter.module_name }}", from = "src" }, ]
 include = ["src/{{ cookiecutter.module_name }}/res/*"]
 {% if cookiecutter.create_cli == "yes" %}
 [tool.poetry.scripts]
