@@ -1,6 +1,6 @@
 # AT Python Template
 
-[![build](https://img.shields.io/github/workflow/status/at-gmbh/at-python-template/pytest-pip)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
+[![build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
 ![Python Version](https://img.shields.io/badge/python-3.7%20--%203.11-blue)
 [![License](https://img.shields.io/github/license/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/blob/master/LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/at-gmbh/at-python-template?style=social)
