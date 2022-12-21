@@ -56,11 +56,11 @@ this will build the entire project with all dependencies inside a docker contain
 
 We use `pytest` as test framework. To execute the tests, please run
 
-    {{ test_command }}
+    pytest tests
 
 To run the tests with coverage information, please use
 
-    {{ test_cov_command }}
+    pytest tests --cov=src --cov-report=html --cov-report=term
 
 and have a look at the `htmlcov` folder, after the tests are done.
 {% if cookiecutter.use_notebooks == 'yes' %}
@@ -93,7 +93,7 @@ Note that we mainly use notebooks for experiments, visualizations and reports. E
 
 To build a distribution package (wheel), please use
 
-    {{ build_command }}
+    python setup.py bdist_wheel
 
 this will clean up the build folder and then run the `bdist_wheel` command.
 
