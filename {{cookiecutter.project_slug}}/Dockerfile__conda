@@ -1,4 +1,4 @@
-ARG PYTHON_IMAGE_TAG=4.8.2
+ARG PYTHON_IMAGE_TAG=4.12.0
 
 FROM continuumio/miniconda3:${PYTHON_IMAGE_TAG}
 {%- if cookiecutter.company_name %}
