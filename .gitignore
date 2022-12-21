@@ -71,3 +71,6 @@ venv*/
 # project-specific stuff
 serve/
 cookiecutter-server.yml
+
+# OS specific
+.DS_Store
