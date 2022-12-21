@@ -26,7 +26,7 @@ jobs:
 
     # Commits files to repository
     - name: Commit changes
-      uses: EndBug/add-and-commit@v6.2.0
+      uses: EndBug/add-and-commit@v9.1.1
       with:
         token: ${{ secrets.TRAFFIC_ACTION_TOKEN }}
         author_name: GH-Action-Traffic
