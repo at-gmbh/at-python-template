@@ -2,7 +2,6 @@ ARG PYTHON_VERSION=3.11
 FROM python:${PYTHON_VERSION}-bullseye
 LABEL maintainer="{{ cookiecutter.company_name if cookiecutter.company_name else cookiecutter.full_name }}"
 
-RUN pip install poetry && poetry config virtualenvs.create false
 WORKDIR /app
 COPY requirements.txt setup.py ./
 RUN pip install -r requirements.txt --no-cache-dir --prefer-binary
