@@ -16,15 +16,15 @@ import warnings
 
 import cookiecutter
 
-# check Python version (3.6 or higher)
+
 with warnings.catch_warnings():
     warnings.simplefilter("ignore", category=DeprecationWarning)
-    if StrictVersion(platform.python_version()) < StrictVersion("3.6.0"):
-        print("ERROR: You are using Python {}, but Python 3.6 or higher is required "
+    # check Python version (3.7 or higher)
+    if StrictVersion(platform.python_version()) < StrictVersion("7.0"):
+        print("ERROR: You are using Python {}, but Python 3.7 or higher is required "
               "to use this template".format(platform.python_version()))
         sys.exit(1)
-
-      # check cookiecutter version (1.7.2 or higher)
+    # check cookiecutter version (1.7.2 or higher)
     if StrictVersion(cookiecutter.__version__) < StrictVersion('1.7.2'):
         print("ERROR: You are using cookiecutter {}, but cookiecutter 1.7.2 or higher is required "
               "to use this template".format(cookiecutter.__version__))
