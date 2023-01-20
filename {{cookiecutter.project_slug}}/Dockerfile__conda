@@ -5,7 +5,7 @@ FROM condaforge/mambaforge:${IMAGE_TAG}
 LABEL maintainer="{{ cookiecutter.company_name if cookiecutter.company_name else cookiecutter.full_name }}"
 
 WORKDIR /{{cookiecutter.module_name}}
-COPY . .
+COPY environment.yml .
 
 RUN conda config --set channel_priority strict && \
     mamba env create -n {{cookiecutter.module_name}}_env -f environment.yml
@@ -13,6 +13,7 @@ RUN conda config --set channel_priority strict && \
 # Make RUN commands use the new environment (see: https://pythonspeed.com/articles/activate-conda-dockerfile/)
 SHELL ["mamba", "run", "-n", "{{cookiecutter.module_name}}_env", "/bin/bash", "-c"]
 
+COPY . .
 RUN python setup.py install
 
 # ENTRYPOINT doesn't use the same shell as RUN so you need the conda stuff
