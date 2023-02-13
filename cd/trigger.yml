@@ -1,0 +1,68 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - src/{{ cookiecutter.module_name }}
+
+pool:
+  vmImage: 'Ubuntu-latest'
+
+stages:
+
+  - stage: dev-build
+    displayName: Build and Push Docker Image to DEV
+    jobs:
+      - template: template-build-dev.yml
+        parameters:
+          ACR: # complete with the identifier of your azure container registry on DEV
+          ACR_SUB: # complete with name of docker registry service connection on DEV
+          REPOSITORY: # complete with name of repository
+          SUBSCRIPTION: # complete with name of service connection 
+          IMAGE_COUNT: 5
+
+  - stage: qa-build
+    dependsOn: dev-build
+    displayName: Copy Docker Image from DEV to QA
+    jobs:
+   
+    - deployment: devtoqa
+      displayName: Copy Docker Image from DEV to QA
+      # environment is only set, so that an approval process can be defined
+      environment: # complete with Azure Dev Ops environment
+      strategy:
+       runOnce:
+         deploy:
+           steps:
+             - template: template-build.yml
+               parameters:
+                 ACR_PREVIOUS : # complete with the identifier of your azure container registry on DEV
+                 ACR_NEXT: # complete with the identifier of your azure container registry on QA
+                 ACR_SUB_PREVIOUS: # complete with name of docker registry service connection on DEV
+                 ACR_SUB_NEXT: # complete with name of docker registry service connection on QA
+                 REPOSITORY: # complete with name of repository
+                 SUBSCRIPTION: # complete with name of service connection 
+                 IMAGE_COUNT: 5
+
+  - stage: prod-build
+    dependsOn: qa-build
+    displayName: Copy Docker Image from QA to PROD
+    jobs:
+    - deployment: qatoprod
+      displayName: Copy Docker Image from QA to PROD
+      # environment is only set, so that an approval process can be defined
+      environment: # complete with Azure Dev Ops environment
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - template: template-build.yml
+                parameters:
+                  ACR_PREVIOUS : # complete with the identifier of your azure container registry on QA
+                  ACR_NEXT: # complete with the identifier of your azure container registry on PROD
+                  ACR_SUB_PREVIOUS: # complete with name of docker registry service connection on QA
+                  ACR_SUB_NEXT: # complete with name of docker registry service connection on PROD
+                  REPOSITORY: # complete with name of repository
+                  SUBSCRIPTION: # complete with name of service connection 
+                  IMAGE_COUNT: 5

@@ -1,0 +1,119 @@
+# trigger on pull requests needs to be set manually in Azure DevOps
+trigger: none
+
+pool:
+  name: Azure Pipelines
+  vmImage: ubuntu-latest
+
+jobs:
+
+- job: Test
+  variables:
+    VENV_FOLDER: $(Pipeline.Workspace)/venv
+    {%- if cookiecutter.package_manager == 'pip' %}
+    PIP_PACKAGE_FOLDER: $(Pipeline.Workspace)/venv/lib
+    {%- elif cookiecutter.package_manager == 'conda' %}
+    CONDA_PACKAGE_FOLDER: usr/share/miniconda/envs
+    {%- endif %}
+    PACKAGE_NAME: '{{ cookiecutter.project_slug }}'
+
+  steps:
+  - checkout: self
+
+  - task: UsePythonVersion@0
+    displayName: 'Use Python 3.8'
+    inputs:
+      versionSpec: 3.8
+      addToPath: true
+
+  - task: Cache@2
+    inputs:
+      key: 'pip | venv | $(Agent.OS) | requirements.txt | requirements-dev.txt'
+      path: $(PIP_PACKAGE_FOLDER)
+    displayName: Cache pip packages
+
+  {%- if cookiecutter.package_manager == 'conda' %}
+    - task: Cache@2
+    inputs:
+      key: 'conda | $(Agent.OS) | environment.yml | envionment-dev.yml'
+      path: $(PIP_PACKAGE_FOLDER)
+    displayName: Cache conda packages
+  {%- endif %}
+
+  - task: Bash@3
+    displayName: 'Create venv'
+    inputs:
+      targetType: 'inline'
+      script: |
+        set -uex
+        python3 -m venv $(VENV_FOLDER)
+        source $(VENV_FOLDER)/bin/activate
+
+  # install system dependencies (build tools for python libs)
+  - task: Bash@3
+    displayName: 'Install system dependencies'
+    inputs:
+      targetType: 'inline'
+      script: |
+        set -uex
+        sudo apt-get update
+        sudo apt-get install -y build-essential
+
+  # fill in or delete if no Azuzre Keyvault is used
+  - task: AzureKeyVault@1
+    inputs:
+      azureSubscription: ''
+      KeyVaultName: ''
+      SecretsFilter: ''
+      RunAsPreJob: false
+
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        set -uex
+        source $(VENV_FOLDER)/bin/activate
+        # resolve issues with old cached versions of pip
+        # Open question: Still needed?
+        python -m pip install --upgrade pip || (curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py)
+        python -m pip install wheel
+
+        # install python app dependencies
+        python -m pip install -r requirements.txt -r requirements-dev.txt -U
+
+        # build and install wheel
+        python setup.py dist
+        python -m pip install --force-reinstall dist/*.whl
+    displayName: 'Setup environment'
+
+  # run tests with coverage information
+  - task: Bash@3
+    displayName: 'pytest (with coverage)'
+    # define env variables as needed
+    env:
+      PACKAGE_NAME: $(PACKAGE_NAME)
+    inputs:
+      targetType: 'inline'
+      script: |
+        set -uex
+        source $(VENV_FOLDER)/bin/activate
+
+        # run pytest
+        python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
+
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage'
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: coverage-reports/cov.xml
+      additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/junit/'
+    condition: succeededOrFailed()
+
+  # publish pytest results
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '$(System.DefaultWorkingDirectory)/**/*-results.xml'
+      testRunTitle: 'Publish pytest results'
+      failTaskOnFailedTests: false
+    condition: succeededOrFailed()

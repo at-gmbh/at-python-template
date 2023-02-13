@@ -1,0 +1,39 @@
+# This template encapsulates the functionality to delete old images,
+# so only a pre-specified number of images is present in the registry
+#
+# Expected Parameters
+# ACR: Azure Container Registry containing the images to delete
+# REPOSITORY: Specific Repo in the Registry
+# IMAGE_COUNT: Number of historic images to retain
+# ACR_SUB: Azure Service Connection to use for authentication against registry
+
+parameters:
+- name: ACR
+  type: string
+- name: REPOSITORY
+  type: string
+- name: IMAGE_COUNT
+  type: number
+- name: SUBSCRIPTION
+  type: string
+
+steps:
+- task: AzureCLI@2
+  displayName: 'Clean-up old Docker image'
+  inputs:
+    azureSubscription: ${{ parameters.SUBSCRIPTION }}
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+        ACR=${{ parameters.ACR }}
+        REPOSITORY=${{ parameters.REPOSITORY }}
+        # Number of newest images in the repository that will not be deleted
+        COUNT=${{ parameters.IMAGE_COUNT }}
+
+        OLD_IMAGES=$(az acr repository show-tags --name $ACR --repository $REPOSITORY --orderby time_asc -o tsv | head -n -$COUNT)
+        echo "$OLD_IMAGES"
+        for OLD_IMAGE in $OLD_IMAGES
+        do
+        az acr repository delete --name $ACR --image $REPOSITORY:$OLD_IMAGE --yes
+        done
+    arguments: '-failOnStandardError false'

@@ -1,0 +1,47 @@
+# Pipeline which builds the docker image for DEV and pushes it to DEV Container Registry
+#
+# expected parameters:
+# ACR: Azure Container Registry ID to push image to
+# ACR_SUB: Service Connection to authenticate against the Azure Container Registry
+# REPOSITORY: The repository to push to in the Container Registry
+# SUBSCRIPTION: Service Connection used for Azure CLI Task
+# IMAGE_COUNT: Number of last images to retain, all others are deleted
+
+parameters:
+- name: ACR
+  type: string
+- name: ACR_SUB
+  type: string
+- name: REPOSITORY
+  type: string
+- name: SUBSCRIPTION
+  type: string
+- name: IMAGE_COUNT
+  type: number
+
+jobs:
+- job: build-push-docker-image
+  steps:
+  - checkout: self
+
+  - task: Docker@2
+    inputs:
+      containerRegistry: ${{ parameters.ACR_SUB }}
+      repository: ${{ parameters.REPOSITORY }}
+      command: build
+      Dockerfile: '**/Dockerfile'
+
+  - task: Docker@2
+    inputs:
+      containerRegistry: ${{ parameters.ACR_SUB }}
+      repository: ${{ parameters.REPOSITORY }}
+      command: push
+      Dockerfile: '**/Dockerfile'
+      tags: $(Build.BuildId)
+
+  - template: template_delete_old_images.yml
+    parameters:
+      ACR: ${{ parameters.ACR }}
+      SUBSCRIPTION: ${{ parameters.SUBSCRIPTION }}
+      REPOSITORY: ${{ parameters.REPOSITORY }}
+      IMAGE_COUNT: ${{ parameters.IMAGE_COUNT}}
