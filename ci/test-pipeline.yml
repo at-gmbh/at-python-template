@@ -11,53 +11,29 @@ jobs:
   variables:
     VENV_FOLDER: $(Pipeline.Workspace)/venv
     {%- if cookiecutter.package_manager == 'pip' %}
-    PIP_PACKAGE_FOLDER: $(Pipeline.Workspace)/venv/lib
+    PIP_CACHE_DIR: $(Pipeline.Workspace)/venv/lib
     {%- elif cookiecutter.package_manager == 'conda' %}
-    CONDA_PACKAGE_FOLDER: usr/share/miniconda/envs
+    CONDA_PKGS_DIRS: usr/share/miniconda/envs
     {%- endif %}
     PACKAGE_NAME: '{{ cookiecutter.project_slug }}'
 
   steps:
   - checkout: self
-
+    -
   - task: UsePythonVersion@0
-    displayName: 'Use Python 3.8'
+    displayName: Use Python 3.8
     inputs:
       versionSpec: 3.8
       addToPath: true
 
-  - task: Cache@2
-    inputs:
-      key: 'pip | venv | $(Agent.OS) | requirements.txt | requirements-dev.txt'
-      path: $(PIP_PACKAGE_FOLDER)
-    displayName: Cache pip packages
-
-  {%- if cookiecutter.package_manager == 'conda' %}
-    - task: Cache@2
-    inputs:
-      key: 'conda | $(Agent.OS) | environment.yml | envionment-dev.yml'
-      path: $(PIP_PACKAGE_FOLDER)
-    displayName: Cache conda packages
-  {%- endif %}
-
   - task: Bash@3
-    displayName: 'Create venv'
-    inputs:
-      targetType: 'inline'
-      script: |
-        set -uex
-        python3 -m venv $(VENV_FOLDER)
-        source $(VENV_FOLDER)/bin/activate
-
-  # install system dependencies (build tools for python libs)
-  - task: Bash@3
-    displayName: 'Install system dependencies'
-    inputs:
-      targetType: 'inline'
-      script: |
-        set -uex
-        sudo apt-get update
-        sudo apt-get install -y build-essential
+      displayName: Install system dependencies
+      inputs:
+        targetType: inline
+        script: |
+          set -uex
+          sudo apt update
+          sudo apt install -y build-essential
 
   # fill in or delete if no Azuzre Keyvault is used
   - task: AzureKeyVault@1
@@ -67,24 +43,91 @@ jobs:
       SecretsFilter: ''
       RunAsPreJob: false
 
+  {% if cookiecutter.package_manager == 'conda' -%}
   - task: Bash@3
+    displayName: Add conda to path
     inputs:
-      targetType: 'inline'
+      targetType: inline
+      script: |
+        echo "##vso[task.prependpath]$CONDA/bin"
+  {%- endif %}
+
+  {%- if cookiecutter.package_manager == 'pip' %}
+  - task: Cache@2
+    inputs:
+      key: 'pip | venv | $(Agent.OS) | requirements.txt | requirements-dev.txt'
+      path: $(PIP_CACHE_DIR)
+    displayName: Cache pip packages
+
+  - task: Bash@3
+    displayName: Create venv
+    inputs:
+      targetType: inline
+      script: |
+        set -uex
+        python -m venv $(VENV_FOLDER)
+        source $(VENV_FOLDER)/bin/activate
+
+  - task: Bash@3
+      displayName: Setup environment
+      inputs:
+        targetType: inline
+        script: |
+          set -uex
+          source $(VENV_FOLDER)/bin/activate
+          # resolve issues with old cached versions of pip
+          # Open question: Still needed?
+          python -m pip install --upgrade pip || (curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py)
+          python -m pip install wheel
+
+          # install python app dependencies
+          python -m pip install -r requirements.txt -r requirements-dev.txt -U
+
+          # build and install wheel
+          python setup.py dist
+          python -m pip install --force-reinstall dist/*.whl
+
+  - task: Bash@3
+    displayName: 'pytest (with coverage)'
+    # define env variables as needed
+    env:
+      PACKAGE_NAME: $(PACKAGE_NAME)
+    inputs:
+      targetType: inline
       script: |
         set -uex
         source $(VENV_FOLDER)/bin/activate
-        # resolve issues with old cached versions of pip
-        # Open question: Still needed?
-        python -m pip install --upgrade pip || (curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py)
-        python -m pip install wheel
 
-        # install python app dependencies
-        python -m pip install -r requirements.txt -r requirements-dev.txt -U
+        # run pytest
+        python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
 
-        # build and install wheel
-        python setup.py dist
-        python -m pip install --force-reinstall dist/*.whl
-    displayName: 'Setup environment'
+  {% elif cookiecutter.package_manager == 'conda' -%}
+  - task: Cache@2
+    displayName: Cache conda packages
+    inputs:
+      key: 'conda | $(Agent.OS) | environment.yml | environment-dev.yml'
+      path: $(CONDA_PKGS_DIRS)
+      cacheHitVar: CONDA_CACHE_RESTORED
+
+  - task: Bash@3
+      displayName: 'Create conda environment'
+      inputs:
+        targetType: 'inline'
+        script: |
+          conda env create -n .venv -f environment-dev.yml environment.yml
+          source activate .venv
+          python -m pip install wheel
+      condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
+
+  - task: Bash@3
+      displayName: Install project as python package
+      inputs:
+        targetType: 'inline'
+        script: |
+          set -uex
+          source activate $CONDA_ENV
+          python setup.py dist
+          python -m pip install --force-reinstall dist/*.whl
 
   # run tests with coverage information
   - task: Bash@3
@@ -93,13 +136,12 @@ jobs:
     env:
       PACKAGE_NAME: $(PACKAGE_NAME)
     inputs:
-      targetType: 'inline'
+      targetType: inline
       script: |
         set -uex
-        source $(VENV_FOLDER)/bin/activate
-
-        # run pytest
+        source activate .venv
         python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
+  {%- endif %}
 
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage'
