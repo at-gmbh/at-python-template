@@ -75,7 +75,8 @@ files_ci_devops = {
     'ci/test-pipeline.yml',
     'cd/build-dev.yml',
     'cd/build.yml',
-    'cd/trigger.yml'
+    'cd/trigger.yml',
+    'cd/delete-old-images.yml'
 }
 
 files_ci_all = files_ci_gitlab | files_ci_devops
