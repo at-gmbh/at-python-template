@@ -1,0 +1,15 @@
+full_name: Jane Doe
+company_name: ''
+email: contact@alexanderthamm.com
+project_name: Test AZ-DevOps Pip
+project_slug: '{{ cookiecutter.project_name | slugify }}'
+module_name: '{{ cookiecutter.project_slug | slugify | replace(''-'', ''_'') }}'
+project_short_description: A short summary of the project
+package_manager: pip
+use_notebooks: 'no'
+use_docker: 'no'
+ci_pipeline: 'az-devops'
+create_cli: 'no'
+config_file: yaml
+code_formatter: none
+editor_settings: none

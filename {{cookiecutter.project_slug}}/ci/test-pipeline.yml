@@ -19,7 +19,7 @@ jobs:
 
   steps:
   - checkout: self
-  
+
   - task: UsePythonVersion@0
     displayName: Use Python 3.8
     inputs:
@@ -27,13 +27,13 @@ jobs:
       addToPath: true
 
   - task: Bash@3
-      displayName: Install system dependencies
-      inputs:
-        targetType: inline
-        script: |
-          set -uex
-          sudo apt update
-          sudo apt install -y build-essential
+    displayName: Install system dependencies
+    inputs:
+      targetType: inline
+      script: |
+        set -uex
+        sudo apt update
+        sudo apt install -y build-essential
 
   # fill in or delete if no Azuzre Keyvault is used
   - task: AzureKeyVault@1
