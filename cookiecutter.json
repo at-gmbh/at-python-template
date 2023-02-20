@@ -13,5 +13,10 @@
   "create_cli": ["no", "yes"],
   "config_file": ["yaml", "hocon", "none"],
   "code_formatter": ["none", "black"],
-  "editor_settings": ["none", "vscode", "pycharm"]
+  "editor_settings": ["none", "vscode", "pycharm"],
+  "_copy_without_render": [
+    "cd/build-dev.yml",
+    "cd/build.yml",
+    "cd/delete-old-images.yml"
+  ]
 }
