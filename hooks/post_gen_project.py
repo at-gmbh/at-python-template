@@ -78,7 +78,7 @@ files_ci_devops = {
     'cd/trigger.yml'
 }
 
-files_ci_all = [files_ci_gitlab , files_ci_devops]
+files_ci_all = files_ci_gitlab | files_ci_devops
 
 folders_editor = [
     '.idea__editor',
@@ -174,10 +174,14 @@ def handle_ci():
     ci_pipeline = '{{ cookiecutter.ci_pipeline }}'
     if ci_pipeline == "gitlab": 
         _delete_files(files_ci_all - files_ci_gitlab)
+        os.rmdir('ci')
+        os.rmdir('cd')
     elif ci_pipeline == "az-devops":
         _delete_files(files_ci_all - files_ci_devops)
     elif ci_pipeline == 'none':
         _delete_files(files_ci_all)
+        os.rmdir('ci')
+        os.rmdir('cd')
 
 
 def print_success():
