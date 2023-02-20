@@ -110,7 +110,7 @@ jobs:
   - task: Bash@3
     displayName: 'Create conda environment'
     inputs:
-      targetType: 'inline'
+      targetType: inline
       script: |
         conda env create -n .venv -f environment-dev.yml environment.yml
         source activate .venv
@@ -120,7 +120,7 @@ jobs:
   - task: Bash@3
     displayName: Install project as python package
     inputs:
-      targetType: 'inline'
+      targetType: inline
       script: |
         set -uex
         source activate .venv
