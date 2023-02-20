@@ -10,30 +10,29 @@
 # IMAGE_COUNT: Number of last images to retain, all others are deleted
 
 parameters:
-    - name: ACR_PREVIOUS 
-      type: string
-    - name: ACR_NEXT
-      type: string
-    - name: ACR_SUB_PREVIOUS
-      type: string
-    - name: ACR_SUB_NEXT
-      type: string
-    - name: REPOSITORY
-      type: string
-    - name: IMAGE_COUNT
-      type: number
-    - name: SUBSCRIPTION
-      type: string
+- name: ACR_PREVIOUS 
+  type: string
+- name: ACR_NEXT
+  type: string
+- name: ACR_SUB_PREVIOUS
+  type: string
+- name: ACR_SUB_NEXT
+  type: string
+- name: REPOSITORY
+  type: string
+- name: IMAGE_COUNT
+  type: number
+- name: SUBSCRIPTION
+  type: string
 
 steps:
-
 - task: Docker@2
   displayName: Pull image from container repository of previous environment
   inputs:
-      containerRegistry: ${{ parameters.ACR_SUB_PREVIOUS }}
-      repository: ${{ parameters.REPOSITORY }}
-      command: pull
-      arguments: ${{ parameters.ACR_PREVIOUS }}/${{ parameters.REPOSITORY }}:$(Build.BuildId)
+    containerRegistry: ${{ parameters.ACR_SUB_PREVIOUS }}
+    repository: ${{ parameters.REPOSITORY }}
+    command: pull
+    arguments: ${{ parameters.ACR_PREVIOUS }}/${{ parameters.REPOSITORY }}:$(Build.BuildId)
 
 - bash: docker tag ${{ parameters.ACR_PREVIOUS }}/${{ parameters.REPOSITORY }}:$(Build.BuildId) ${{ parameters.ACR_NEXT }}/${{ parameters.REPOSITORY }}:$(Build.BuildId)
   displayName: Promote Docker image to registry of next environment
@@ -41,10 +40,10 @@ steps:
 - task: Docker@2
   displayName: Push Image to container repository of next environment
   inputs:
-      containerRegistry: ${{ parameters.ACR_SUB_NEXT }}
-      repository: ${{ parameters.REPOSITORY }}
-      command: push
-      tags: $(Build.BuildId)
+    containerRegistry: ${{ parameters.ACR_SUB_NEXT }}
+    repository: ${{ parameters.REPOSITORY }}
+    command: push
+    tags: $(Build.BuildId)
 
 - template: template_delete_old_images.yml
   parameters:

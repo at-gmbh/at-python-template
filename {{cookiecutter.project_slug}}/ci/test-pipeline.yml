@@ -27,13 +27,13 @@ jobs:
       addToPath: true
 
   - task: Bash@3
-      displayName: Install system dependencies
-      inputs:
-        targetType: inline
-        script: |
-          set -uex
-          sudo apt update
-          sudo apt install -y build-essential
+    displayName: Install system dependencies
+    inputs:
+      targetType: inline
+      script: |
+        set -uex
+        sudo apt update
+        sudo apt install -y build-essential
 
   # fill in or delete if no Azuzre Keyvault is used
   - task: AzureKeyVault@1
@@ -60,23 +60,23 @@ jobs:
         source $(VENV_FOLDER)/bin/activate
 
   - task: Bash@3
-      displayName: Setup environment
-      inputs:
-        targetType: inline
-        script: |
-          set -uex
-          source $(VENV_FOLDER)/bin/activate
-          # resolve issues with old cached versions of pip
-          # Open question: Still needed?
-          python -m pip install --upgrade pip || (curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py)
-          python -m pip install wheel
+    displayName: Setup environment
+    inputs:
+      targetType: inline
+      script: |
+        set -uex
+        source $(VENV_FOLDER)/bin/activate
+        # resolve issues with old cached versions of pip
+        # Open question: Still needed?
+        python -m pip install --upgrade pip || (curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py)
+        python -m pip install wheel
 
-          # install python app dependencies
-          python -m pip install -r requirements.txt -r requirements-dev.txt -U
+        # install python app dependencies
+        python -m pip install -r requirements.txt -r requirements-dev.txt -U
 
-          # build and install wheel
-          python setup.py dist
-          python -m pip install --force-reinstall dist/*.whl
+        # build and install wheel
+        python setup.py dist
+        python -m pip install --force-reinstall dist/*.whl
 
   - task: Bash@3
     displayName: 'pytest (with coverage)'
@@ -94,11 +94,11 @@ jobs:
 
   {% elif cookiecutter.package_manager == 'conda' -%}
   - task: Bash@3
-      displayName: Add conda to path
-      inputs:
-        targetType: inline
-        script: |
-          echo "##vso[task.prependpath]$CONDA/bin"
+    displayName: Add conda to path
+    inputs:
+      targetType: inline
+      script: |
+        echo "##vso[task.prependpath]$CONDA/bin"
 
   - task: Cache@2
     displayName: Cache conda packages
@@ -108,24 +108,24 @@ jobs:
       cacheHitVar: CONDA_CACHE_RESTORED
 
   - task: Bash@3
-      displayName: 'Create conda environment'
-      inputs:
-        targetType: 'inline'
-        script: |
-          conda env create -n .venv -f environment-dev.yml environment.yml
-          source activate .venv
-          python -m pip install wheel
-      condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
+    displayName: 'Create conda environment'
+    inputs:
+      targetType: 'inline'
+      script: |
+        conda env create -n .venv -f environment-dev.yml environment.yml
+        source activate .venv
+        python -m pip install wheel
+    condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
 
   - task: Bash@3
-      displayName: Install project as python package
-      inputs:
-        targetType: 'inline'
-        script: |
-          set -uex
-          source activate .venv
-          python setup.py dist
-          python -m pip install --force-reinstall dist/*.whl
+    displayName: Install project as python package
+    inputs:
+      targetType: 'inline'
+      script: |
+        set -uex
+        source activate .venv
+        python setup.py dist
+        python -m pip install --force-reinstall dist/*.whl
 
   # run tests with coverage information
   - task: Bash@3
