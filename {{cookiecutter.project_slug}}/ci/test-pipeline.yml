@@ -19,7 +19,7 @@ jobs:
 
   steps:
   - checkout: self
-    -
+  
   - task: UsePythonVersion@0
     displayName: Use Python 3.8
     inputs:
