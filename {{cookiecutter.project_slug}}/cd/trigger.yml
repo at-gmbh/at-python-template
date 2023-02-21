@@ -35,7 +35,7 @@ stages:
           steps:
           - template: template-build.yml
             parameters:
-              ACR_PREVIOUS : # complete with the identifier of your azure container registry on DEV
+              ACR_PREVIOUS: # complete with the identifier of your azure container registry on DEV
               ACR_NEXT: # complete with the identifier of your azure container registry on QA
               ACR_SUB_PREVIOUS: # complete with name of docker registry service connection on DEV
               ACR_SUB_NEXT: # complete with name of docker registry service connection on QA
@@ -57,7 +57,7 @@ stages:
           steps:
           - template: template-build.yml
             parameters:
-              ACR_PREVIOUS : # complete with the identifier of your azure container registry on QA
+              ACR_PREVIOUS: # complete with the identifier of your azure container registry on QA
               ACR_NEXT: # complete with the identifier of your azure container registry on PROD
               ACR_SUB_PREVIOUS: # complete with name of docker registry service connection on QA
               ACR_SUB_NEXT: # complete with name of docker registry service connection on PROD
