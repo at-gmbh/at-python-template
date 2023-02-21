@@ -13,7 +13,7 @@ stages:
 - stage: dev-build
   displayName: Build and Push Docker Image to DEV
   jobs:
-  - template: template-build-dev.yml
+  - template: build-dev.yml
     parameters:
       ACR: # complete with the identifier of your azure container registry on DEV
       ACR_SUB: # complete with name of docker registry service connection on DEV
@@ -33,7 +33,7 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: template-build.yml
+          - template: build.yml
             parameters:
               ACR_PREVIOUS: # complete with the identifier of your azure container registry on DEV
               ACR_NEXT: # complete with the identifier of your azure container registry on QA
@@ -55,7 +55,7 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: template-build.yml
+          - template: build.yml
             parameters:
               ACR_PREVIOUS: # complete with the identifier of your azure container registry on QA
               ACR_NEXT: # complete with the identifier of your azure container registry on PROD
