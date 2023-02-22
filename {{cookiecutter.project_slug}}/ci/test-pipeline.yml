@@ -13,7 +13,8 @@ jobs:
     {%- if cookiecutter.package_manager == 'pip' %}
     PIP_CACHE_DIR: $(Pipeline.Workspace)/venv/lib
     {%- elif cookiecutter.package_manager == 'conda' %}
-    CONDA_PKGS_DIRS: usr/share/miniconda/envs
+    CONDA_ENV_NAME: test-env
+    CONDA_PKGS_DIRS: /usr/share/miniconda/envs/$(CONDA_ENV_NAME)
     {%- endif %}
     PACKAGE_NAME: '{{ cookiecutter.project_slug }}'
 
@@ -79,7 +80,7 @@ jobs:
         python -m pip install --force-reinstall dist/*.whl
 
   - task: Bash@3
-    displayName: 'pytest (with coverage)'
+    displayName: pytest (with coverage)
     # define env variables as needed
     env:
       PACKAGE_NAME: $(PACKAGE_NAME)
@@ -93,13 +94,6 @@ jobs:
         python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
 
   {% elif cookiecutter.package_manager == 'conda' -%}
-  - task: Bash@3
-    displayName: Add conda to path
-    inputs:
-      targetType: inline
-      script: |
-        echo "##vso[task.prependpath]$CONDA/bin"
-
   - task: Cache@2
     displayName: Cache conda packages
     inputs:
@@ -108,12 +102,14 @@ jobs:
       cacheHitVar: CONDA_CACHE_RESTORED
 
   - task: Bash@3
-    displayName: 'Create conda environment'
+    displayName: Create conda environment
     inputs:
       targetType: inline
       script: |
-        conda env create -n .venv -f environment-dev.yml environment.yml
-        source activate .venv
+        set -uex
+        conda env create -n $(CONDA_ENV_NAME) -f environment-dev.yml environment.yml
+        source /usr/share/miniconda/etc/profile.d/conda.sh
+        conda activate $(CONDA_ENV_NAME)
         python -m pip install wheel
     condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
 
@@ -123,13 +119,14 @@ jobs:
       targetType: inline
       script: |
         set -uex
-        source activate .venv
+        source /usr/share/miniconda/etc/profile.d/conda.sh
+        conda activate $(CONDA_ENV_NAME)
         python setup.py dist
         python -m pip install --force-reinstall dist/*.whl
 
   # run tests with coverage information
   - task: Bash@3
-    displayName: 'pytest (with coverage)'
+    displayName: pytest (with coverage)
     # define env variables as needed
     env:
       PACKAGE_NAME: $(PACKAGE_NAME)
@@ -137,23 +134,24 @@ jobs:
       targetType: inline
       script: |
         set -uex
-        source activate .venv
+        source /usr/share/miniconda/etc/profile.d/conda.sh
+        conda activate $(CONDA_ENV_NAME)
         python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
   {%- endif %}
 
   - task: PublishCodeCoverageResults@1
-    displayName: 'Publish code coverage'
+    displayName: Publish code coverage
     inputs:
       codeCoverageTool: Cobertura
-      summaryFileLocation: coverage-reports/cov.xml
-      additionalCodeCoverageFiles: '$(System.DefaultWorkingDirectory)/junit/'
+      summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage-reports/cov.xml
+      additionalCodeCoverageFiles: $(System.DefaultWorkingDirectory)/junit/
     condition: succeededOrFailed()
 
   # publish pytest results
   - task: PublishTestResults@2
     inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '$(System.DefaultWorkingDirectory)/**/*-results.xml'
-      testRunTitle: 'Publish pytest results'
+      testResultsFormat: JUnit
+      testResultsFiles: $(System.DefaultWorkingDirectory)/**/*-results.xml
+      testRunTitle: Publish pytest results
       failTaskOnFailedTests: false
     condition: succeededOrFailed()
