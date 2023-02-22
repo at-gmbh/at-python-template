@@ -45,7 +45,7 @@ steps:
     command: push
     tags: $(Build.BuildId)
 
-- template: delete_old_images.yml
+- template: delete-old-images.yml
   parameters:
     ACR: ${{ parameters.ACR_NEXT }}
     SUBSCRIPTION: ${{ parameters.SUBSCRIPTION }}
