@@ -10,7 +10,7 @@ pool:
   vmImage: 'Ubuntu-latest'
 
 stages:
-- stage: dev_build
+- stage: dev-build
   displayName: Build and Push Docker Image to DEV
   jobs:
   - template: build-dev.yml
@@ -21,8 +21,8 @@ stages:
       SUBSCRIPTION: # complete with name of service connection 
       IMAGE_COUNT: 5
 
-- stage: qa_build
-  dependsOn: dev_build
+- stage: qa-build
+  dependsOn: dev-build
   displayName: Copy Docker Image from DEV to QA
   jobs:
   - deployment: devtoqa
@@ -43,8 +43,8 @@ stages:
               SUBSCRIPTION: # complete with name of service connection 
               IMAGE_COUNT: 5
 
-- stage: prod_build
-  dependsOn: qa_build
+- stage: prod-build
+  dependsOn: qa-build
   displayName: Copy Docker Image from QA to PROD
   jobs:
   - deployment: qatoprod
