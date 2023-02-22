@@ -20,7 +20,7 @@ parameters:
   type: number
 
 jobs:
-- job: build-push-docker-image
+- job: build_push_docker_image
   steps:
   - checkout: self
 

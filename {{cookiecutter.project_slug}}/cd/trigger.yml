@@ -25,7 +25,7 @@ stages:
   dependsOn: dev_build
   displayName: Copy Docker Image from DEV to QA
   jobs:
-  - deployment: devtoqa
+  - deployment: dev_to_qa
     displayName: Copy Docker Image from DEV to QA
     # environment is only set, so that an approval process can be defined
     environment: # complete with Azure Dev Ops environment
@@ -47,7 +47,7 @@ stages:
   dependsOn: qa_build
   displayName: Copy Docker Image from QA to PROD
   jobs:
-  - deployment: qatoprod
+  - deployment: qa_to_prod
     displayName: Copy Docker Image from QA to PROD
     # environment is only set, so that an approval process can be defined
     environment: # complete with Azure Dev Ops environment
