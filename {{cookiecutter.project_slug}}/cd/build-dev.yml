@@ -39,7 +39,7 @@ jobs:
       Dockerfile: '**/Dockerfile'
       tags: $(Build.BuildId)
 
-  - template: template_delete_old_images.yml
+  - template: delete_old_images.yml
     parameters:
       ACR: ${{ parameters.ACR }}
       SUBSCRIPTION: ${{ parameters.SUBSCRIPTION }}
