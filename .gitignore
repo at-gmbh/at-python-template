@@ -68,6 +68,9 @@ venv*/
 # Pyenv
 .python-version
 
+# OS generated files 
+.DS_Store
+
 # project-specific stuff
 serve/
 cookiecutter-server.yml
