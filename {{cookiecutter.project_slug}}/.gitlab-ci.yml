@@ -27,6 +27,7 @@ stages:
   - deploy-prod
 
 # Build and Test
+
 {% if cookiecutter.package_manager == 'poetry' -%}
 build-wheel:
   image: python:3-slim
@@ -38,8 +39,7 @@ build-wheel:
     expire_in: 6 mos
   script:
     - pip install poetry==$POETRY_VERSION
-    - poetry build -f wheel
-{% else -%}
+    - poetry build -f wheel {% else -%}
 build-wheel:
   image: python:3-slim
   stage: build
@@ -49,8 +49,7 @@ build-wheel:
       - dist/{{ cookiecutter.module_name }}-*.whl
     expire_in: 6 mos
   script:
-    - python setup.py dist
-{%- endif %}
+    - python setup.py dist {%- endif %}
 
 {% if cookiecutter.package_manager == 'poetry' -%}
 test-unit:
@@ -68,8 +67,7 @@ test-unit:
     - poetry install --no-root
     - source `poetry env info --path`/bin/activate
   script:
-    - pytest tests
-{% elif cookiecutter.package_manager == 'conda' -%}
+    - pytest tests {% elif cookiecutter.package_manager == 'conda' -%}
 test-unit:
   stage: test
   image: continuumio/miniconda3
@@ -88,8 +86,7 @@ test-unit:
     - source activate .venv
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
-    - pytest tests
-{% elif cookiecutter.package_manager == 'pip' -%}
+    - pytest tests {% elif cookiecutter.package_manager == 'pip' -%}
 test-unit:
   stage: test
   image: python:3-slim
@@ -106,8 +103,7 @@ test-unit:
     - pip install -r requirements.txt -r requirements-dev.txt
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
-    - pytest tests
-{%- endif %}
+    - pytest tests {%- endif %}
 
 # Nonprod deployments
 
