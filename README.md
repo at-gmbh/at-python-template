@@ -7,24 +7,150 @@
 
 This is the official Python Project Template of Alexander Thamm GmbH (AT). It is built with [cookiecutter](https://cookiecutter.readthedocs.io/) and inspired by [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science). It is designed to bridge the gap between exploratory work and production-ready projects. The goal is to be able to quickly bootstrap a Python project that provides lots of useful stuff to build, test & deploy your code without being overly convoluted like many of the publicly available packages.
 
-## Getting Started
+This guide aims to help you set up your environment and get coding in no time.
 
-1. [`conda install -c conda-forge "cookiecutter>=1.7.2"`](https://anaconda.org/conda-forge/cookiecutter) or [`pip install -U "cookiecutter>=1.7.2"`](https://pypi.org/project/cookiecutter/)
-2. `cookiecutter https://github.com/at-gmbh/at-python-template`
-3. profit!
+## Table of Contents
+1. [🛠 Prerequisites](#-prerequisites)
+2. [🚀 Getting Started](#-getting-started)
+3. [📓 Jupyter Notebook Setup](#-jupyter-notebook-setup)
+4. [🛠️ IDE Setup](#-ide-setup)
+5. [🐳 Docker Setup](#-docker-setup)
+6. [🔗 Additional Dependencies](#-additional-dependencies)
+7. [🤔 Choices Explained](#choices-explained)
+8. [🌟 Features](#features)
+9. [🤝 Contributing](#contributing)
 
-This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.7 or higher is required.
+---
 
-> This template requires `cookiecutter>=1.7.2`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
+## 🛠 Prerequisites
 
+Before you dive in, make sure you have Python and `cookiecutter` installed on your machine.
+
+### Check for Python Installation
+
+To check if Python is installed, open a terminal and run:
+
+```
+python --version
+```
+
+If Python is installed correctly, you'll see the version number. Otherwise, you'll need to [install Python](https://www.python.org/downloads/).
+
+---
+
+## 🚀 Getting Started
+
+### Step 1: Install `cookiecutter`
+
+Make sure you have version 2.0 or higher of `cookiecutter`.
+
+#### Via Conda 🐍
+
+```
+conda install -c conda-forge "cookiecutter>=2.0"
+```
+
+#### Via Pip 📦
+
+```
+pip install -U "cookiecutter>=2.0"
+```
+
+### Step 2: Generate Your Project
+
+Run the following command to generate your project structure.
+
+```
+cookiecutter https://github.com/at-gmbh/at-python-template
+```
+After running this command, you will be asked questions like the video below is showing.
+The explanation of the choices can be found [here](#choices-explained).
 ![image](docs/terminalizer_template_setup.gif "Setup a professional python project in seconds")
+### Step 3: Navigate to Your Project
+
+Change your directory to the newly created project.
+
+```
+cd your_project_name
+```
+
+### Step 4: Install Your Project Locally
+
+Via pip:
+
+```
+pip install -e .
+```
+
+For other package managers like `poetry` or `conda`, adapt accordingly.
+
+---
+
+## 📓 Jupyter Notebook Setup
+
+If you're planning to use Jupyter Notebooks, you'll need to install Jupyter Lab.
+
+#### Via Pip
+
+```
+pip install jupyterlab
+```
+
+#### Via Conda
+
+```
+conda install -c conda-forge jupyterlab
+```
+
+---
+
+## 🛠️ IDE Setup
+
+### For PyCharm Users
+
+Make sure the Python interpreter is set up correctly to recognize the virtual environment you've created. For more details, see the "IDE Setup" section below.
+
+---
+
+## 🐳 Docker Setup
+
+If you've chosen to use Docker, here's how to build and run your project:
+
+### Build your Docker image
+
+```
+docker build -t your-image-name .
+```
+
+### Run your Docker container
+
+```
+docker run your-image-name
+```
+
+### Using docker-compose
+
+```
+docker-compose up
+```
+
+For more advanced Docker usage, please refer to the `Dockerfile` and `docker-compose.yml` generated in your project.
+
+---
+
+## 🔗 Additional Dependencies
+
+> - Python 3.7 or higher is required.
+> - Jupyter Lab: If you are planning to use Jupyter notebooks.
+> - This template requires `cookiecutter>=2.0`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
+
 
 The automatically created `README.md` will contain notes on how to set up your local development environment.
 You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://www.jetbrains.com/pycharm/) or [Visual Studio Code](https://code.visualstudio.com/) in the [Wiki](https://github.com/at-gmbh/at-python-template/wiki).
 
 Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
 
-## Choices Explained
+## Choices explained
 
 Unfortunately, cookiecutter does not allow us to show any description of the options in the setup dialogue (though this will change when [cookiecutter 2.0](https://github.com/cookiecutter/cookiecutter/projects/3) is released), so here's some more info on that:
 
