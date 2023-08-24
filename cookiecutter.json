@@ -9,9 +9,61 @@
   "package_manager": ["conda", "pip", "poetry"],
   "use_notebooks": ["no", "yes"],
   "use_docker": ["no", "yes"],
-  "ci_pipeline": ["none", "gitlab"], 
+  "ci_pipeline": ["none", "gitlab"],
   "create_cli": ["no", "yes"],
   "config_file": ["none", "hocon", "yaml"],
   "code_formatter": ["none", "black"],
-  "editor_settings": ["none", "pycharm", "vscode"]
+  "editor_settings": ["none", "pycharm", "vscode"],
+  "__prompts__": {
+    "full_name": "What is your [bold yellow]full name[/]?",
+    "company_name": "Enter your [bold yellow]company name[/]. Leave empty if not applicable.",
+    "email": "What's your [bold yellow]email address[/]?",
+    "project_name": "Name your [bold yellow]project[/]:",
+    "project_short_description": "Provide a [bold yellow]short description[/] for the project:",
+    "package_manager": {
+      "__prompt__": "Which [bold yellow]package manager[/] would you like to use?",
+      "conda": "Conda",
+      "pip": "Pip",
+      "poetry": "Poetry"
+    },
+    "use_notebooks": {
+      "__prompt__": "Do you want to include [bold yellow]Jupyter Notebooks[/] in your project?",
+      "no": "No",
+      "yes": "Yes"
+    },
+    "use_docker": {
+      "__prompt__": "Do you want to use [bold yellow]Docker[/]?",
+      "no": "No",
+      "yes": "Yes"
+    },
+    "ci_pipeline": {
+      "__prompt__": "What [bold yellow]CI pipeline[/] would you like to use?",
+      "none": "None",
+      "gitlab": "GitLab"
+    },
+    "create_cli": {
+      "__prompt__": "Do you want to create a [bold yellow]CLI[/] for your project?",
+      "no": "No",
+      "yes": "Yes"
+    },
+    "config_file": {
+      "__prompt__": "Which [bold yellow]config file format[/] do you prefer?",
+      "none": "None",
+      "hocon": "HOCON",
+      "yaml": "YAML"
+    },
+    "code_formatter": {
+      "__prompt__": "What [bold yellow]code formatter[/] would you like to use?",
+      "none": "None",
+      "black": "Black"
+    },
+    "editor_settings": {
+      "__prompt__": "Which [bold yellow]editor settings[/] do you want to include?",
+      "none": "None",
+      "pycharm": "PyCharm",
+      "vscode": "VS Code"
+    }
+  }
 }
+
+
