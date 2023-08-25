@@ -16,9 +16,9 @@ This guide aims to help you set up your environment and get coding in no time.
 4. [🛠️ IDE Setup](#-ide-setup)
 5. [🐳 Docker Setup](#-docker-setup)
 6. [🔗 Additional Dependencies](#-additional-dependencies)
-7. [🤔 Choices Explained](#choices-explained)
-8. [🌟 Features](#features)
-9. [🤝 Contributing](#contributing)
+7. [🤔 Choices Explained](#-choices-explained)
+8. [🌟 Features](#-features)
+9. [🤝 Contributing](#-contributing)
 
 ---
 
@@ -89,17 +89,16 @@ For other package managers like `poetry` or `conda`, adapt accordingly.
 ## 📓 Jupyter Notebook Setup
 
 If you're planning to use Jupyter Notebooks, you'll need to install Jupyter Lab.
-
-#### Via Pip
-
-```
-pip install jupyterlab
-```
-
-#### Via Conda
+#### Via Conda 🐍
 
 ```
 conda install -c conda-forge jupyterlab
+```
+
+#### Via Pip 📦
+
+```
+pip install jupyterlab
 ```
 
 ---
@@ -146,11 +145,13 @@ For more advanced Docker usage, please refer to the `Dockerfile` and `docker-com
 
 
 The automatically created `README.md` will contain notes on how to set up your local development environment.
-You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://www.jetbrains.com/pycharm/) or [Visual Studio Code](https://code.visualstudio.com/) in the [Wiki](https://github.com/at-gmbh/at-python-template/wiki).
+You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://www.jetbrains.com/pycharm/) or [Visual Studio Code](https://code.visualstudio.com/).
 
 Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
 
-## Choices explained
+---
+
+## 🤔 Choices explained
 
 Unfortunately, cookiecutter does not allow us to show any description of the options in the setup dialogue (though this will change when [cookiecutter 2.0](https://github.com/cookiecutter/cookiecutter/projects/3) is released), so here's some more info on that:
 
@@ -183,7 +184,9 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
   - `pycharm`: add config for [PyCharm](https://www.jetbrains.com/pycharm/)
   - `none`: no editor config / set it up by yourself
 
-## Features
+---
+
+## 🌟 Features
 
 * `README.md`: arguably *the* most important file of your project. It's the first thing anyone will see who looks at your project. Write it so that someone who doesn't know anything about your project can build the code, run tests and start working on the code after reading this document. Check out [makeareadme.com](https://www.makeareadme.com/) to learn about best practices and have a look at [awesome-readme](https://github.com/matiassingers/awesome-readme) for examples of awesome readme files.
 * Code structure
@@ -213,7 +216,9 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
     * `.vscode`: Settings for VSCode. Sets *pytest* as default test framework and configures automatic code formatting if requested, among other things.
     * `.idea`: Settings for PyCharm. Marks `./src` as source folder, sets *pytest* as default test framework and *reStructuredText* as default docstring format.
 
-## Contributing
+---
+
+## 🤝 Contributing
 
 Contributions to this project are very welcome. Please open a ticket on the [issues page](https://github.com/at-gmbh/at-python-template/issues) if you have found any bugs or if you have ideas for improvements. If you want to contribute code, we'd love to review your [pull request](https://github.com/at-gmbh/at-python-template/pulls)!
 
@@ -226,18 +231,22 @@ Hints for developers:
 * be careful with code formatters: Many files in this project contain [jinja2 templates](https://jinja.palletsprojects.com) (you'll find statements like `{% if cookiecutter.config_file == 'yaml' %}...{% endif %}` all over the place). These templates mean that the source code becomes syntactically incorrect and some formatters might do unexpected things.
 * you can make your life easier when updating templated files by using [cookiecutter-server](https://github.com/at-gmbh/cookiecutter-server) to get live previews of your templates
 * before your first commit, set up pre-commit hooks by running `pre-commit install`
-
+---
 ## Other Templates
 
 You may find lots of other templates under the [cookiecutter-template](https://github.com/topics/cookiecutter-template) tag on GitHub. Some of the most popular templates (by Github Stars) can be found on [awesomeopensource.com](https://awesomeopensource.com/projects/cookiecutter). Other popular templates for data science are [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science) and the [pyscaffold dsproject](https://github.com/pyscaffold/pyscaffoldext-dsproject).
 
+---
 ## Contact
 
 * Sebastian Straub (sebastian.straub [at] alexanderthamm.com)
 * Steffen Bunzel (steffen.bunzel [at] alexanderthamm.com)
-* Hans Rauer (hans.rauer [at] alexanderthamm.com)
+* Hans Rauer (hans.rauer [at] neanderthal.com)
 * Simon Weiß (simon.weiss [at] alexanderthamm.com)
 * Honza Bílek (jan.bilek [at] alexanderthamm.com)
+* Christian Baur (christian.baur[at] alexanderthamm.com)
+
+---
 
 ## License
 
