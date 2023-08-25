@@ -11,7 +11,28 @@
 
 {{ cookiecutter.project_short_description }}
 
-## Getting Started
+---
+
+## Table of Contents
+
+1. [🚀 Getting Started](#-getting-started)
+2. [🧪 Testing](#-testing)
+3. [📓 Notebooks](#-notebooks)
+4. [📦 Distribution Package](#-distribution-package)
+5. [🤝 Contributing](#-contributing)
+6. [📞 Contact](#-contact)
+7. [📝 License](#-license)
+
+---
+## 🚀 Getting Started
+
+### Prerequisites
+
+- install Python 3.x
+- install {{ cookiecutter.package_manager.capitalize() }}
+
+### Installation
+
 {% if cookiecutter.package_manager == 'conda' %}
 To set up your local development environment, please use a fresh virtual environment with:
 
@@ -54,7 +75,9 @@ If you want to deploy this project as a docker container, please ensure that [Do
 
 this will build the entire project with all dependencies inside a docker container. You may use the command line interface of the application now, e.g. by editing the `command` tag in the [`docker-compose.yml`](./docker-compose.yml).
 {% endif %}
-### Testing
+
+---
+## 🧪 Testing
 
 We use `pytest` as test framework. To execute the tests, please run
 
@@ -66,7 +89,9 @@ To run the tests with coverage information, please use
 
 and have a look at the `htmlcov` folder, after the tests are done.
 {% if cookiecutter.use_notebooks == 'yes' %}
-### Notebooks
+
+---
+## 📓 Notebooks
 {% if cookiecutter.package_manager == 'poetry' %}
 You can use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors by running:
 
@@ -92,7 +117,9 @@ Assuming you already have Jupyter installed, you can make your virtual environme
 
 Note that we mainly use notebooks for experiments, visualizations and reports. Every piece of functionality that is meant to be reused should go into module code and be imported into notebooks.
 {% endif %}
-### Distribution Package
+
+---
+## 📦 Distribution Package
 
 To build a distribution package (wheel), please use
 
@@ -100,7 +127,8 @@ To build a distribution package (wheel), please use
 
 this will clean up the build folder and then run the `bdist_wheel` command.
 
-### Contributions
+---
+## 🤝 Contributing
 
 Before contributing, please set up the pre-commit hooks to reduce errors and ensure consistency
 
@@ -110,10 +138,12 @@ Before contributing, please set up the pre-commit hooks to reduce errors and ens
 
 If you run into any issues, you can remove the hooks again with `pre-commit uninstall`.
 
-## Contact
+---
+## 📞 Contact
 
 {{ cookiecutter.full_name }} ({{ cookiecutter.email }})
 
-## License
+---
+## 📝 License
 
 {% if cookiecutter.company_name %}© {{cookiecutter.company_name}}{% else %}© {{cookiecutter.full_name}}{% endif %}
