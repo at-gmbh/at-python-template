@@ -1,7 +1,7 @@
 # AT Python Template
 
-[![build](https://img.shields.io/github/workflow/status/at-gmbh/at-python-template/pytest-pip)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
-![Python Version](https://img.shields.io/badge/python-3.6%20--%203.9-blue)
+[![build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
+![Python Version](https://img.shields.io/badge/python-3.7%20--%203.11-blue)
 [![License](https://img.shields.io/github/license/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/blob/master/LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/at-gmbh/at-python-template?style=social)
 
@@ -13,7 +13,7 @@ This is the official Python Project Template of Alexander Thamm GmbH (AT). It is
 2. `cookiecutter https://github.com/at-gmbh/at-python-template`
 3. profit!
 
-This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.6 or higher is required.
+This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.7 or higher is required.
 
 > This template requires `cookiecutter>=1.7.2`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
 

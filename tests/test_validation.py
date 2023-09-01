@@ -19,8 +19,7 @@ def test_project_slug():
 
 
 def test_editor():
-    check_project(settings={'editor_settings': "hax0r-editor-2000"})
-    # note: invalid choices will be silently ignored by cookiecutter
+    check_project(settings={'editor_settings': "pycharm"})
 
 
 def test_fail_python_3_5(mocker: MockerFixture):

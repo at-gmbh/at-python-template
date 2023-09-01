@@ -4,9 +4,9 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.9.*{% if cookiecutter.config_file == 'hocon' %}
+  - python=3.10.*{% if cookiecutter.config_file == 'hocon' %}
   - pyhocon=0.3.*{% elif cookiecutter.config_file == 'yaml' %}
   - PyYAML=6.*{% endif %}{% if cookiecutter.create_cli == 'yes' %}
   - pip
   - pip:
-      - typer~=0.4.0{% endif %}
+      - typer~=0.7.0{% endif %}
