@@ -73,7 +73,12 @@ files_ci_gitlab = {
     ".gitlab-ci.yml",
 }
 
-files_ci_all = files_ci_gitlab
+files_ci_github = {
+    ".github/workflows/deploy.yml",
+    ".github/actions/deploy/action.yml"
+}
+
+files_ci_all = files_ci_gitlab | files_ci_github
 
 folders_editor = [
     '.idea__editor',
@@ -169,6 +174,8 @@ def handle_ci():
     ci_pipeline = '{{ cookiecutter.ci_pipeline }}'
     if ci_pipeline == "gitlab":
         _delete_files(files_ci_all - files_ci_gitlab)
+    elif ci_pipeline == "github":
+        _delete_files(files_ci_all - files_ci_github)
     elif ci_pipeline == 'none':
         _delete_files(files_ci_all)
 
