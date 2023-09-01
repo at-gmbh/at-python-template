@@ -1,13 +1,11 @@
 name: Deploy my package
 
 on:
-  push:
+  pull_request:
     branches:
+      - "main"
       - "master"
-      - "features/**"
-      - "improvements/**"
-      - "bug-fixes/**"
-  
+
 env:
   PACKAGE_NAME: {{ cookiecutter.module_name }}
   ARTIFACTS_PATH: artifacts
@@ -47,7 +45,7 @@ jobs:
         with:
           name:  $PACKAGE_NAME-package
           path: "$ARTIFACTS_PATH/dist/$PACKAGE_NAME-*.whl"
-  
+
   test-unit:
     name: Run unit tests
     runs-on: ubuntu-latest
@@ -80,7 +78,7 @@ jobs:
           poetry install --no-root
           source `poetry env info --path`/bin/activate
           pytest tests
-        
+
       {% elif cookiecutter.package_manager == 'conda' -%}
         run: |
           source activate venv
@@ -94,5 +92,3 @@ jobs:
         pip install install dist/{{ cookiecutter.module_name }}-*.whl
         pytest tests
       {%- endif %}
-        
-      
