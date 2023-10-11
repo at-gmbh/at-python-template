@@ -287,6 +287,17 @@ def test_az_devops_conda(az_devops_files):
     )
 
 
+def test_az_devops_poetry(az_devops_files):
+    check_project(
+        settings={
+            "package_manager": "poetry",
+            "ci_pipeline": "az-devops",
+            "use_docker": "yes"
+        },
+        files_existent=az_devops_files
+    )
+
+
 def test_no_ci_pipeline(az_devops_files):
     check_project(
         settings={

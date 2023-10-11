@@ -15,12 +15,15 @@ jobs:
     {%- elif cookiecutter.package_manager == 'conda' %}
     CONDA_ENV_NAME: test-env
     CONDA_PKGS_DIRS: /usr/share/miniconda/envs/$(CONDA_ENV_NAME)
+    {%- elif cookiecutter.package_manager == 'poetry' %}
+    POETRY_VERSION: 1.0.5
+    POETRY_CACHE_DIR: $(Pipeline.Workspace)/venv/lib
     {%- endif %}
     PACKAGE_NAME: '{{ cookiecutter.project_slug }}'
 
   steps:
   - checkout: self
-  
+
   - task: UsePythonVersion@0
     displayName: Use Python 3.8
     inputs:
@@ -136,6 +139,48 @@ jobs:
         set -uex
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate $(CONDA_ENV_NAME)
+
+        python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
+
+  {% elif cookiecutter.package_manager == 'poetry' -%}
+  - task: Cache@2
+    displayName: Cache poetry packages
+    inputs:
+      key: 'poetry | $(Agent.OS) | | pyproject.toml '
+      path: $(POETRY_CACHE_DIR)
+      cacheHitVar: POETRY_CACHE_RESTORED
+
+  - task: Bash@3
+    displayName: Configure poetry
+    inputs:
+      targetType: inline
+      script: |
+        set -uex
+        pip install poetry==$(POETRY_VERSION)
+        poetry config virtualenvs.in-project false
+        poetry config virtualenvs.path $(VENV_FOLDER)
+
+  - task: Bash@3
+    displayName: Create venv
+    inputs:
+      targetType: inline
+      script: |
+        set -uex
+        poetry install
+        source `poetry env info --path`/bin/activate
+    condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
+
+  # run tests with coverage information
+  - task: Bash@3
+    displayName: pytest (with coverage)
+    # define env variables as needed
+    env:
+      PACKAGE_NAME: $(PACKAGE_NAME)
+    inputs:
+      targetType: inline
+      script: |
+        set -uex
+        source `poetry env info --path`/bin/activate
         python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
   {%- endif %}
 
