@@ -1,12 +1,10 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
+    rev: v4.4.0
     hooks:
     -   id: check-added-large-files
     -   id: check-ast
     -   id: check-merge-conflict
-    -   id: check-yaml
-        exclude: \{\{cookiecutter.project_slug\}\}/.gitlab-ci.yml
     -   id: end-of-file-fixer
     -   id: mixed-line-ending
     -   id: trailing-whitespace

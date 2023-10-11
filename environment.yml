@@ -4,11 +4,11 @@ channels:
   - defaults
 dependencies:
   # no python version specified here, we use different versions in the CI pipeline
-  - pytest>=5.4
-  - pytest-mock>=3.3.0
-  - cookiecutter~=1.7.2
+  - pytest=7.*
+  - pytest-mock=3.*
+  - cookiecutter=2.*
   - pyhocon=0.3.*
-  - PyYAML>=5.3
+  - PyYAML=6.*
   - pip
   - pip:
-    - typer~=0.3.2
+      - typer~=0.7.0

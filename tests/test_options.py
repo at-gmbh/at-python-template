@@ -120,7 +120,7 @@ def test_config_hocon():
     check_project(
         settings={'config_file': 'hocon', 'create_cli': 'yes'},
         files_existent=['src/{module_name}/util.py', 'src/{module_name}/res/default.conf',
-                        'config/debug.conf'],
+                        'config/dev.conf', 'config/prod.conf'],
         files_non_existent=['config/config.yml'],
         test_cli=True, run_pytest=True)
 
@@ -129,7 +129,7 @@ def test_config_yaml():
     check_project(
         settings={'config_file': 'yaml'},
         files_existent=['src/{module_name}/util.py', 'config/config.yml'],
-        files_non_existent=['config/debug.conf', 'src/{module_name}/res/default.conf'],
+        files_non_existent=['config/dev.conf', 'config/prod.conf', 'src/{module_name}/res/default.conf'],
         run_pytest=True)
 
 

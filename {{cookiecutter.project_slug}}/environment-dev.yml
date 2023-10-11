@@ -3,10 +3,10 @@
 # The regular project dependencies are defined in environment.yml
 channels:
   - conda-forge
-  - defaults
+  - nodefaults
 dependencies:
-  - python=3.9.*
-  - pytest=5.*
-  - pytest-cov=2.*
+  - python=3.10.*
+  - pytest=7.*
+  - pytest-cov=4.*
   - pre-commit=2.*{% if cookiecutter.code_formatter == 'black' %}
-  - black=19.*{% endif %}
+  - black=22.*{% endif %}

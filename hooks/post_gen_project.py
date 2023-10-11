@@ -28,6 +28,7 @@ files_conda = {
 
 files_poetry = {
     'pyproject.toml',
+    'poetry.toml',
 }
 
 files_package_manager_all = files_pip | files_conda | files_poetry
@@ -64,7 +65,8 @@ files_config_yaml = [
 files_config_hocon = [
     f'{module_dir}/util__hocon.py',
     f'{module_dir}/res/default.conf',
-    'config/debug.conf',
+    'config/dev.conf',
+    'config/prod.conf',
 ]
 
 files_ci_gitlab = {
@@ -177,7 +179,7 @@ def handle_editor_settings():
 def handle_ci():
     ci_pipeline = '{{ cookiecutter.ci_pipeline }}'
     use_docker = '{{ cookiecutter.use_docker }}'
-    if ci_pipeline == "gitlab": 
+    if ci_pipeline == "gitlab":
         _delete_files(files_ci_all - files_ci_gitlab)
         os.rmdir('ci')
         os.rmdir('cd')

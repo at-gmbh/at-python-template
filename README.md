@@ -1,7 +1,7 @@
 # AT Python Template
 
-[![build](https://img.shields.io/github/workflow/status/at-gmbh/at-python-template/pytest-pip)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
-![Python Version](https://img.shields.io/badge/python-3.6%20--%203.9-blue)
+[![build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
+![Python Version](https://img.shields.io/badge/python-3.7%20--%203.11-blue)
 [![License](https://img.shields.io/github/license/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/blob/master/LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/at-gmbh/at-python-template?style=social)
 
@@ -9,15 +9,18 @@ This is the official Python Project Template of Alexander Thamm GmbH (AT). It is
 
 ## Getting Started
 
-1. [`conda install -c conda-forge cookiecutter`](https://anaconda.org/conda-forge/cookiecutter) or [`pip install -U cookiecutter`](https://pypi.org/project/cookiecutter/)
+1. [`conda install -c conda-forge "cookiecutter>=1.7.2"`](https://anaconda.org/conda-forge/cookiecutter) or [`pip install -U "cookiecutter>=1.7.2"`](https://pypi.org/project/cookiecutter/)
 2. `cookiecutter https://github.com/at-gmbh/at-python-template`
 3. profit!
 
-This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.6 or higher is required.
+This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.7 or higher is required.
 
 > This template requires `cookiecutter>=1.7.2`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
 
 ![image](docs/terminalizer_template_setup.gif "Setup a professional python project in seconds")
+
+The automatically created `README.md` will contain notes on how to set up your local development environment.
+You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://www.jetbrains.com/pycharm/) or [Visual Studio Code](https://code.visualstudio.com/) in the [Wiki](https://github.com/at-gmbh/at-python-template/wiki).
 
 Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
 
@@ -45,7 +48,7 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
 * `create_cli` (yes or no): if you plan to build an application with a command line interface (CLI), select *yes* here. This will integrate a template for the CLI into your project - minimal boilerplate guaranteed! (We're leveraging the awesome [typer](https://typer.tiangolo.com/) library for this.)
 * `config_file`: select your preferred config format. It is best practice to store your configuration separate from your code, even for small projects, but because there are a gazillion ways to do this, each project seems to reinvents the wheel. We want to provide a few options to set you up with a working configuration:
   - `yaml`: use [YAML](https://yaml.org/) as your configuration file format. Easy to read and write, widely adopted, relies on the [PyYAML](https://pyyaml.org/) package.
-  - `hocon`: use [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) as your configuration file format. It is a superset of JSON, very resilient (it's really hard to make a breaking syntax error) and comes with powerful functions, e.g. for inheritance or variable substitution. Relies on the [pyhocon](https://github.com/chimpler/pyhocon/) package.
+  - `hocon`: use [HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) as your configuration file format. It is a superset of JSON, very resilient (it's really hard to make a breaking syntax error) and comes with powerful functions, e.g. for inheritance or variable substitution. In this example you can find two environment configurations (`dev.conf`, `prod.conf`) that override parts of the default configuration. Relies on the [pyhocon](https://github.com/chimpler/pyhocon/) package.
   - `none`: don't need any configuration or want to do your own thing? choose this option.
 * `code_formatter`: a code formatter is a powerful tool that can help teams to stick to a common code style. However, a formatter cannot solve every code style problem for you and it may lead to issues for users that are not aware of how it works. Always talk to your team about [PEP 8](https://www.python.org/dev/peps/pep-0008/) and a common code style, then choose the right formatter for you (or none at all):
   - [`black`](https://github.com/psf/black): *the uncompromising Python code formatter*.
@@ -96,6 +99,7 @@ Hints for developers:
 * install dependencies in a fresh virtualenv with `pip install -r requirements.txt`
 * run unit tests with `pytest tests`. There are unit tests for every available choice in [`tests/test_options.py`](./tests/test_options.py). If you add more choices, please update these tests.
 * be careful with code formatters: Many files in this project contain [jinja2 templates](https://jinja.palletsprojects.com) (you'll find statements like `{% if cookiecutter.config_file == 'yaml' %}...{% endif %}` all over the place). These templates mean that the source code becomes syntactically incorrect and some formatters might do unexpected things.
+* you can make your life easier when updating templated files by using [cookiecutter-server](https://github.com/at-gmbh/cookiecutter-server) to get live previews of your templates
 * before your first commit, set up pre-commit hooks by running `pre-commit install`
 
 ## Other Templates
