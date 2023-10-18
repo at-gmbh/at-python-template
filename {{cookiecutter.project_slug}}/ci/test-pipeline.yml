@@ -16,8 +16,10 @@ jobs:
     CONDA_ENV_NAME: test-env
     CONDA_PKGS_DIRS: /usr/share/miniconda/envs/$(CONDA_ENV_NAME)
     {%- elif cookiecutter.package_manager == 'poetry' %}
-    POETRY_VERSION: 1.0.5
-    POETRY_CACHE_DIR: $(Pipeline.Workspace)/venv/lib
+    POETRY_VERSION: 1.6
+    # we have to cache the whole folder in order to activate the env later on
+    # otherwise the activate binary isn't restored for a cache hit
+    POETRY_CACHE_DIR: $(System.DefaultWorkingDirectory)/.venv
     {%- endif %}
     PACKAGE_NAME: '{{ cookiecutter.project_slug }}'
 
@@ -48,6 +50,7 @@ jobs:
       RunAsPreJob: false
 
   {%- if cookiecutter.package_manager == 'pip' %}
+
   - task: Cache@2
     inputs:
       key: 'pip | venv | $(Agent.OS) | requirements.txt | requirements-dev.txt'
@@ -97,6 +100,7 @@ jobs:
         python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
 
   {% elif cookiecutter.package_manager == 'conda' -%}
+
   - task: Cache@2
     displayName: Cache conda packages
     inputs:
@@ -143,10 +147,11 @@ jobs:
         python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
 
   {% elif cookiecutter.package_manager == 'poetry' -%}
+
   - task: Cache@2
     displayName: Cache poetry packages
     inputs:
-      key: 'poetry | $(Agent.OS) | | pyproject.toml '
+      key: 'poetry | $(Agent.OS) | pyproject.toml '
       path: $(POETRY_CACHE_DIR)
       cacheHitVar: POETRY_CACHE_RESTORED
 
@@ -157,8 +162,6 @@ jobs:
       script: |
         set -uex
         pip install poetry==$(POETRY_VERSION)
-        poetry config virtualenvs.in-project false
-        poetry config virtualenvs.path $(VENV_FOLDER)
 
   - task: Bash@3
     displayName: Create venv
@@ -166,22 +169,21 @@ jobs:
       targetType: inline
       script: |
         set -uex
-        poetry install
+        poetry install --no-root
         source `poetry env info --path`/bin/activate
-    condition: eq(variables.CONDA_CACHE_RESTORED, 'false')
+    condition: eq(variables.POETRY_CACHE_RESTORED, 'false')
 
   # run tests with coverage information
   - task: Bash@3
     displayName: pytest (with coverage)
-    # define env variables as needed
-    env:
-      PACKAGE_NAME: $(PACKAGE_NAME)
     inputs:
       targetType: inline
       script: |
         set -uex
+        # install root which obviously shouldn't be cached
+        poetry install --only-root
         source `poetry env info --path`/bin/activate
-        python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
+        python -m pytest tests --doctest-modules --junitxml=$(System.DefaultWorkingDirectory)/junit/test-results.xml --cov=src/'{{ cookiecutter.module_name }}' --cov-report=xml:$(System.DefaultWorkingDirectory)/coverage-reports/cov.xml --cov-report=html:$(System.DefaultWorkingDirectory)/coverage-reports/cov.html
   {%- endif %}
 
   - task: PublishCodeCoverageResults@1
