@@ -41,7 +41,7 @@ jobs:
         sudo apt update
         sudo apt install -y build-essential
 
-  # fill in or delete if no Azuzre Keyvault is used
+  # fill in or delete if no Azure Keyvault is used
   - task: AzureKeyVault@1
     inputs:
       azureSubscription: ''
@@ -98,8 +98,7 @@ jobs:
 
         # run pytest
         python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
-
-  {% elif cookiecutter.package_manager == 'conda' -%}
+  {% elif cookiecutter.package_manager == 'conda' %}
 
   - task: Cache@2
     displayName: Cache conda packages
@@ -143,10 +142,8 @@ jobs:
         set -uex
         source /usr/share/miniconda/etc/profile.d/conda.sh
         conda activate $(CONDA_ENV_NAME)
-
         python -m pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=$PACKAGE_NAME --cov-report=xml:coverage-reports/cov.xml --cov-report=html
-
-  {% elif cookiecutter.package_manager == 'poetry' -%}
+  {% elif cookiecutter.package_manager == 'poetry' %}
 
   - task: Cache@2
     displayName: Cache poetry packages
@@ -184,8 +181,8 @@ jobs:
         poetry install --only-root
         source `poetry env info --path`/bin/activate
         python -m pytest tests --doctest-modules --junitxml=$(System.DefaultWorkingDirectory)/junit/test-results.xml --cov=src/'{{ cookiecutter.module_name }}' --cov-report=xml:$(System.DefaultWorkingDirectory)/coverage-reports/cov.xml --cov-report=html:$(System.DefaultWorkingDirectory)/coverage-reports/cov.html
-  {%- endif %}
 
+  {%- endif %}
   - task: PublishCodeCoverageResults@1
     displayName: Publish code coverage
     inputs:
