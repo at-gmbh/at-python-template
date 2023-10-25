@@ -6,4 +6,4 @@ pytest~=7.2
 pytest-mock~=3.10
 pyhocon~=0.3.59
 PyYAML~=6.0
-typer[all]~=0.7.0
+typer[all]~=0.9.0
