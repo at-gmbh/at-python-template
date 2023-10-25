@@ -15,7 +15,6 @@ python = "^3.10"{% if cookiecutter.config_file == 'hocon' %}
 pyhocon = "^0.3.59"{% elif cookiecutter.config_file == 'yaml' %}
 PyYAML = "^6.0"{% endif %}{% if cookiecutter.create_cli == 'yes' %}
 typer = {extras = ["all"], version = "^0.7.0"}{% endif %}
-importlib-metadata = {version = "^1.0", python = "<3.8"}
 
 [tool.poetry.dev-dependencies]{% if cookiecutter.code_formatter == 'black' %}
 black = "^22.10"{% endif %}
