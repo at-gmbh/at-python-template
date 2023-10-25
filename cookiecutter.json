@@ -15,16 +15,18 @@
   "code_formatter": ["none", "black"],
   "editor_settings": ["none", "pycharm", "vscode"],
   "__prompts__": {
-    "full_name": "What is your [bold yellow]full name[/]?",
-    "company_name": "Enter your [bold yellow]company name[/]. Leave empty if not applicable.",
+    "full_name": "What's your [bold yellow]name[/]?",
+    "company_name": "Enter your [bold yellow]company name[/]; leave empty if not applicable",
     "email": "What's your [bold yellow]email address[/]?",
-    "project_name": "Name your [bold yellow]project[/]:",
-    "project_short_description": "Provide a [bold yellow]short description[/] for the project:",
+    "project_name": "Please provide the [bold yellow]full name of your project[/], as it would appear in a headline",
+    "project_slug": "Please provide a [bold yellow]slug[/], which is the project name as it would appear in a URL, or accept this suggestion",
+    "module_name": "Please provide a [bold yellow]module name[/] for your project. Make it short, if possible, and use underscores instead of whitespace",
+    "project_short_description": "Provide a [bold yellow]short description[/] for the project in one sentence",
     "package_manager": {
-      "__prompt__": "Which [bold yellow]package manager[/] would you like to use?",
-      "conda": "Conda",
-      "pip": "Pip",
-      "poetry": "Poetry"
+      "__prompt__": "Which [bold yellow]packaging tool[/] would you like to use?",
+      "conda": "conda (environment.yml)",
+      "pip": "pip (setup.py)",
+      "poetry": "poetry (pyproject.toml)"
     },
     "use_notebooks": {
       "__prompt__": "Do you want to include [bold yellow]Jupyter Notebooks[/] in your project?",
@@ -39,7 +41,7 @@
     "ci_pipeline": {
       "__prompt__": "What [bold yellow]CI pipeline[/] would you like to use?",
       "none": "None",
-      "gitlab": "GitLab"
+      "gitlab": "GitLab CI"
     },
     "create_cli": {
       "__prompt__": "Do you want to create a [bold yellow]CLI[/] for your project?",
