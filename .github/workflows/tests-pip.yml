@@ -17,7 +17,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     name: "Test: Python ${{ matrix.python-version }}, pip, ${{ matrix.os }}"
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
@@ -39,7 +39,7 @@ jobs:
         os: [ubuntu-20.04]
     name: "Version Check: Python ${{ matrix.python-version }}"
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
