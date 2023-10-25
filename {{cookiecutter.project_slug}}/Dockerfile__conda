@@ -1,4 +1,4 @@
-ARG IMAGE_TAG=22.9.0-2
+ARG IMAGE_TAG=23.1.0-2
 
 FROM condaforge/mambaforge:${IMAGE_TAG}
 
