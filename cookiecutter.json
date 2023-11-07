@@ -18,7 +18,7 @@
     "cd/build-dev.yml",
     "cd/build.yml",
     "cd/delete-old-images.yml"
-  ]
+  ],
   "__prompts__": {
     "full_name": "What's your [bold yellow]name[/]?",
     "company_name": "Enter your [bold yellow]company name[/]; leave empty if not applicable",
