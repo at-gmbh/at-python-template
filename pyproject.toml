@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "at-python-template"
-version = "0.1.0"
-description = "This is the official Python Project Template of Alexander Thamm GmbH (AT).It is built with cookiecutter and inspired by cookiecutter-data-science. It is designed to bridge the gap between exploratory work and production-ready projects. The goal is to be able to quickly bootstrap a Python project that provides lots of useful stuff to build, test & deploy your code without being overly convoluted like many of the publicly available packages."
+version = "1.0.0"
+description = "This is the official Python Project Template of Alexander Thamm GmbH (AT)"
 authors = [
     "Sebastian Straub (sebastian.straub [at] alexanderthamm.com)",
     "Steffen Bunzel (steffen.bunzel [at] alexanderthamm.com)",
@@ -14,15 +14,14 @@ license = "Apache License, Version 2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.7"
-cookiecutter = "^2.3.0"
-pre-commit = "2.2"
-pytest = "^7.4.0"
-pytest-mock = "^3.11.1"
+python = "^3.8"
+cookiecutter = "^2.3"
+pre-commit = "3.5"
+pytest = "^7.4"
+pytest-mock = "^3.12"
 pyhocon = "^0.3.60"
-pyyaml = "^6.0.1"
-typer = "^0.9.0"
-
+pyyaml = "^6.0"
+typer = "^0.9"
 
 [build-system]
 requires = ["poetry-core"]
