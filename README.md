@@ -1,7 +1,7 @@
 # AT Python Template
 
 [![build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
-![Python Version](https://img.shields.io/badge/python-3.7%20--%203.11-blue)
+![Python Version](https://img.shields.io/badge/python-3.8%20--%203.11-blue)
 [![License](https://img.shields.io/github/license/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/blob/master/LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/at-gmbh/at-python-template?style=social)
 
@@ -9,34 +9,15 @@ This is the official Python Project Template of Alexander Thamm GmbH (AT). It is
 
 This guide aims to help you set up your environment and get coding in no time.
 
-## Table of Contents
-1. [🛠 Prerequisites](#-prerequisites)
-2. [🚀 Getting Started](#-getting-started)
-3. [📓 Jupyter Notebook Setup](#-jupyter-notebook-setup)
-4. [🛠️ IDE Setup](#-ide-setup)
-5. [🐳 Docker Setup](#-docker-setup)
-6. [🔗 Additional Dependencies](#-additional-dependencies)
-7. [🤔 Choices Explained](#-choices-explained)
-8. [🌟 Features](#-features)
-9. [🤝 Contributing](#-contributing)
-
----
-
 ## 🛠 Prerequisites
 
-Before you dive in, make sure you have Python and `cookiecutter` installed on your machine.
-
-### Check for Python Installation
-
-To check if Python is installed, open a terminal and run:
+Before you dive in, make sure you have Python 3.8 or higher installed on your machine. To check if Python is installed, open a terminal and run:
 
 ```
 python --version
 ```
 
 If Python is installed correctly, you'll see the version number. Otherwise, you'll need to [install Python](https://www.python.org/downloads/).
-
----
 
 ## 🚀 Getting Started
 
@@ -63,9 +44,10 @@ Run the following command to generate your project structure.
 ```
 cookiecutter https://github.com/at-gmbh/at-python-template
 ```
-After running this command, you will be asked questions like the video below is showing.
-The explanation of the choices can be found [here](#choices-explained).
+After running this command, you will be asked questions like the video below is showing. In the section [Choices explained](#-choices-explained) you can find more information on each item.
+
 ![image](docs/terminalizer_template_setup.gif "Setup a professional python project in seconds")
+
 ### Step 3: Navigate to Your Project
 
 Change your directory to the newly created project.
@@ -84,8 +66,6 @@ pip install -e .
 
 For other package managers like `poetry` or `conda`, adapt accordingly.
 
----
-
 ## 📓 Jupyter Notebook Setup
 
 If you're planning to use Jupyter Notebooks, you'll need to install Jupyter Lab.
@@ -100,16 +80,6 @@ conda install -c conda-forge jupyterlab
 ```
 pip install jupyterlab
 ```
-
----
-
-## 🛠️ IDE Setup
-
-### For PyCharm Users
-
-Make sure the Python interpreter is set up correctly to recognize the virtual environment you've created. For more details, see the "IDE Setup" section below.
-
----
 
 ## 🐳 Docker Setup
 
@@ -135,25 +105,18 @@ docker-compose up
 
 For more advanced Docker usage, please refer to the `Dockerfile` and `docker-compose.yml` generated in your project.
 
----
-
 ## 🔗 Additional Dependencies
 
-> - Python 3.7 or higher is required.
-> - Jupyter Lab: If you are planning to use Jupyter notebooks.
-> - This template requires `cookiecutter>=2.0`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
-
+- Python 3.8 or higher is required.
+- Jupyter Lab: If you are planning to use Jupyter notebooks.
+- This template requires `cookiecutter>=2.0`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
 
 The automatically created `README.md` will contain notes on how to set up your local development environment.
 You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://www.jetbrains.com/pycharm/) or [Visual Studio Code](https://code.visualstudio.com/).
 
-Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
-
----
+Feedback and contributions are very welcome! Learn more in the [Contributing](#-contributing) section below.
 
 ## 🤔 Choices explained
-
-Unfortunately, cookiecutter does not allow us to show any description of the options in the setup dialogue (though this will change when [cookiecutter 2.0](https://github.com/cookiecutter/cookiecutter/projects/3) is released), so here's some more info on that:
 
 * `full_name [Jane Doe]`: enter your name here. It will be used in the Readme and the setup script.
 * `company_name []`: enter your company's name here. The default is to leave this blank.
@@ -183,8 +146,6 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
   - `vscode`: add config for [Visual Studio Code](https://code.visualstudio.com/)
   - `pycharm`: add config for [PyCharm](https://www.jetbrains.com/pycharm/)
   - `none`: no editor config / set it up by yourself
-
----
 
 ## 🌟 Features
 
@@ -216,8 +177,6 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
     * `.vscode`: Settings for VSCode. Sets *pytest* as default test framework and configures automatic code formatting if requested, among other things.
     * `.idea`: Settings for PyCharm. Marks `./src` as source folder, sets *pytest* as default test framework and *reStructuredText* as default docstring format.
 
----
-
 ## 🤝 Contributing
 
 Contributions to this project are very welcome. Please open a ticket on the [issues page](https://github.com/at-gmbh/at-python-template/issues) if you have found any bugs or if you have ideas for improvements. If you want to contribute code, we'd love to review your [pull request](https://github.com/at-gmbh/at-python-template/pulls)!
@@ -231,22 +190,10 @@ Hints for developers:
 * be careful with code formatters: Many files in this project contain [jinja2 templates](https://jinja.palletsprojects.com) (you'll find statements like `{% if cookiecutter.config_file == 'yaml' %}...{% endif %}` all over the place). These templates mean that the source code becomes syntactically incorrect and some formatters might do unexpected things.
 * you can make your life easier when updating templated files by using [cookiecutter-server](https://github.com/at-gmbh/cookiecutter-server) to get live previews of your templates
 * before your first commit, set up pre-commit hooks by running `pre-commit install`
----
+
 ## Other Templates
 
 You may find lots of other templates under the [cookiecutter-template](https://github.com/topics/cookiecutter-template) tag on GitHub. Some of the most popular templates (by Github Stars) can be found on [awesomeopensource.com](https://awesomeopensource.com/projects/cookiecutter). Other popular templates for data science are [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science) and the [pyscaffold dsproject](https://github.com/pyscaffold/pyscaffoldext-dsproject).
-
----
-## Contact
-
-* Sebastian Straub (sebastian.straub [at] alexanderthamm.com)
-* Steffen Bunzel (steffen.bunzel [at] alexanderthamm.com)
-* Hans Rauer (hans.rauer [at] neanderthal.com)
-* Simon Weiß (simon.weiss [at] alexanderthamm.com)
-* Honza Bílek (jan.bilek [at] alexanderthamm.com)
-* Christian Baur (christian.baur[at] alexanderthamm.com)
-
----
 
 ## License
 
