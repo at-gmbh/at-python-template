@@ -3,15 +3,16 @@ name = "at-python-template"
 version = "1.0.0"
 description = "This is the official Python Project Template of Alexander Thamm GmbH (AT)"
 authors = [
-    "Sebastian Straub (sebastian.straub [at] alexanderthamm.com)",
-    "Steffen Bunzel (steffen.bunzel [at] alexanderthamm.com)",
-    "Hans Rauer (hans.rauer [at] alexanderthamm.com)",
-    "Simon Weiß (simon.weiss [at] alexanderthamm.com)",
-    "Honza Bílek (jan.bilek [at] alexanderthamm.com)",
-    "Christian Baur (chrisitan.baur [at] alexanderthamm.com)"
+    "Sebastian Straub <sebastian.straub@alexanderthamm.com>",
+    "Steffen Bunzel <steffen.bunzel@alexanderthamm.com>",
+    "Hans Rauer <hans.rauer@alexanderthamm.com>",
+    "Simon Weiß <simon.weiss@alexanderthamm.com>",
+    "Honza Bílek <jan.bilek@alexanderthamm.com>",
+    "Christian Baur <chrisitan.baur@alexanderthamm.com>"
 ]
 license = "Apache License, Version 2.0"
 readme = "README.md"
+packages = [{ include = "{{cookiecutter.module_name}}", from = "{{cookiecutter.project_slug}}/src" }]
 
 [tool.poetry.dependencies]
 python = "^3.8"
