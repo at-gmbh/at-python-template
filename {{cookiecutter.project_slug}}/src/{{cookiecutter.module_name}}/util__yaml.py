@@ -28,7 +28,7 @@ def load_config(config_file: Union[str, Path]) -> Dict[str, Any]:
     :param config_file: path of the config file to load
     :return: the parsed config as dictionary
     """
-    with open(config_file, 'r') as fp:
+    with open(config_file) as fp:
         return yaml.safe_load(fp)
 
 
