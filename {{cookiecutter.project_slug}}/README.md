@@ -98,14 +98,13 @@ To build a distribution package (wheel), please use
 
     {% if cookiecutter.package_manager == 'poetry' %}poetry build{% else %}python setup.py bdist_wheel{% endif %}
 
-You will find your distribution package in the `dist` folder.
+You can find the build artifacts in the `dist` folder.
 
 ### Contributions
 
 Before contributing, please set up the pre-commit hooks to reduce errors and ensure consistency
 
     pip install -U pre-commit
-
     pre-commit install
 
 If you run into any issues, you can remove the hooks again with `pre-commit uninstall`.
