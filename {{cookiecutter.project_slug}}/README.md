@@ -96,9 +96,9 @@ Note that we mainly use notebooks for experiments, visualizations and reports. E
 
 To build a distribution package (wheel), please use
 
-    python setup.py bdist_wheel
+    {% if cookiecutter.package_manager == 'poetry' %}poetry build{% else %}python setup.py bdist_wheel{% endif %}
 
-this will clean up the build folder and then run the `bdist_wheel` command.
+You will find your distribution package in the `dist` folder.
 
 ### Contributions
 
