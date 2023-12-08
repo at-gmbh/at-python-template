@@ -24,15 +24,12 @@ finally:
 
 # handle possible issues & give proper return codes
 if b'Python 3.8 or higher' in stdout or b'successfully created' in stdout:
+    expect_fail_status = 'failed' if expect_fail else 'succeeded'
     if actual_fail == expect_fail:
-        print("Python {} {} as expected".format(
-            platform.python_version(),
-            "failed" if expect_fail else "succeeded"))
+        print(f"Python {platform.python_version()} {expect_fail_status} as expected")
     else:
-        print("Python {} should have {}, but actually {}".format(
-            platform.python_version(),
-            "failed" if expect_fail else "succeeded",
-            "failed" if actual_fail else "succeeded"))
+        print(f"{expect_fail_status} should have {expect_fail_status}, "
+              f"but actually {'failed' if actual_fail else 'succeeded'}")
         sys.exit(return_code)
 elif b'SyntaxError' in stderr:
     print("got a syntax error in pre_gen_project.py:\n" + str(stderr))
