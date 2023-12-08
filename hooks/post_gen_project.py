@@ -18,12 +18,14 @@ files_pip = {
     'requirements.txt',
     'requirements-dev.txt',
     'setup.py',
+    'tests/pytest.ini',
 }
 
 files_conda = {
     'environment.yml',
     'environment-dev.yml',
     'setup.py',
+    'tests/pytest.ini',
 }
 
 files_poetry = {
@@ -164,6 +166,7 @@ def handle_editor_settings():
     else:
         print(f"Error: unsupported editor {editor_settings}")
         sys.exit(1)
+
 
 def handle_ci():
     ci_pipeline = '{{ cookiecutter.ci_pipeline }}'
