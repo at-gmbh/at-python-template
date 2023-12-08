@@ -17,7 +17,7 @@ This will install or update cookiecutter on your system and create a new project
 
 > This template requires `cookiecutter>=1.7.2`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
 
-![image](docs/terminalizer_template_setup.gif "Setup a professional python project in seconds")
+[![asciicast](https://asciinema.org/a/625875.svg)](https://asciinema.org/a/625876?speed=2.5&i=10)
 
 The automatically created `README.md` will contain notes on how to set up your local development environment.
 You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://www.jetbrains.com/pycharm/) or [Visual Studio Code](https://code.visualstudio.com/) in the [Wiki](https://github.com/at-gmbh/at-python-template/wiki).
