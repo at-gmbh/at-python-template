@@ -29,7 +29,7 @@ if b'Python 3.8 or higher' in stdout or b'successfully created' in stdout:
         print(f"Python {platform.python_version()} {status[expect_fail]} as expected")
     else:
         print(
-            f"{platform.python_version()} should have {status[expect_fail]},",
+            f"Python {platform.python_version()} should have {status[expect_fail]},",
             f"but actually {status[actual_fail]}",
         )
         sys.exit(return_code)
