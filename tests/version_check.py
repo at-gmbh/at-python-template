@@ -14,7 +14,7 @@ temp_dir = tempfile.mkdtemp()
 return_code = 1
 try:
     p = subprocess.Popen(
-        [sys.executable, '-m', 'cookiecutter', '--no-input', '-o', '"' + temp_dir + '"', '.'],
+        [sys.executable, '-m', 'cookiecutter', '--no-input', '-o', f'"{temp_dir}"', '.'],
         cwd=root, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p.communicate()
     return_code = p.returncode
@@ -24,21 +24,20 @@ finally:
 
 # handle possible issues & give proper return codes
 if b'Python 3.8 or higher' in stdout or b'successfully created' in stdout:
+    status = {True: "failed", False: "succeded"}
     if actual_fail == expect_fail:
-        print("Python {} {} as expected".format(
-            platform.python_version(),
-            "failed" if expect_fail else "succeeded"))
+        print(f"Python {platform.python_version()} {status[expect_fail]} as expected")
     else:
-        print("Python {} should have {}, but actually {}".format(
-            platform.python_version(),
-            "failed" if expect_fail else "succeeded",
-            "failed" if actual_fail else "succeeded"))
+        print(
+            f"Python {platform.python_version()} should have {status[expect_fail]},",
+            f"but actually {status[actual_fail]}",
+        )
         sys.exit(return_code)
 elif b'SyntaxError' in stderr:
-    print("got a syntax error in pre_gen_project.py:\n" + str(stderr))
+    print(f"got a syntax error in pre_gen_project.py:\n{stderr}")
     sys.exit(return_code)
 else:
-    print("unexpected error, code" + str(return_code))
-    print("stderr:" + str(stderr))
-    print("stdout:" + str(stdout))
+    print(f"unexpected error, code {return_code}")
+    print(f"stderr: {stderr}")
+    print(f"stdout: {stdout}")
     sys.exit(return_code)
