@@ -2,14 +2,11 @@ import logging
 
 import typer
 
-from {{ cookiecutter.module_name }} import __title__ , __version__{% if cookiecutter.config_file != 'none' %}, util{% endif %}
+from {{ cookiecutter.module_name }} import __title__, __version__{% if cookiecutter.config_file != 'none' %}, util{% endif %}
 
 logger = logging.getLogger('{{ cookiecutter.module_name }}')
 
-app = typer.Typer(
-    name='{{ cookiecutter.module_name }}',
-    help="{{ cookiecutter.project_short_description }}"
-)
+app = typer.Typer(name='{{ cookiecutter.module_name }}')
 
 
 def version_callback(version: bool):
@@ -25,8 +22,6 @@ ConfigOption = typer.Option(
     metavar='PATH',
     help="path to the program configuration"
 )
-
-
 VersionOption = typer.Option(
     None,
     '-v',
@@ -40,11 +35,13 @@ VersionOption = typer.Option(
 @app.command()
 def main(config_file: str = ConfigOption, version: bool = VersionOption):
     """
-    This is the entry point of your command line application. The values of the CLI params that
-    are passed to this application will show up als parameters to this function.
+    {{ cookiecutter.project_short_description }}
 
+    Note: This is the entry point of your command line application. The values of the CLI params
+    that are passed to this application will show up als parameters to this function.
     This docstring is where you describe what your command line application does.
-    Try running `python -m {{ cookiecutter.module_name }} --help` to see how this shows up in the command line.
+    Try running `python -m {{ cookiecutter.module_name }} --help` to see how this shows up in the
+    command line.
     """
     {% if cookiecutter.config_file != 'none' %}config = util.load_config(config_file)
     util.logging_setup(config){% endif %}

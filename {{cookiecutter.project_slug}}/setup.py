@@ -1,8 +1,4 @@
 import os
-import shutil
-import subprocess
-import sys
-from distutils.cmd import Command
 from runpy import run_path
 
 from setuptools import find_packages, setup

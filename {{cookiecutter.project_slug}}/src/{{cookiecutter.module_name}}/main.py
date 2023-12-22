@@ -1,4 +1,3 @@
-
 def main():
     # TODO your journey starts here
     print("hello :)")

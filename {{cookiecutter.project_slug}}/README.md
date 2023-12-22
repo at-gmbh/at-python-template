@@ -96,16 +96,15 @@ Note that we mainly use notebooks for experiments, visualizations and reports. E
 
 To build a distribution package (wheel), please use
 
-    python setup.py bdist_wheel
+    {% if cookiecutter.package_manager == 'poetry' %}poetry build{% else %}python setup.py bdist_wheel{% endif %}
 
-this will clean up the build folder and then run the `bdist_wheel` command.
+You can find the build artifacts in the `dist` folder.
 
 ### Contributions
 
 Before contributing, please set up the pre-commit hooks to reduce errors and ensure consistency
 
     pip install -U pre-commit
-
     pre-commit install
 
 If you run into any issues, you can remove the hooks again with `pre-commit uninstall`.
