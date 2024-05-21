@@ -49,7 +49,7 @@ build-wheel:
       - dist/{{ cookiecutter.module_name }}-*.whl
     expire_in: 6 mos
   script:
-    - python setup.py dist{%- endif %}
+    - python setup.py bdist_wheel{%- endif %}
 
 {% if cookiecutter.package_manager == 'poetry' -%}
 test-unit:
