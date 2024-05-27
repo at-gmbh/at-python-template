@@ -26,7 +26,7 @@ with warnings.catch_warnings():
         sys.exit(1)
     # check cookiecutter version (1.7.2 or higher)
     if StrictVersion(cookiecutter.__version__) < StrictVersion('1.7.2'):
-        print(f"ERROR: You are using cookiecutter {cookiecutter.__version__}" 
+        print(f"ERROR: You are using cookiecutter {cookiecutter.__version__}"
               "but cookiecutter 1.7.2 or higher is required to use this template")
         sys.exit(1)
 

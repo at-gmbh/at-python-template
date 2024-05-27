@@ -19,6 +19,7 @@ files_pip = {
     'requirements-dev.txt',
     'setup.py',
     'tests/pytest.ini',
+    '.ruff.toml'
 }
 
 files_conda = {
@@ -26,6 +27,7 @@ files_conda = {
     'environment-dev.yml',
     'setup.py',
     'tests/pytest.ini',
+    '.ruff.toml'
 }
 
 files_poetry = {

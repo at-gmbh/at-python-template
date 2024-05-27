@@ -1,0 +1,28 @@
+# Ruff configuration file
+target-version = "py311"
+line-length = 100
+exclude = ["__init__.py"]
+extend-exclude = ["notebooks/*"]
+
+[lint]
+select = [
+    "E",  # Pycodestyle errors
+    "F",  # Pyflakes errors
+    "UP", # pyupgrade checks
+    "B",  # Bugbear checks
+    "SIM",# Similarity checks
+    "I",  # Import order checks (isort)
+    "N"   # Naming convention checks
+]
+task-tags = ["TODO", "FIXME", "NOTE"]
+
+[lint.isort]
+known-first-party = ["{{ cookiecutter.project_slug }}"]
+
+[lint.pycodestyle]
+max-line-length = 100
+
+[lint.flake8-quotes]
+inline-quotes = "double"
+multiline-quotes = "double"
+docstring-quotes = "double"
