@@ -147,7 +147,7 @@ def handle_config():
 
 def handle_formatter():
     code_formatter = '{{ cookiecutter.code_formatter }}'
-    if code_formatter in ['none', 'black']:
+    if code_formatter in ['none', 'black', 'ruff']:
         # no action necessary
         pass
     else:
