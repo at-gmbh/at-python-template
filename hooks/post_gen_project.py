@@ -19,6 +19,7 @@ files_pip = {
     'requirements-dev.txt',
     'setup.py',
     'tests/pytest.ini',
+    '.ruff.toml'
 }
 
 files_conda = {
@@ -26,6 +27,7 @@ files_conda = {
     'environment-dev.yml',
     'setup.py',
     'tests/pytest.ini',
+    '.ruff.toml'
 }
 
 files_poetry = {
@@ -145,7 +147,7 @@ def handle_config():
 
 def handle_formatter():
     code_formatter = '{{ cookiecutter.code_formatter }}'
-    if code_formatter in ['none', 'black']:
+    if code_formatter in ['none', 'black', 'ruff']:
         # no action necessary
         pass
     else:
