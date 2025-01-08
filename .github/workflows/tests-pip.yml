@@ -31,23 +31,22 @@ jobs:
         pytest tests
 
   version-check:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6]
-        os: [ubuntu-20.04]
+        python-version: [ 3.9,  3.11 ]
     name: "Version Check: Python ${{ matrix.python-version }}"
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Cookiecutter
-      run: |
-        python -m pip install --upgrade pip
-        pip install cookiecutter~=1.7.2
-    - name: Run Version Check
-      run: |
-        python tests/version_check.py --fail
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Cookiecutter and dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install cookiecutter packaging
+      - name: Run Version Check
+        run: |
+          python tests/version_check.py --fail
