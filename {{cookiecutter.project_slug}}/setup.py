@@ -31,5 +31,5 @@ setup(
         'pre-commit',
     ],
     platforms='any',
-    python_requires='>=3.8',
+    python_requires='>=3.9',
 )
