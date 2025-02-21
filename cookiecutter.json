@@ -6,7 +6,7 @@
   "project_slug": "{{ cookiecutter.project_name | slugify }}",
   "module_name": "{{ cookiecutter.project_slug | slugify | replace('-', '_') }}",
   "project_short_description": "A short summary of the project",
-  "package_manager": ["conda", "pip", "poetry"],
+  "package_manager": ["conda", "pip", "poetry", "uv"],
   "use_notebooks": ["no", "yes"],
   "use_docker": ["no", "yes"],
   "ci_pipeline": ["none", "gitlab"],
@@ -26,7 +26,8 @@
       "__prompt__": "Which [bold yellow]packaging tool[/] would you like to use?",
       "conda": "conda (environment.yml)",
       "pip": "pip (setup.py)",
-      "poetry": "poetry (pyproject.toml)"
+      "poetry": "poetry (pyproject.toml)",
+      "uv": "uv (uv.toml)"
     },
     "use_notebooks": {
       "__prompt__": "Do you want to include [bold yellow]Jupyter Notebooks[/] in your project?",

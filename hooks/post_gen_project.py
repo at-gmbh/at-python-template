@@ -199,13 +199,16 @@ def _rename_files(file_pattern, old, new):
 
 
 def _delete_files(files: Iterable[str], exclude: Optional[str] = None):
-    try:
-        for file in files:
-            if file != exclude:
+    for file in files:
+        if file != exclude:
+            try:
                 os.remove(file)
-    except OSError as e:
-        print(f"Error: failed to remove files - {e}")
-        sys.exit(1)
+            except FileNotFoundError:
+                # File does not exist; that's fine.
+                continue
+            except OSError as e:
+                print(f"Error: failed to remove file '{file}' - {e}")
+                sys.exit(1)
 
 
 def _delete_folders(folders: Iterable[str], exclude: Optional[str] = None):

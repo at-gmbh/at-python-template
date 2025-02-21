@@ -1,0 +1,22 @@
+ARG PYTHON_VERSION=3.11
+FROM python:${PYTHON_VERSION}-bullseye
+LABEL maintainer="{{ cookiecutter.company_name if cookiecutter.company_name else cookiecutter.full_name }}"
+
+# Install uv package manager
+RUN pip install uv
+
+WORKDIR /app
+
+# Copy uv configuration files (uv.toml and optional uv.lock if present)
+COPY uv.toml uv.lock* ./
+
+# Install project dependencies using uv
+RUN uv install --no-interaction && uv cache clear
+
+# Copy the project source code
+COPY ./src /app/src
+
+# Install the project package (similar to installing only the root package)
+RUN uv install --only-root
+
+ENTRYPOINT ["python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
