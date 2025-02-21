@@ -11,5 +11,6 @@
   "dependencyDashboard": true,
   "pre-commit": {
     "enabled": true
-  }
+  },
+  "branchPrefix": "feature/renovate-configuration/"
 }
