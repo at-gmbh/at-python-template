@@ -22,7 +22,7 @@ pytest = "^7.4"
 pytest-mock = "^3.12"
 pyhocon = "^0.3.60"
 pyyaml = "^6.0"
-typer = "^0.9"
+typer = "^0.15.0"
 
 [build-system]
 requires = ["poetry-core"]
