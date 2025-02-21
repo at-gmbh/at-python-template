@@ -1,12 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabled": false,
+  "enabled": true,
   "labels": [
     "renovate",
     "dependencies"
   ],
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
   "dependencyDashboard": true,
   "pre-commit": {
