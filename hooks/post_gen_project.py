@@ -14,7 +14,7 @@ from typing import Iterable, Optional
 module_dir = 'src/{{ cookiecutter.module_name }}'
 
 files_uv = {
-    'uv.toml',
+    'pyproject.toml',
 }
 files_pip = {
     'requirements.txt',
@@ -199,16 +199,13 @@ def _rename_files(file_pattern, old, new):
 
 
 def _delete_files(files: Iterable[str], exclude: Optional[str] = None):
-    for file in files:
-        if file != exclude:
-            try:
+    try:
+        for file in files:
+            if file != exclude:
                 os.remove(file)
-            except FileNotFoundError:
-                # File does not exist; that's fine.
-                continue
-            except OSError as e:
-                print(f"Error: failed to remove file '{file}' - {e}")
-                sys.exit(1)
+    except OSError as e:
+        print(f"Error: failed to remove files - {e}")
+        sys.exit(1)
 
 
 def _delete_folders(folders: Iterable[str], exclude: Optional[str] = None):
