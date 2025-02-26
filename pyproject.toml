@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "at-python-template"
-version = "1.0.0"
+version = "1.0.1"
 description = "This is the official Python Project Template of Alexander Thamm GmbH (AT)"
 authors = [
     "Sebastian Straub <sebastian.straub@alexanderthamm.com>",
