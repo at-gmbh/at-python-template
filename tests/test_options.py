@@ -116,11 +116,13 @@ def test_formatter_black_pip():
 def test_formatter_black_conda():
     def check_black(project_dir: Path):
         assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='psf/black')
-        assert_file_contains(project_dir / 'environment-dev.yml', contains='black=')
+        assert_file_contains(project_dir / 'environment-dev.yml', contains='pip:')
+        assert_file_contains(project_dir / 'environment-dev.yml', contains='black>=')
 
     check_project(
         settings={'code_formatter': 'black', 'package_manager': 'conda'},
         fun=check_black)
+
 
 
 def test_formatter_black_poetry():
