@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
 ### Added
+- Placeholder for future updates and new features.
 
 ## [1.1.0] - 2025-02-26
 
@@ -35,6 +37,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed test since `black` is installed by pip, and updated the test to check for the correct version format (`>=`).
 - Fixed coverage reporting integration in GitHub Actions.
+
+## [1.0.1] - 2025-02-26
+
+### Fixed
+- **Conda package caching in GitLab CI:** Updated caching paths in `{{ cookiecutter.project_slug }}/.gitlab-ci.yml` to include the new `.conda` file format and additional cache directories. The updated paths now cache:
+  - `$PIP_CACHE_DIR`
+  - `$CONDA_PKGS_DIRS/*.conda`
+  - `$CONDA_PKGS_DIRS/*.tar.bz2`
+  - `$CONDA_PKGS_DIRS/urls*`
+  - `$CONDA_PKGS_DIRS/cache`
+
+  This change ensures that all relevant Conda packages and related metadata are properly cached, addressing issues with the previous configuration ([Conda docs](https://conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html#force-conda-to-download-only-tar-bz2-packages-use-only-tar-bz2), [Damiankula’s guide](https://damiankula.com/using_conda_cache_in_gitlabci.html)). cc @ChrsBaur
 
 ## [1.0.0] - 2025-02-26
 
