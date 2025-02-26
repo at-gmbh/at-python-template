@@ -48,8 +48,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install --no-interaction --with dev
+          poetry install --no-interaction --no-root
 
-      - name: Run tests with coverage
+      - name: Test with pytest
         run: |
-          poetry run pytest tests --import-mode=importlib --cov=tests --cov-report=term-missing --cov-report=xml
+          poetry run pytest tests
