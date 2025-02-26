@@ -18,7 +18,7 @@ jobs:
     name: "Test: Python ${{ matrix.python-version }}, conda, ${{ matrix.os }}"
     steps:
     - uses: actions/checkout@v3
-    - uses: conda-incubator/setup-miniconda@v2
+    - uses: conda-incubator/setup-miniconda@v3
       with:
         auto-activate-base: false
         python-version: ${{ matrix.python-version }}
