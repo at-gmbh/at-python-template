@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
 
 ## [1.1.0] - 2025-02-26
 
@@ -27,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Made use of Python 3.9 and newer versions in `pyproject.toml`.
 - Upgraded dependencies in `pyproject.toml` to ensure the project uses the latest versions.
 - Updated and aligned `environment-dev.yml` and `environment.yml` with `pyproject.toml` for consistency.
-- Updated versions of GitLab CI YAML files.
+- Updated versions of GitLab CI python and poetry versions.
 - Fixed pre-commit hook for `black` installation via pip with the correct version constraint (`>=`).
 
 ### Fixed
