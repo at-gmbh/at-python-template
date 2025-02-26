@@ -6,6 +6,6 @@ services:
     build:
       context: .{% if cookiecutter.package_manager != 'poetry' %}
       args:
-        PYTHON_IMAGE_TAG: {% if cookiecutter.package_manager == 'conda' %}"4.8.2"{% else %}"3.7-stretch"{% endif %}{% endif %}
+        PYTHON_IMAGE_TAG: {% if cookiecutter.package_manager == 'conda' %}"4.8.2"{% else %}"3.8-stretch"{% endif %}{% endif %}
     command: '{% if cookiecutter.create_cli == 'yes' %}--help{% endif %}'
     tty: true

@@ -1,32 +1,122 @@
 # AT Python Template
 
 [![build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
-![Python Version](https://img.shields.io/badge/python-3.7%20--%203.11-blue)
+![Python Version](https://img.shields.io/badge/python-3.8%20--%203.11-blue)
 [![License](https://img.shields.io/github/license/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/blob/master/LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/at-gmbh/at-python-template?style=social)
 
 This is the official Python Project Template of Alexander Thamm GmbH (AT). It is built with [cookiecutter](https://cookiecutter.readthedocs.io/) and inspired by [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science). It is designed to bridge the gap between exploratory work and production-ready projects. The goal is to be able to quickly bootstrap a Python project that provides lots of useful stuff to build, test & deploy your code without being overly convoluted like many of the publicly available packages.
 
-## Getting Started
+This guide aims to help you set up your environment and get coding in no time.
 
-1. [`conda install -c conda-forge "cookiecutter>=1.7.2"`](https://anaconda.org/conda-forge/cookiecutter) or [`pip install -U "cookiecutter>=1.7.2"`](https://pypi.org/project/cookiecutter/)
-2. `cookiecutter https://github.com/at-gmbh/at-python-template`
-3. profit!
+## 🛠 Prerequisites
 
-This will install or update cookiecutter on your system and create a new project in the current folder using the AT Python Template. Please note: Python 3.7 or higher is required.
+Before you dive in, make sure you have Python 3.8 or higher installed on your machine. To check if Python is installed, open a terminal and run:
 
-> This template requires `cookiecutter>=1.7.2`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
+```
+python --version
+```
+
+If Python is installed correctly, you'll see the version number. Otherwise, you'll need to [install Python](https://www.python.org/downloads/).
+
+## 🚀 Getting Started
+
+### Step 1: Install `cookiecutter`
+
+Make sure you have version 2.0 or higher of `cookiecutter`.
+
+#### Via Conda 🐍
+
+```
+conda install -c conda-forge "cookiecutter>=2.0"
+```
+
+#### Via Pip 📦
+
+```
+pip install -U "cookiecutter>=2.0"
+```
+
+### Step 2: Generate Your Project
+
+Run the following command to generate your project structure.
+
+```
+cookiecutter https://github.com/at-gmbh/at-python-template
+```
+After running this command, you will be asked questions like the video below is showing. In the section [Choices explained](#-choices-explained) you can find more information on each item.
 
 ![image](docs/terminalizer_template_setup.gif "Setup a professional python project in seconds")
 
+### Step 3: Navigate to Your Project
+
+Change your directory to the newly created project.
+
+```
+cd your_project_name
+```
+
+### Step 4: Install Your Project Locally
+
+Via pip:
+
+```
+pip install -e .
+```
+
+For other package managers like `poetry` or `conda`, adapt accordingly.
+
+## 📓 Jupyter Notebook Setup
+
+If you're planning to use Jupyter Notebooks, you'll need to install Jupyter Lab.
+#### Via Conda 🐍
+
+```
+conda install -c conda-forge jupyterlab
+```
+
+#### Via Pip 📦
+
+```
+pip install jupyterlab
+```
+
+## 🐳 Docker Setup
+
+If you've chosen to use Docker, here's how to build and run your project:
+
+### Build your Docker image
+
+```
+docker build -t your-image-name .
+```
+
+### Run your Docker container
+
+```
+docker run your-image-name
+```
+
+### Using docker-compose
+
+```
+docker-compose up
+```
+
+For more advanced Docker usage, please refer to the `Dockerfile` and `docker-compose.yml` generated in your project.
+
+## 🔗 Additional Dependencies
+
+- Python 3.8 or higher is required.
+- Jupyter Lab: If you are planning to use Jupyter notebooks.
+- This template requires `cookiecutter>=2.0`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
+
 The automatically created `README.md` will contain notes on how to set up your local development environment.
-You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://www.jetbrains.com/pycharm/) or [Visual Studio Code](https://code.visualstudio.com/) in the [Wiki](https://github.com/at-gmbh/at-python-template/wiki).
+You can find more detailed guidelines on how to set up your local development environment in [PyCharm](https://www.jetbrains.com/pycharm/) or [Visual Studio Code](https://code.visualstudio.com/).
 
-Feedback and contributions are very welcome! Learn more in the [Contributing](#contributing) section below.
+Feedback and contributions are very welcome! Learn more in the [Contributing](#-contributing) section below.
 
-## Choices Explained
-
-Unfortunately, cookiecutter does not allow us to show any description of the options in the setup dialogue (though this will change when [cookiecutter 2.0](https://github.com/cookiecutter/cookiecutter/projects/3) is released), so here's some more info on that:
+## 🤔 Choices explained
 
 * `full_name [Jane Doe]`: enter your name here. It will be used in the Readme and the setup script.
 * `company_name []`: enter your company's name here. The default is to leave this blank.
@@ -57,7 +147,7 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
   - `pycharm`: add config for [PyCharm](https://www.jetbrains.com/pycharm/)
   - `none`: no editor config / set it up by yourself
 
-## Features
+## 🌟 Features
 
 * `README.md`: arguably *the* most important file of your project. It's the first thing anyone will see who looks at your project. Write it so that someone who doesn't know anything about your project can build the code, run tests and start working on the code after reading this document. Check out [makeareadme.com](https://www.makeareadme.com/) to learn about best practices and have a look at [awesome-readme](https://github.com/matiassingers/awesome-readme) for examples of awesome readme files.
 * Code structure
@@ -87,11 +177,11 @@ Unfortunately, cookiecutter does not allow us to show any description of the opt
     * `.vscode`: Settings for VSCode. Sets *pytest* as default test framework and configures automatic code formatting if requested, among other things.
     * `.idea`: Settings for PyCharm. Marks `./src` as source folder, sets *pytest* as default test framework and *reStructuredText* as default docstring format.
 
-## Contributing
+## 🤝 Contributing
 
 Contributions to this project are very welcome. Please open a ticket on the [issues page](https://github.com/at-gmbh/at-python-template/issues) if you have found any bugs or if you have ideas for improvements. If you want to contribute code, we'd love to review your [pull request](https://github.com/at-gmbh/at-python-template/pulls)!
 
-This Readme file contains our technical documentation, a user guide can be found in [Confluence](https://confluence.alexanderthamm.com/display/ATTECH/AT+Python+Template) and our Teams channel is [AT Technology/Python App Template](https://teams.microsoft.com/l/channel/19%3a06682501e815404d8541955a5aa0b1e6%40thread.tacv2/Python%2520App%2520Template?groupId=059c34cf-8abc-4cd5-882d-aee15d8a5858&tenantId=44d8cd30-12b4-46ab-82b4-56bec7d7a555). Please don't hesitate to contact one of the persons listed at the end of this document to get started. Confluence and Teams can only be accessed by AT employees; however, you're very welcome to discuss issues, submit PRs and contact the developers by mail (see below) if you're not an AT employee.
+This Readme file contains our technical documentation, a user guide can be found in [Confluence](https://confluence.alexanderthamm.com/display/ATTECH/AT+Python+Template). Please don't hesitate to contact one of the persons listed at the end of this document to get started. Confluence and Teams can only be accessed by AT employees; however, you're very welcome to discuss issues, submit PRs and contact the developers by mail (see below) if you're not an AT employee.
 
 Hints for developers:
 
@@ -104,14 +194,6 @@ Hints for developers:
 ## Other Templates
 
 You may find lots of other templates under the [cookiecutter-template](https://github.com/topics/cookiecutter-template) tag on GitHub. Some of the most popular templates (by Github Stars) can be found on [awesomeopensource.com](https://awesomeopensource.com/projects/cookiecutter). Other popular templates for data science are [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science) and the [pyscaffold dsproject](https://github.com/pyscaffold/pyscaffoldext-dsproject).
-
-## Contact
-
-* Sebastian Straub (sebastian.straub [at] alexanderthamm.com)
-* Steffen Bunzel (steffen.bunzel [at] alexanderthamm.com)
-* Hans Rauer (hans.rauer [at] alexanderthamm.com)
-* Simon Weiß (simon.weiss [at] alexanderthamm.com)
-* Honza Bílek (jan.bilek [at] alexanderthamm.com)
 
 ## License
 
