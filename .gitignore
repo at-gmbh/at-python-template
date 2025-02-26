@@ -55,18 +55,21 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# pyenv
+.python-version
+
 # virtualenv
 .env
 .venv
 venv*/
 
+# OS specific
+.DS_Store
+
 # IDE settings
 .vscode/
 .idea/
 *.iws
-
-# Pyenv
-.python-version
 
 # project-specific stuff
 serve/
