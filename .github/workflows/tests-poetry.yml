@@ -50,6 +50,19 @@ jobs:
         run: |
           poetry install --no-interaction --no-root
 
-      - name: Test with pytest
+      - name: Run tests with coverage
         run: |
-          poetry run pytest tests
+          poetry run pytest --cov=src --cov-report=term-missing --cov-report=xml > coverage.txt
+
+      - name: Display Coverage in GitHub Actions Summary
+        run: |
+          echo "### Test Coverage Report 📊" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat coverage.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Store coverage report (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
