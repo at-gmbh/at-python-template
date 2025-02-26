@@ -27,7 +27,3 @@ typer = "^0.15.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.virtualenvs]
-create = true
-in-project = true

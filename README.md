@@ -1,7 +1,7 @@
 # AT Python Template
 
 [![build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
-![Python Version](https://img.shields.io/badge/python-3.8%20--%203.11-blue)
+![Python Version](https://img.shields.io/badge/python-3.9%20--%203.13-blue)
 [![License](https://img.shields.io/github/license/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/blob/master/LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/at-gmbh/at-python-template?style=social)
 
@@ -107,7 +107,7 @@ For more advanced Docker usage, please refer to the `Dockerfile` and `docker-com
 
 ## 🔗 Additional Dependencies
 
-- Python 3.8 or higher is required.
+- Python 3.9 or higher is required.
 - Jupyter Lab: If you are planning to use Jupyter notebooks.
 - This template requires `cookiecutter>=2.0`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
 
