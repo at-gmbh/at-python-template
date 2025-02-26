@@ -7,8 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-02-26
+
 ### Added
-- Placeholder for future updates and new features.
+
+- Adjusted Python version to be at least 3.9 in `pyproject.toml` and `environment-dev.yml`.
+- Adjusted GitHub Actions to only use `poetry` for dependency management.
+- Refactored utility code by replacing `pkg_resources` with `importlib.resources`.
+- Added support for `pytest-cov` v6.
+- Added test coverage reporting to the GitHub Actions pipeline.
+- Updated Conda Docker tag to `v24` in `Dockerfile`.
+- Updated `actions/checkout` GitHub action to v4.
+- Updated pre-commit hooks, including:
+  - `pycqa/isort` to v5.13.2.
+  - `pre-commit/pre-commit-hooks` to v4.6.0.
+  - `astral-sh/ruff-pre-commit` to v0.9.7.
+  - `asottile/pyupgrade` to v3.19.1.
+- Updated `requirements.txt` in the cookiecutter project.
+- Made use of Python 3.9 and newer versions in `pyproject.toml`.
+- Upgraded dependencies in `pyproject.toml` to ensure the project uses the latest versions.
+- Updated and aligned `environment-dev.yml` and `environment.yml` with `pyproject.toml` for consistency.
+- Updated versions of GitLab CI YAML files.
+- Fixed pre-commit hook for `black` installation via pip with the correct version constraint (`>=`).
+
+### Fixed
+
+- Fixed test since `black` is installed by pip, and updated the test to check for the correct version format (`>=`).
+- Fixed coverage reporting integration in GitHub Actions.
 
 ## [1.0.0] - 2025-02-26
 

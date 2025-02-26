@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "at-python-template"
-version = "1.0.0"
+version = "1.1.0"
 description = "This is the official Python Project Template of Alexander Thamm GmbH (AT)"
 authors = [
     "Sebastian Straub <sebastian.straub@alexanderthamm.com>",
@@ -17,8 +17,7 @@ packages = [{ include = "{{cookiecutter.module_name}}", from = "{{cookiecutter.p
 [tool.poetry.dependencies]
 python = "^3.9"
 cookiecutter = "^2.3"
-pre-commit = "3.5"
-pytest = "^8.0.0"
+pre-commit = "^4.1.0"
 pytest-mock = "^3.12"
 pyhocon = "^0.3.60"
 pyyaml = "^6.0"
@@ -26,6 +25,7 @@ typer = "^0.15.0"
 setuptools = "^75.8.1"
 
 [tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
 pytest-cov = "^6.0.0"
 
 [build-system]
