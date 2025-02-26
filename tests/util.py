@@ -40,10 +40,10 @@ def list_files(base_dir, indent=4):
     for base, dirs, files in os.walk(base_dir):
         level = len(Path(base).relative_to(base_dir).parents)
         space = ' ' * indent * level
-        print('{}{}/'.format(space, os.path.basename(base)))
+        print(f'{space}{os.path.basename(base)}/')
         space_sub = ' ' * indent * (level + 1)
         for f in files:
-            print('{}{}'.format(space_sub, f))
+            print(f'{space_sub}{f}')
 
 
 def check_project(

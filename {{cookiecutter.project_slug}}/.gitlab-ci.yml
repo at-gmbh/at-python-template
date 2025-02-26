@@ -16,7 +16,7 @@ variables:
   {%- if cookiecutter.package_manager == 'conda' %}
   CONDA_PKGS_DIRS: $CI_PROJECT_DIR/.cache/conda
   {%- elif cookiecutter.package_manager == 'poetry' %}
-  POETRY_VERSION: 1.0.5
+  POETRY_VERSION: 1.7.1
   POETRY_CACHE_DIR: $CI_PROJECT_DIR/.cache/poetry
   {%- endif %}
 
@@ -30,7 +30,7 @@ stages:
 
 {% if cookiecutter.package_manager == 'poetry' -%}
 build-wheel:
-  image: python:3-slim
+  image: python:3.11
   stage: build
   artifacts:
     name: 'app-wheel'
@@ -39,9 +39,9 @@ build-wheel:
     expire_in: 6 mos
   script:
     - pip install poetry==$POETRY_VERSION
-    - poetry build -f wheel {% else -%}
+    - poetry build -f wheel{% else -%}
 build-wheel:
-  image: python:3-slim
+  image: python:3.11
   stage: build
   artifacts:
     name: 'app-wheel'
@@ -49,25 +49,31 @@ build-wheel:
       - dist/{{ cookiecutter.module_name }}-*.whl
     expire_in: 6 mos
   script:
-    - python setup.py dist {%- endif %}
+    - python setup.py bdist_wheel{%- endif %}
 
 {% if cookiecutter.package_manager == 'poetry' -%}
 test-unit:
   stage: test
-  image: python:3-slim
+  image: python:3.11
   cache:
     key:
       files:
-        - pyproject.toml
+        - poetry.lock
     paths:
       - $PIP_CACHE_DIR
       - $POETRY_CACHE_DIR
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
   before_script:
     - pip install poetry==$POETRY_VERSION
-    - poetry install --no-root
+    - poetry install --only=main,test
     - source `poetry env info --path`/bin/activate
   script:
-    - pytest tests {% elif cookiecutter.package_manager == 'conda' -%}
+    - pytest tests --cov src --cov-report=term --cov-report xml:coverage.xml{% elif cookiecutter.package_manager == 'conda' -%}
 test-unit:
   stage: test
   image: continuumio/miniconda3
@@ -86,10 +92,10 @@ test-unit:
     - source activate .venv
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
-    - pytest tests {% elif cookiecutter.package_manager == 'pip' -%}
+    - pytest tests{% elif cookiecutter.package_manager == 'pip' -%}
 test-unit:
   stage: test
-  image: python:3-slim
+  image: python:3.11
   cache:
     key:
       files:
@@ -103,7 +109,7 @@ test-unit:
     - pip install -r requirements.txt -r requirements-dev.txt
     - pip install dist/{{ cookiecutter.module_name }}-*.whl
   script:
-    - pytest tests {%- endif %}
+    - pytest tests{%- endif %}
 
 # Nonprod deployments
 

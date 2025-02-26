@@ -2,7 +2,7 @@ import logging
 
 import typer
 
-from {{ cookiecutter.module_name }} import __title__ , __version__{% if cookiecutter.config_file != 'none' %}, util{% endif %}
+from {{ cookiecutter.module_name }} import __title__, __version__{% if cookiecutter.config_file != 'none' %}, util{% endif %}
 
 logger = logging.getLogger('{{ cookiecutter.module_name }}')
 
@@ -43,8 +43,10 @@ def main(config_file: str = ConfigOption, version: bool = VersionOption):
     This is the entry point of your command line application. The values of the CLI params that
     are passed to this application will show up als parameters to this function.
 
+    Note: This is the entry point of your command line application. The values of the CLI params
     This docstring is where you describe what your command line application does.
-    Try running `python -m {{ cookiecutter.module_name }} --help` to see how this shows up in the command line.
+    Try running `python -m {{ cookiecutter.module_name }} --help` to see how this shows up in the
+    command line.
     """
     {% if cookiecutter.config_file != 'none' %}config = util.load_config(config_file)
     util.logging_setup(config){% endif %}
