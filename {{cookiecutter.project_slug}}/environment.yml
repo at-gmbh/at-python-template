@@ -1,12 +1,15 @@
 # This file defines the requirements for a productive project deployment.
-# It should not contain dependencies for tests, developer tools, etc. (see environment-dev.yml)
+# It should not contain dependencies for tests, developer tools, etc.
+# For development-related dependencies, refer to environment-dev.yml.
+
 channels:
   - conda-forge
   - defaults
+
 dependencies:
-  - python=3.10.*{% if cookiecutter.config_file == 'hocon' %}
-  - pyhocon=0.3.*{% elif cookiecutter.config_file == 'yaml' %}
-  - PyYAML=6.*{% endif %}{% if cookiecutter.create_cli == 'yes' %}
-  - pip
+  - python>=3.9{% if cookiecutter.config_file == 'hocon' %}
+  - pyhocon>=0.3.61{% elif cookiecutter.config_file == 'yaml' %}
+  - PyYAML>=6.0.2{% endif %}
+  - pip  {% if cookiecutter.create_cli == 'yes' %}
   - pip:
-      - typer~=0.7.0{% endif %}
+      - typer==0.15.1{% endif %}
