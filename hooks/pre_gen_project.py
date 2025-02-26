@@ -11,7 +11,7 @@ we need to avoid modern syntax features in this file, like f-strings and type hi
 import platform
 import re
 import sys
-from distutils.version import StrictVersion
+from packaging.version import Version
 import warnings
 
 import cookiecutter
@@ -19,13 +19,13 @@ import cookiecutter
 
 with warnings.catch_warnings():
     warnings.simplefilter("ignore", category=DeprecationWarning)
-    # check Python version (3.8 or higher)
-    if StrictVersion(platform.python_version()) < StrictVersion("3.8.0"):
+    # check Python version (3.9 or higher)
+    if Version(platform.python_version()) < Version("3.9.0"):
         print(f"ERROR: You are using Python {platform.python_version()},",
-              "but Python 3.8 or higher is required to use this template")
+              "but Python 3.9 or higher is required to use this template")
         sys.exit(1)
     # check cookiecutter version (1.7.2 or higher)
-    if StrictVersion(cookiecutter.__version__) < StrictVersion('1.7.2'):
+    if Version(cookiecutter.__version__) < Version('1.7.2'):
         print(f"ERROR: You are using cookiecutter {cookiecutter.__version__}"
               "but cookiecutter 1.7.2 or higher is required to use this template")
         sys.exit(1)

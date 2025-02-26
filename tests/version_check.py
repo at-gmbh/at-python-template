@@ -23,7 +23,7 @@ finally:
     shutil.rmtree(temp_dir, ignore_errors=True)
 
 # handle possible issues & give proper return codes
-if b'Python 3.8 or higher' in stdout or b'successfully created' in stdout:
+if b'Python 3.9 or higher' in stdout or b'successfully created' in stdout:
     status = {True: "failed", False: "succeded"}
     if actual_fail == expect_fail:
         print(f"Python {platform.python_version()} {status[expect_fail]} as expected")

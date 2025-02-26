@@ -7,7 +7,7 @@ black~=22.10
 ruff~=0.4.1
 {% endif %}
 pre-commit~=2.20
-pytest~=7.2
+pytest~=8.3
 pytest-cov~=4.0
 wheel~=0.37
 {% if cookiecutter.code_formatter == 'none' or cookiecutter.code_formatter == 'black' %}
