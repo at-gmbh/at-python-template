@@ -12,7 +12,7 @@
   "ci_pipeline": ["none", "gitlab"],
   "create_cli": ["no", "yes"],
   "config_file": ["none", "hocon", "yaml"],
-  "code_formatter": ["none", "black"],
+  "code_formatter": ["none", "black", "ruff"],
   "editor_settings": ["none", "pycharm", "vscode"],
   "__prompts__": {
     "full_name": "What's your [bold yellow]name[/]?",
@@ -55,10 +55,11 @@
       "yaml": "YAML"
     },
     "code_formatter": {
-      "__prompt__": "What [bold yellow]code formatter[/] would you like to use?",
-      "none": "None",
-      "black": "Black"
-    },
+    "__prompt__": "What [bold yellow]code formatter[/] would you like to use (Ruff includes linting)?",
+    "none": "None",
+    "black": "Black",
+    "ruff": "Ruff (includes linting)"
+  },
     "editor_settings": {
       "__prompt__": "Which [bold yellow]editor settings[/] do you want to include?",
       "none": "None",

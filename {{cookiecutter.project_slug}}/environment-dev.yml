@@ -8,5 +8,17 @@ dependencies:
   - python=3.10.*
   - pytest=7.*
   - pytest-cov=4.*
-  - pre-commit=2.*{% if cookiecutter.code_formatter == 'black' %}
-  - black=22.*{% endif %}
+  - pre-commit=2.*
+  {%- if cookiecutter.code_formatter == 'black' %}
+  - black=22.*
+  - isort=5.*
+  {%- elif cookiecutter.code_formatter == 'ruff' %}
+  - ruff=0.4.*
+  {%- else %}
+  - isort=5.*
+  {%- endif %}
+  - pip
+{% if cookiecutter.code_formatter == 'none' %}
+pip:
+  - pyupgrade~=3.15.0
+{% endif %}
