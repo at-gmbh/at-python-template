@@ -8,7 +8,7 @@ authors = [
     "Hans Rauer <hans.rauer@alexanderthamm.com>",
     "Simon Weiß <simon.weiss@alexanderthamm.com>",
     "Honza Bílek <jan.bilek@alexanderthamm.com>",
-    "Christian Baur <chrisitan.baur@alexanderthamm.com>"
+    "Christian Baur <christian.baur@alexanderthamm.com>"
 ]
 license = "Apache License, Version 2.0"
 readme = "README.md"
@@ -27,3 +27,7 @@ typer = "^0.15.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.virtualenvs]
+create = true
+in-project = true
