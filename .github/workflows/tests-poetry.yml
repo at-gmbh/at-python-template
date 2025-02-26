@@ -48,11 +48,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install --no-interaction --no-root
+          poetry install --no-interaction --with dev
 
       - name: Run tests with coverage
         run: |
-          poetry run pytest --cov=src --cov-report=term-missing --cov-report=xml > coverage.txt
+          poetry run pytest --cov=src --cov-report=term-missing --cov-report=xml
 
       - name: Display Coverage in GitHub Actions Summary
         run: |
