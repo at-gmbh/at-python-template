@@ -1,6 +1,6 @@
 # AT Python Template
 
-[![Build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
+[![Build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-poetry.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
 ![Python Version](https://img.shields.io/badge/python-3.9%20--%203.13-blue)
 [![Latest Version](https://img.shields.io/github/v/tag/at-gmbh/at-python-template?label=version&sort=semver)](https://github.com/at-gmbh/at-python-template/releases)
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/commits/master)
