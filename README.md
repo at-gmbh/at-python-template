@@ -208,7 +208,7 @@ You may find lots of other templates under the [cookiecutter-template](https://g
 
 ## License
 
-    Copyright 2020 Alexander Thamm GmbH
+    Copyright 2025 Alexander Thamm GmbH
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
