@@ -1,9 +1,20 @@
 # AT Python Template
 
-[![build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
+# AT Python Template
+
+# AT Python Template
+
+[![Build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
 ![Python Version](https://img.shields.io/badge/python-3.9%20--%203.13-blue)
+[![Latest Version](https://img.shields.io/github/v/tag/at-gmbh/at-python-template?label=version&sort=semver)](https://github.com/at-gmbh/at-python-template/releases)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/commits/master)
+[![Dependencies](https://img.shields.io/librariesio/github/at-gmbh/at-python-template)](https://libraries.io/github/at-gmbh/at-python-template)
+[![Open Issues](https://img.shields.io/github/issues/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/issues)
+[![Contributors](https://img.shields.io/github/contributors/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/graphs/contributors)
 [![License](https://img.shields.io/github/license/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/blob/master/LICENSE)
-![GitHub Repo stars](https://img.shields.io/github/stars/at-gmbh/at-python-template?style=social)
+[![Last Commit](https://img.shields.io/github/last-commit/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/commits/master)
+
+
 
 This is the official Python Project Template of Alexander Thamm GmbH (AT). It is built with [cookiecutter](https://cookiecutter.readthedocs.io/) and inspired by [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science). It is designed to bridge the gap between exploratory work and production-ready projects. The goal is to be able to quickly bootstrap a Python project that provides lots of useful stuff to build, test & deploy your code without being overly convoluted like many of the publicly available packages.
 
