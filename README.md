@@ -18,7 +18,7 @@ This guide aims to help you set up your environment and get coding in no time.
 
 ## 🛠 Prerequisites
 
-Before you dive in, make sure you have Python 3.8 or higher installed on your machine. To check if Python is installed, open a terminal and run:
+Before you dive in, make sure you have Python 3.9 or higher installed on your machine. To check if Python is installed, open a terminal and run:
 
 ```
 python --version
