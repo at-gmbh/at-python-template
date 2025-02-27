@@ -10,4 +10,7 @@ RUN poetry install --only main --no-root --no-interaction && \
 COPY ./src /app/src
 RUN poetry install --only-root
 
-ENTRYPOINT ["python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
+WORKDIR /
+COPY ./config ./config
+
+ENTRYPOINT ["python", "-OO", "-m", "{{ cookiecutter.module_name }}.main"]

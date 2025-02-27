@@ -16,5 +16,8 @@ SHELL ["mamba", "run", "-n", "{{cookiecutter.module_name}}_env", "/bin/bash", "-
 COPY . .
 RUN python setup.py install
 
+WORKDIR /
+COPY ./config ./config
+
 # ENTRYPOINT doesn't use the same shell as RUN so you need the conda stuff
 ENTRYPOINT ["mamba", "run", "-n", "{{cookiecutter.module_name}}_env", "python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
