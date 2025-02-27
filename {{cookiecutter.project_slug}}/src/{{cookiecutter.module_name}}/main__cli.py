@@ -6,7 +6,10 @@ from {{ cookiecutter.module_name }} import __title__, __version__{% if cookiecut
 
 logger = logging.getLogger('{{ cookiecutter.module_name }}')
 
-app = typer.Typer(name='{{ cookiecutter.module_name }}')
+app = typer.Typer(
+    name='{{ cookiecutter.module_name }}',
+    help="{{ cookiecutter.project_short_description }}"
+)
 
 
 def version_callback(version: bool):
@@ -22,6 +25,8 @@ ConfigOption = typer.Option(
     metavar='PATH',
     help="path to the program configuration"
 )
+
+
 VersionOption = typer.Option(
     None,
     '-v',

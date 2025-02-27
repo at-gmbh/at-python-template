@@ -46,7 +46,7 @@ cookiecutter https://github.com/at-gmbh/at-python-template
 ```
 After running this command, you will be asked questions like the video below is showing. In the section [Choices explained](#-choices-explained) you can find more information on each item.
 
-![image](docs/terminalizer_template_setup.gif "Setup a professional python project in seconds")
+[![asciicast](https://asciinema.org/a/625875.svg)](https://asciinema.org/a/625876?autoplay=1&speed=2.5&i=10)
 
 ### Step 3: Navigate to Your Project
 
