@@ -16,7 +16,7 @@ variables:
   {%- if cookiecutter.package_manager == 'conda' %}
   CONDA_PKGS_DIRS: $CI_PROJECT_DIR/.cache/conda
   {%- elif cookiecutter.package_manager == 'poetry' %}
-  POETRY_VERSION: 1.7.1
+  POETRY_VERSION: 2.1.1
   POETRY_CACHE_DIR: $CI_PROJECT_DIR/.cache/poetry
   {%- endif %}
 
@@ -30,7 +30,7 @@ stages:
 
 {% if cookiecutter.package_manager == 'poetry' -%}
 build-wheel:
-  image: python:3.11
+  image: python:3.9
   stage: build
   artifacts:
     name: 'app-wheel'
@@ -41,7 +41,7 @@ build-wheel:
     - pip install poetry==$POETRY_VERSION
     - poetry build -f wheel{% else -%}
 build-wheel:
-  image: python:3.11
+  image: python:3.9
   stage: build
   artifacts:
     name: 'app-wheel'
@@ -54,7 +54,7 @@ build-wheel:
 {% if cookiecutter.package_manager == 'poetry' -%}
 test-unit:
   stage: test
-  image: python:3.11
+  image: python:3.9
   cache:
     key:
       files:
@@ -97,7 +97,7 @@ test-unit:
     - pytest tests{% elif cookiecutter.package_manager == 'pip' -%}
 test-unit:
   stage: test
-  image: python:3.11
+  image: python:3.9
   cache:
     key:
       files:
