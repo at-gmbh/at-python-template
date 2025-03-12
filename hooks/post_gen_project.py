@@ -75,7 +75,18 @@ files_ci_gitlab = {
     ".gitlab-ci.yml",
 }
 
-files_ci_all = files_ci_gitlab
+files_ci_devops = {
+    'ci/test-pipeline.yml',
+}
+
+files_cd_devops = {
+    'cd/build-dev.yml',
+    'cd/build.yml',
+    'cd/trigger.yml',
+    'cd/delete-old-images.yml'
+}
+
+files_ci_all = files_ci_gitlab | files_ci_devops | files_cd_devops
 
 folders_editor = [
     '.idea__editor',
@@ -170,10 +181,20 @@ def handle_editor_settings():
 
 def handle_ci():
     ci_pipeline = '{{ cookiecutter.ci_pipeline }}'
+    use_docker = '{{ cookiecutter.use_docker }}'
     if ci_pipeline == "gitlab":
         _delete_files(files_ci_all - files_ci_gitlab)
+        os.rmdir('ci')
+        os.rmdir('cd')
+    elif ci_pipeline == "az-devops":
+        _delete_files(files_ci_all - files_ci_devops - files_cd_devops)
+        if use_docker == 'no':
+            _delete_files(files_cd_devops)
+            os.rmdir('cd')
     elif ci_pipeline == 'none':
         _delete_files(files_ci_all)
+        os.rmdir('ci')
+        os.rmdir('cd')
 
 
 def print_success():

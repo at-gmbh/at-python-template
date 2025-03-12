@@ -1,6 +1,27 @@
 from pathlib import Path
 
 from .util import assert_file_contains, check_project
+import pytest
+
+
+@pytest.fixture
+def az_devops_cd_files():
+    return [
+        'cd/build.yml',
+        'cd/build-dev.yml',
+        'cd/delete-old-images.yml',
+        'cd/trigger.yml'
+    ]
+
+
+@pytest.fixture
+def az_devops_ci_files():
+    return ['ci/test-pipeline.yml']
+
+
+@pytest.fixture
+def az_devops_files(az_devops_ci_files, az_devops_cd_files):
+    return az_devops_ci_files + az_devops_cd_files
 
 
 def test_base():
@@ -61,8 +82,24 @@ def test_docker_poetry():
 
 def test_docker_no():
     check_project(
-        settings={'use_docker': 'no'},
+        settings={
+            'use_docker': 'no'
+        },
         files_non_existent=['Dockerfile', 'docker-compose.yml', '.dockerignore'])
+
+
+def test_docker_no_az_devops(az_devops_cd_files):
+    check_project(
+        settings={
+            'use_docker': 'no',
+            'ci_pipeline': 'az-devops'
+        },
+        files_non_existent=[
+            'Dockerfile',
+            'docker-compose.yml',
+            '.dockerignore',
+            ].extend(az_devops_cd_files)
+    )
 
 
 def test_cli_yes():
@@ -199,6 +236,7 @@ def test_poetry_regression():
         run_pytest=True,
     )
 
+
 def test_gitlab_pip():
     check_project(
         settings={
@@ -207,6 +245,7 @@ def test_gitlab_pip():
         },
         files_existent=[".gitlab-ci.yml"]
     )
+
 
 def test_gitlab_conda():
     check_project(
@@ -217,6 +256,7 @@ def test_gitlab_conda():
         files_existent=[".gitlab-ci.yml"]
     )
 
+
 def test_gitlab_poetry():
     check_project(
         settings={
@@ -226,10 +266,44 @@ def test_gitlab_poetry():
         files_existent=[".gitlab-ci.yml"]
     )
 
-def test_no_ci_pipeline():
+
+def test_az_devops_pip(az_devops_files):
+    check_project(
+        settings={
+            "package_manager": "pip",
+            "ci_pipeline": "az-devops",
+            "use_docker": "yes"
+        },
+        files_existent=az_devops_files
+    )
+
+
+def test_az_devops_conda(az_devops_files):
+    check_project(
+        settings={
+            "package_manager": "conda",
+            "ci_pipeline": "az-devops",
+            "use_docker": "yes"
+        },
+        files_existent=az_devops_files
+    )
+
+
+def test_az_devops_poetry(az_devops_files):
+    check_project(
+        settings={
+            "package_manager": "poetry",
+            "ci_pipeline": "az-devops",
+            "use_docker": "yes"
+        },
+        files_existent=az_devops_files
+    )
+
+
+def test_no_ci_pipeline(az_devops_files):
     check_project(
         settings={
             "ci_pipeline": "none"
         },
-        files_non_existent=[".gitlab-ci.yml"]
+        files_non_existent=[".gitlab-ci.yml"] + az_devops_files
     )
