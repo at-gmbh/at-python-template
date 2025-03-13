@@ -10,6 +10,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Placeholder for future updates and new features.
 
+## [1.1.1] - 2025-03-13
+
+### Changed
+- Updated dependency `setuptools` to v76.
+- Updated dependency `pytest` to v8.3.5.
+- Updated dependency `typer` to v0.15.2.
+- Updated pre-commit hook `astral-sh/ruff-pre-commit` to v0.9.10.
+
+
+## [1.1.0] - 2025-02-26
+
+### Added
+
+- Adjusted Python version to be at least 3.9 in `pyproject.toml` and `environment-dev.yml`.
+- Adjusted GitHub Actions to only use `poetry` for dependency management.
+- Refactored utility code by replacing `pkg_resources` with `importlib.resources`.
+- Added support for `pytest-cov` v6.
+- Added test coverage reporting to the GitHub Actions pipeline.
+- Updated Conda Docker tag to `v24` in `Dockerfile`.
+- Updated `actions/checkout` GitHub action to v4.
+- Updated pre-commit hooks, including:
+  - `pycqa/isort` to v5.13.2.
+  - `pre-commit/pre-commit-hooks` to v4.6.0.
+  - `astral-sh/ruff-pre-commit` to v0.9.7.
+  - `asottile/pyupgrade` to v3.19.1.
+- Updated `requirements.txt` in the cookiecutter project.
+- Made use of Python 3.9 and newer versions in `pyproject.toml`.
+- Upgraded dependencies in `pyproject.toml` to ensure the project uses the latest versions.
+- Updated and aligned `environment-dev.yml` and `environment.yml` with `pyproject.toml` for consistency.
+- Updated versions of GitLab CI python and poetry versions.
+- Fixed pre-commit hook for `black` installation via pip with the correct version constraint (`>=`).
+
+### Fixed
+
+- Fixed test since `black` is installed by pip, and updated the test to check for the correct version format (`>=`).
+- Fixed coverage reporting integration in GitHub Actions.
+
+## [1.0.1] - 2025-02-26
+
+### Fixed
+- **Conda package caching in GitLab CI:** Updated caching paths in `{{ cookiecutter.project_slug }}/.gitlab-ci.yml` to include the new `.conda` file format and additional cache directories. The updated paths now cache:
+  - `$PIP_CACHE_DIR`
+  - `$CONDA_PKGS_DIRS/*.conda`
+  - `$CONDA_PKGS_DIRS/*.tar.bz2`
+  - `$CONDA_PKGS_DIRS/urls*`
+  - `$CONDA_PKGS_DIRS/cache`
+
+  This change ensures that all relevant Conda packages and related metadata are properly cached, addressing issues with the previous configuration ([Conda docs](https://conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html#force-conda-to-download-only-tar-bz2-packages-use-only-tar-bz2), [Damiankula’s guide](https://damiankula.com/using_conda_cache_in_gitlabci.html)). cc @ChrsBaur
+
 ## [1.0.0] - 2025-02-26
 
 ### Added
