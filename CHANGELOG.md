@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Placeholder for future updates and new features.
 
+## [1.1.1] - 2025-03-13
+
+### Changed
+- Updated dependency `setuptools` to v76.
+- Updated dependency `pytest` to v8.3.5.
+- Updated dependency `typer` to v0.15.2.
+- Updated pre-commit hook `astral-sh/ruff-pre-commit` to v0.9.10.
+
+
 ## [1.1.0] - 2025-02-26
 
 ### Added
