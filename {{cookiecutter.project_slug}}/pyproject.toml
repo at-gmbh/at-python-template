@@ -22,7 +22,7 @@ pytest-cov = "^6.0.0"
 
 [tool.poetry.group.linter.dependencies]{% if cookiecutter.code_formatter == 'black' %}
 black = "^25.1.0"{% else %}
-ruff = "^0.9.7"{% endif %}
+ruff = "^0.11.0"{% endif %}
 isort = "^6.0.0"
 
 [tool.poetry.group.dev.dependencies]
