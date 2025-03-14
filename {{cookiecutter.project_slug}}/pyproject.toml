@@ -30,9 +30,33 @@ pre-commit = "^4.1.0"{% if cookiecutter.use_notebooks == 'yes' %}
 jupyterlab = "^4.3.5"{% endif %}
 {% if cookiecutter.code_formatter != 'black' %}
 [tool.ruff]
+target-version = "py39"
 line-length = 100
-src = ["src", "tests"]
-ignore = ["F401"]
+exclude = ["__init__.py"]
+extend-exclude = ["notebooks/*"]
+
+[tool.ruff.lint]
+select = [
+    "E",  # Pycodestyle errors
+    "F",  # Pyflakes errors
+    "UP", # pyupgrade checks
+    "B",  # Bugbear checks
+    "SIM",# Simplifcation checks
+    "I",  # Import order checks (isort)
+    "N"   # Naming convention checks
+]
+task-tags = ["TODO", "FIXME", "NOTE"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["{{ cookiecutter.project_slug }}"]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 100
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "double"
+multiline-quotes = "double"
+docstring-quotes = "double"
 {% endif %}
 [tool.isort]{% if cookiecutter.code_formatter == 'black' %}
 profile = "black"{% else %}
