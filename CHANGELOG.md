@@ -10,6 +10,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Placeholder for future updates and new features.
 
+
+## [1.1.2] - 2025-03-14
+
+### Changed
+- Updated project version from `1.1.1` to `1.1.2` in `pyproject.toml`.
+- Updated `ruff` pre-commit hook from `v0.9.10` to `v0.11.0` in `.pre-commit-config.yaml`.
+- Updated `ruff` dependency in `environment-dev.yml` from `>=0.9.7` to `>=0.11.0`.
+- Updated `pytest` from `^8.3.4` to `^8.3.5` in `pyproject.toml`.
+- Updated `ruff` from `^0.9.7` to `^0.11.0` in `pyproject.toml`.
+- Updated `black` from `~22.10` to `~25.1.0` in `requirements-dev.txt`.
+- Updated `pytest` from `~8.3` to `~8.3.5` in `requirements-dev.txt`.
+- Updated `wheel` from `~0.37` to `~0.45.1` in `requirements-dev.txt`.
+
 ## [1.1.1] - 2025-03-13
 
 ### Changed
