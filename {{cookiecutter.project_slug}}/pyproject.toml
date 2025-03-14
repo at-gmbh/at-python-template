@@ -17,12 +17,12 @@ PyYAML = "^6.0.2"{% endif %}{% if cookiecutter.create_cli == 'yes' %}
 typer = "^0.15.1"{% endif %}
 
 [tool.poetry.group.test.dependencies]
-pytest = "^8.3.4"
+pytest = "^8.3.5"
 pytest-cov = "^6.0.0"
 
 [tool.poetry.group.linter.dependencies]{% if cookiecutter.code_formatter == 'black' %}
 black = "^25.1.0"{% else %}
-ruff = "^0.9.7"{% endif %}
+ruff = "^0.11.0"{% endif %}
 isort = "^6.0.0"
 
 [tool.poetry.group.dev.dependencies]

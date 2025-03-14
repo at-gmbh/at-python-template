@@ -17,4 +17,4 @@ dependencies:
   - pip:
     - black>=25.1.0{% else %}
   - pip:
-    - ruff>=0.9.7{% endif %}
+    - ruff>=0.11.0{% endif %}
