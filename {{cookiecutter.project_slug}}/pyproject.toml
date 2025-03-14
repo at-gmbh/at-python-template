@@ -11,27 +11,26 @@ include = ["src/{{ cookiecutter.module_name }}/res/*"]
 {{ cookiecutter.project_slug }} = "{{ cookiecutter.module_name }}.main:app"{% endif %}
 
 [tool.poetry.dependencies]
-python = "^3.11"{% if cookiecutter.config_file == 'hocon' %}
-pyhocon = "^0.3.59"{% elif cookiecutter.config_file == 'yaml' %}
-PyYAML = "^6.0"{% endif %}{% if cookiecutter.create_cli == 'yes' %}
-typer = {extras = ["all"], version = "^0.9.0"}{% endif %}
+python = "^3.9"{% if cookiecutter.config_file == 'hocon' %}
+pyhocon = "^0.3.61"{% elif cookiecutter.config_file == 'yaml' %}
+PyYAML = "^6.0.2"{% endif %}{% if cookiecutter.create_cli == 'yes' %}
+typer = "^0.15.1"{% endif %}
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.0"
-pytest-cov = "^4.0"
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
 
 [tool.poetry.group.linter.dependencies]{% if cookiecutter.code_formatter == 'black' %}
-black = "^23.11"
-isort = "^5.12.0"{% else %}
-ruff = "^0.4.1"{% endif %}
+black = "^25.1.0"{% else %}
+ruff = "^0.9.7"{% endif %}
+isort = "^6.0.0"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.0"{% if cookiecutter.use_notebooks == 'yes' %}
-jupyterlab = "^3.5"{% endif %}
-
-{% if cookiecutter.code_formatter == 'ruff' %}
+pre-commit = "^4.1.0"{% if cookiecutter.use_notebooks == 'yes' %}
+jupyterlab = "^4.3.5"{% endif %}
+{% if cookiecutter.code_formatter != 'black' %}
 [tool.ruff]
-target-version = "py311"
+target-version = "py39"
 line-length = 100
 exclude = ["__init__.py"]
 extend-exclude = ["notebooks/*"]
@@ -59,6 +58,11 @@ inline-quotes = "double"
 multiline-quotes = "double"
 docstring-quotes = "double"
 {% endif %}
+[tool.isort]{% if cookiecutter.code_formatter == 'black' %}
+profile = "black"{% else %}
+py_version = 310
+line_length = 100
+multi_line_output = 3{% endif %}
 
 [tool.pytest.ini_options]
 minversion = "7.0"

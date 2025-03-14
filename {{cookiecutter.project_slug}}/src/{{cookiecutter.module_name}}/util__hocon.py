@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 from typing import Union
 
-import pkg_resources
+import importlib.resources as resources
 from pyhocon import ConfigTree, ConfigFactory
 
 logger = logging.getLogger('{{ cookiecutter.module_name }}')
@@ -17,7 +17,9 @@ def get_resource_string(path: str, decode=True) -> Union[str, bytes]:
     :param decode: if true, decode the file contents as string (otherwise return bytes)
     :return: the contents of the resource file (as string or bytes)
     """
-    s = pkg_resources.resource_string(__name__.split('.')[0], path)
+    package = __name__.split('.')[0]  # Get the top-level package name
+    with resources.files(package).joinpath(path).open('rb') as f:
+        s = f.read()
     return s.decode(errors='ignore') if decode else s
 
 

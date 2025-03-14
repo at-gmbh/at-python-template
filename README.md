@@ -1,9 +1,16 @@
 # AT Python Template
 
-[![build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-pip.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
-![Python Version](https://img.shields.io/badge/python-3.8%20--%203.11-blue)
+[![Build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-poetry.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
+![Python Version](https://img.shields.io/badge/python-3.9%20--%203.13-blue)
+[![Latest Version](https://img.shields.io/github/v/tag/at-gmbh/at-python-template?label=version&sort=semver)](https://github.com/at-gmbh/at-python-template/releases)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/commits/master)
+[![Dependencies](https://img.shields.io/librariesio/github/at-gmbh/at-python-template)](https://libraries.io/github/at-gmbh/at-python-template)
+[![Open Issues](https://img.shields.io/github/issues/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/issues)
+[![Contributors](https://img.shields.io/github/contributors/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/graphs/contributors)
 [![License](https://img.shields.io/github/license/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/blob/master/LICENSE)
-![GitHub Repo stars](https://img.shields.io/github/stars/at-gmbh/at-python-template?style=social)
+[![Last Commit](https://img.shields.io/github/last-commit/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/commits/master)
+
+
 
 This is the official Python Project Template of Alexander Thamm GmbH (AT). It is built with [cookiecutter](https://cookiecutter.readthedocs.io/) and inspired by [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science). It is designed to bridge the gap between exploratory work and production-ready projects. The goal is to be able to quickly bootstrap a Python project that provides lots of useful stuff to build, test & deploy your code without being overly convoluted like many of the publicly available packages.
 
@@ -11,7 +18,7 @@ This guide aims to help you set up your environment and get coding in no time.
 
 ## 🛠 Prerequisites
 
-Before you dive in, make sure you have Python 3.8 or higher installed on your machine. To check if Python is installed, open a terminal and run:
+Before you dive in, make sure you have Python 3.9 or higher installed on your machine. To check if Python is installed, open a terminal and run:
 
 ```
 python --version
@@ -107,7 +114,7 @@ For more advanced Docker usage, please refer to the `Dockerfile` and `docker-com
 
 ## 🔗 Additional Dependencies
 
-- Python 3.8 or higher is required.
+- Python 3.9 or higher is required.
 - Jupyter Lab: If you are planning to use Jupyter notebooks.
 - This template requires `cookiecutter>=2.0`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
 
@@ -197,7 +204,7 @@ You may find lots of other templates under the [cookiecutter-template](https://g
 
 ## License
 
-    Copyright 2020 Alexander Thamm GmbH
+    Copyright 2025 Alexander Thamm GmbH
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

@@ -6,9 +6,9 @@ black~=22.10
 {% elif cookiecutter.code_formatter == 'ruff' %}
 ruff~=0.4.1
 {% endif %}
-pre-commit~=2.20
+pre-commit~=4.1
 pytest~=8.3
-pytest-cov~=4.0
+pytest-cov~=6.0
 wheel~=0.37
 {% if cookiecutter.code_formatter == 'none' or cookiecutter.code_formatter == 'black' %}
 isort~=5.12.0

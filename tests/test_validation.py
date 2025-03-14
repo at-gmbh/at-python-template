@@ -22,8 +22,8 @@ def test_editor():
     check_project(settings={'editor_settings': "pycharm"})
 
 
-def test_fail_python_3_5(mocker: MockerFixture):
-    fail_python_version(mocker, "3.5.0")
+def test_fail_python_3_8(mocker: MockerFixture):
+    fail_python_version(mocker, "3.8.0")
 
 
 def test_fail_python_2_7(mocker: MockerFixture):
