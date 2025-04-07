@@ -39,7 +39,13 @@ To set up your local development environment, please run:
 
 Behind the scenes, this creates a virtual environment and installs `{{ cookiecutter.module_name }}` along with its dependencies into a new virtualenv.
 Whenever you run `poetry run <command>`, that `<command>` is actually run inside the virtualenv managed by poetry.
-{% endif -%}
+{% elif cookiecutter.package_manager == 'uv' %}
+To set up your local development environment with uv, please run:
+
+    uv init {{ cookiecutter.project_slug }}
+
+This will create a new project environment and install the dependencies as defined in `uv.toml`.
+{% endif %}
 
 {% if cookiecutter.create_cli == 'yes' %}
 You can now access the CLI with `{{ py_command }} -m {{ cookiecutter.module_name }}`.

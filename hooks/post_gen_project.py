@@ -33,7 +33,7 @@ files_poetry = {
     'poetry.toml',
 }
 
-files_package_manager_all = files_pip | files_conda | files_poetry
+files_package_manager_all = files_pip | files_conda | files_poetry | files_uv
 
 files_docker_aux = {
     'docker-compose.yml',
@@ -51,8 +51,11 @@ files_dockerfile_conda = {
 files_dockerfile_poetry = {
     'Dockerfile__poetry',
 }
+files_dockerfile_uv = {
+    'Dockerfile__uv',
+}
 
-files_dockerfile_all = files_dockerfile_pip | files_dockerfile_conda | files_dockerfile_poetry
+files_dockerfile_all = files_dockerfile_pip | files_dockerfile_conda | files_dockerfile_poetry | files_dockerfile_uv
 
 files_cli = [
     f'{module_dir}/__main__.py',
@@ -91,6 +94,8 @@ def handle_package_manager():
         _delete_files(files_package_manager_all - files_pip)
     elif package_manager == 'poetry':
         _delete_files(files_package_manager_all - files_poetry)
+    elif package_manager == 'uv':
+        _delete_files(files_package_manager_all - files_uv)
     else:
         print(f"Error: unsupported package manager {package_manager}")
         sys.exit(1)
@@ -117,6 +122,9 @@ def handle_docker():
         elif package_manager == "poetry":
             _delete_files(files_dockerfile_all - files_dockerfile_poetry)
             _rename_files("Dockerfile__poetry", "__poetry", "")
+        elif package_manager == "uv":
+            _delete_files(files_dockerfile_all - files_dockerfile_uv)
+            _rename_files("Dockerfile__uv", "__uv", "")
 
 
 def handle_cli():
