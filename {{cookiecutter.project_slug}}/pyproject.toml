@@ -16,11 +16,11 @@ python = "^3.9"
     PyYAML = "^6.0"
 {% endif -%}
 {% if cookiecutter.create_cli == 'yes' -%}
-    typer = {extras = ["all"], version = "^0.9.0"}
+    typer = "^0.15.1"
 {% endif -%}
 
 [tool.poetry.group.test.dependencies]
-    pytest = "^7.0"
+    pytest = "^8.3.4"
     pytest-cov = "^4.0"
 
 [tool.poetry.group.linter.dependencies]
