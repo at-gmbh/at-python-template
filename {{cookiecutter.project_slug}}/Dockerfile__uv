@@ -1,0 +1,30 @@
+FROM ghcr.io/astral-sh/uv:python3.11-bookworm AS builder
+
+LABEL maintainer="{{ cookiecutter.company_name if cookiecutter.company_name else cookiecutter.full_name }}"
+
+WORKDIR /app
+
+COPY pyproject.toml uv.lock* ./
+
+RUN uv sync --frozen --no-install-project && uv cache clean
+
+COPY ./src /app/src
+
+RUN uv sync --frozen && uv cache clean
+
+FROM python:3.11-slim-bookworm
+
+WORKDIR /app
+
+COPY --from=builder /app/.venv /app/.venv
+COPY --from=builder /app/src /app/src
+
+COPY ./config /app/config
+
+# Environment variables
+ENV PATH="/app/.venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+# Run the application
+ENTRYPOINT ["python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
