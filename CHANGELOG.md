@@ -34,6 +34,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Corrected minor formatting issues in the `pyproject.toml` and `README.md`.
 
+### Other
+- Updated `.dockerignore` to include additional directories and files.
+- Updated `docker-compose.yml` to support `uv` package manager.
+- Updated `requirements-dev.txt` for `black`, `pytest`, and `wheel` versions.
+
 ## [1.1.1] - 2025-03-13
 
 ### Changed
