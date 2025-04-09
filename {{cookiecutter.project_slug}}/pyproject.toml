@@ -1,4 +1,4 @@
-{% if cookiecutter.package_manager == "poetry" %}
+{% if cookiecutter.package_manager == "poetry" -%}
 [tool.poetry]
 name = "{{ cookiecutter.project_slug }}"
 version = "0.1.0"
@@ -9,31 +9,49 @@ packages = [{ include = "{{ cookiecutter.module_name }}", from = "src" }]
 include = ["src/{{ cookiecutter.module_name }}/res/*"]
 
 [tool.poetry.dependencies]
-python = "^3.9"{% if cookiecutter.config_file == 'hocon' %}, pyhocon = "^0.3.59"{% elif cookiecutter.config_file == 'yaml' %}, PyYAML = "^6.0"{% endif %}{% if cookiecutter.create_cli == 'yes' %}, typer = "^0.15.1"{% endif %}
+python = "^3.9"
+{%- if cookiecutter.config_file == 'hocon' %}
+pyhocon = "^0.3.59"
+{%- elif cookiecutter.config_file == 'yaml' %}
+PyYAML = "^6.0"
+{%- endif %}
+{%- if cookiecutter.create_cli == 'yes' %}
+typer = "^0.15.1"
+{%- endif %}
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.4"
 pytest-cov = "^4.0"
 
-[tool.poetry.group.linter.dependencies]{% if cookiecutter.code_formatter == 'black' %}
-black = "^25.1.0"{% else %}
-ruff = "^0.1.7"{% endif %}
+[tool.poetry.group.linter.dependencies]
+{%- if cookiecutter.code_formatter == 'black' %}
+black = "^25.1.0"
+{%- else %}
+ruff = "^0.1.7"
+{%- endif %}
 isort = "^5.12.0"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.0"{% if cookiecutter.use_notebooks == 'yes' %}, jupyterlab = "^3.5"{% endif %}
+pre-commit = "^3.0"
+{%- if cookiecutter.use_notebooks == 'yes' %}
+jupyterlab = "^3.5"
+{%- endif %}
 
 [tool.poetry.extras]
 build = ["setuptools", "cython"]
-compile = ["cchardet"]
 
-[tool.poetry.scripts]{% if cookiecutter.create_cli == "yes" %}
-{{ cookiecutter.project_slug }} = "{{ cookiecutter.module_name }}.main:app"{% endif %}
+[tool.poetry.scripts]
+{%- if cookiecutter.create_cli == "yes" %}
+{{ cookiecutter.project_slug }} = "{{ cookiecutter.module_name }}.main:app"
+{%- endif %}
 
-[tool.isort]{% if cookiecutter.code_formatter == 'black' %}
-profile = "black"{% else %}
+[tool.isort]
+{%- if cookiecutter.code_formatter == 'black' %}
+profile = "black"
+{%- else %}
 line_length = 100
-multi_line_output = 3{% endif %}
+multi_line_output = 3
+{%- endif %}
 
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -46,24 +64,33 @@ default-groups = ["dev", "test", "linter"]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-{% else %}
-[project]
+{%- else %}[project]
 name = "{{ cookiecutter.project_slug }}"
 version = "0.1.0"
 description = "{{ cookiecutter.project_short_description }}"
 authors = [{ name = "{{ cookiecutter.full_name }}", email = "{{ cookiecutter.email }}" }]
 requires-python = ">=3.9"
-dependencies = [{% if cookiecutter.config_file == 'hocon' %}"pyhocon>=0.3.59",{% elif cookiecutter.config_file == 'yaml' %}"PyYAML>=6.0",{% endif %}{% if cookiecutter.create_cli == 'yes' %}"typer[all]>=0.15.1",{% endif %}]
+dependencies = [
+{%- if cookiecutter.config_file == 'hocon' %}
+"pyhocon>=0.3.59",
+{%- elif cookiecutter.config_file == 'yaml' %}
+"PyYAML>=6.0",
+{%- endif %}
+{%- if cookiecutter.create_cli == 'yes' %}
+"typer[all]>=0.15.1",
+{%- endif %}
+]
 
 [project.license]
 text = "proprietary"
 
 [project.optional-dependencies]
 build = ["setuptools", "cython"]
-compile = ["cchardet"]
 
-[project.scripts]{% if cookiecutter.create_cli == "yes" %}
-{{ cookiecutter.project_slug }} = "{{ cookiecutter.module_name }}.main:app"{% endif %}
+{%- if cookiecutter.create_cli == "yes" %}
+[project.scripts]
+{{ cookiecutter.project_slug }} = "{{ cookiecutter.module_name }}.main:app"
+{%- endif %}
 
 [project.gui-scripts]
 hello_gui = "{{ cookiecutter.module_name }}.gui:main"
@@ -73,13 +100,23 @@ a = "{{ cookiecutter.module_name }}_plugin_a"
 
 [dependency-groups]
 dev = ["pre-commit>=3.0"{% if cookiecutter.use_notebooks == 'yes' %}, "jupyterlab>=3.5"{% endif %}]
-linter = [{% if cookiecutter.code_formatter == 'black' %}"black>=25.1.0",{% else %}"ruff>=0.1.7",{% endif %}"isort>=5.12.0"]
+linter = [
+{%- if cookiecutter.code_formatter == 'black' %}
+"black>=25.1.0",
+{%- else %}
+"ruff>=0.1.7",
+{%- endif %}
+"isort>=5.12.0"
+]
 test = ["pytest>=8.3.4", "pytest-cov>=4.0"]
 
-[tool.isort]{% if cookiecutter.code_formatter == 'black' %}
-profile = "black"{% else %}
+[tool.isort]
+{%- if cookiecutter.code_formatter == 'black' %}
+profile = "black"
+{%- else %}
 line_length = 100
-multi_line_output = 3{% endif %}
+multi_line_output = 3
+{%- endif %}
 
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -91,4 +128,4 @@ default-groups = ["dev", "test", "linter"]
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
-{% endif %}
+{%- endif %}
