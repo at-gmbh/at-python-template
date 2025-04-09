@@ -4,8 +4,16 @@ services:
   {{ cookiecutter.project_slug }}:
     image: 'at/{{ cookiecutter.project_slug }}:latest'
     build:
-      context: .{% if cookiecutter.package_manager != 'poetry' %}
+      context: .
       args:
-        PYTHON_IMAGE_TAG: {% if cookiecutter.package_manager == 'conda' %}"4.8.2"{% else %}"3.8-stretch"{% endif %}{% endif %}
-    command: '{% if cookiecutter.create_cli == 'yes' %}--help{% endif %}'
+        {% if cookiecutter.package_manager == 'uv' %}
+        PYTHON_IMAGE_TAG: "3.11-bookworm"
+        {% elif cookiecutter.package_manager == 'poetry' %}
+        PYTHON_IMAGE_TAG: "3.9-bullseye"
+        {% elif cookiecutter.package_manager == 'conda' %}
+        PYTHON_IMAGE_TAG: "3.9-slim"
+        {% else %}
+        PYTHON_IMAGE_TAG: "3.9-slim"
+        {% endif %}
+    command: '{% if cookiecutter.create_cli == "yes" %}--help{% else %}--config /app/config/config.yml{% endif %}'
     tty: true
