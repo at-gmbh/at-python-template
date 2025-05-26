@@ -21,7 +21,7 @@ pre-commit = "^4.1.0"
 pytest-mock = "^3.12"
 pyhocon = "^0.3.60"
 pyyaml = "^6.0"
-typer = "^0.15.2"
+typer = "^0.16.0"
 setuptools = "^76.0.0"
 
 [tool.poetry.group.dev.dependencies]
