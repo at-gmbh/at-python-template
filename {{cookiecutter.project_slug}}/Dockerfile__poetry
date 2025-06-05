@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION=3.11
+ARG PYTHON_VERSION=3.13
 FROM python:${PYTHON_VERSION}-bullseye
 LABEL maintainer="{{ cookiecutter.company_name if cookiecutter.company_name else cookiecutter.full_name }}"
 

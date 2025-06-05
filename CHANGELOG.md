@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Placeholder for future updates and new features.
 
+## [1.2.1] - 2025-06-05
+### Changed
+
+- Updated pytest from 8.3.4 to 8.4
+- Updated typer from 0.15.1 to 0.16.0
+- Updated pre-commit hook assotile/pyugrade from v3.19.1 to v3.20.0
+- Updated setuptools from 76.0.0 to 80.9.0
+- Updated Python Docker tags from 3.11-slim-bookworm to 3.13-slim-bookworm and 3.11-bullseye to 3.13-bullseye
+- Updated pre-commit ruff from v0.11.0 to v0.11.12
 
 ## [1.2.0] - 2025-04-09
 

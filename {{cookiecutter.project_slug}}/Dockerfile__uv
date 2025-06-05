@@ -12,7 +12,7 @@ COPY ./src /app/src
 
 RUN uv sync --frozen && uv cache clean
 
-FROM python:3.11-slim-bookworm
+FROM python:3.13-slim-bookworm
 
 WORKDIR /app
 
