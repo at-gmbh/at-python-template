@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "at-python-template"
-version = "1.2.0"
+version = "1.2.1"
 description = "This is the official Python Project Template of Alexander Thamm GmbH (AT)"
 authors = [
     "Christian Baur <christian.baur@alexanderthamm.com>",
@@ -21,11 +21,11 @@ pre-commit = "^4.1.0"
 pytest-mock = "^3.12"
 pyhocon = "^0.3.60"
 pyyaml = "^6.0"
-typer = "^0.15.2"
-setuptools = "^76.0.0"
+typer = "^0.16.0"
+setuptools = "^80.9.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.3.5"
+pytest = "^8.4.0"
 pytest-cov = "^6.0.0"
 
 [build-system]
