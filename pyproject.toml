@@ -17,12 +17,12 @@ packages = [{ include = "{{cookiecutter.module_name}}", from = "{{cookiecutter.p
 [tool.poetry.dependencies]
 python = "^3.9"
 cookiecutter = "^2.3"
-pre-commit = "^4.1.0"
-pytest-mock = "^3.12"
+pre-commit = "^4.2.0"
+pytest-mock = "^3.14.1"
 pyhocon = "^0.3.60"
 pyyaml = "^6.0"
-typer = "^0.15.2"
-setuptools = "^76.0.0"
+typer = "^0.16.0"
+setuptools = "^80.9.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"

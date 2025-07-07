@@ -4,7 +4,7 @@
 {% if cookiecutter.code_formatter == 'black' %}
 black~=22.10
 {% elif cookiecutter.code_formatter == 'ruff' %}
-ruff~=0.4.1
+ruff~=0.12.2
 {% endif %}
 pre-commit~=4.1
 pytest~=8.3
