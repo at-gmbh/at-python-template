@@ -2,15 +2,16 @@
 # with this project (e.g. for testing or useful development tools).
 # The regular project dependencies are defined in requirements.txt
 {% if cookiecutter.code_formatter == 'black' %}
-black~=22.10
+black~=25.1.0
 {% elif cookiecutter.code_formatter == 'ruff' %}
 ruff~=0.12.2
 {% endif %}
 pre-commit~=4.1
-pytest~=8.3
+pytest~=8.3.5
 pytest-cov~=6.0
-wheel~=0.37
+wheel~=0.45.1
 {% if cookiecutter.code_formatter == 'none' or cookiecutter.code_formatter == 'black' %}
 isort~=5.12.0
 pyupgrade~=3.15.0
 {% endif %}
+

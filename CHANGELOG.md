@@ -10,6 +10,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Placeholder for future updates and new features.
 
+
+## [1.2.0] - 2025-04-09
+
+### Added
+- Introduced support for a new package manager `uv` in `cookiecutter.json`, `hooks/post_gen_project.py`, and `README.md`.
+- Added `Dockerfile__uv` for `uv` package manager support.
+
+### Changed
+- Updated project version from `1.1.1` to `1.2.0` in `pyproject.toml`.
+- Updated `ruff` pre-commit hook from `v0.9.10` to `v0.11.0` in `.pre-commit-config.yaml`.
+- Updated `ruff` dependency in `environment-dev.yml` from `>=0.9.7` to `>=0.11.0`.
+- Updated `pytest` from `^8.3.4` to `^8.3.5` in `pyproject.toml`.
+- Updated `ruff` from `^0.9.7` to `^0.11.0` in `pyproject.toml`.
+- Updated `black` from `~22.10` to `~25.1.0` in `requirements-dev.txt`.
+- Updated `pytest` from `~8.3` to `~8.3.5` in `requirements-dev.txt`.
+- Updated `wheel` from `~0.37` to `~0.45.1` in `requirements-dev.txt`.
+
+### Documentation
+- Added detailed instructions for using `uv` package manager in `README.md`, including installation, dependency management, running scripts, and testing.
+- Updated the README with new commands for `uv`, `poetry`, and `pip` package managers for running tests, building distribution packages, and setting up pre-commit hooks.
+
+### Fixed
+- Corrected minor formatting issues in the `pyproject.toml` and `README.md`.
+
+### Other
+- Updated `.dockerignore` to include additional directories and files.
+- Updated `docker-compose.yml` to support `uv` package manager.
+- Updated `requirements-dev.txt` for `black`, `pytest`, and `wheel` versions.
+
 ## [1.1.1] - 2025-03-13
 
 ### Changed

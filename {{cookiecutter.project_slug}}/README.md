@@ -39,6 +39,101 @@ To set up your local development environment, please run:
 
 Behind the scenes, this creates a virtual environment and installs `{{ cookiecutter.module_name }}` along with its dependencies into a new virtualenv.
 Whenever you run `poetry run <command>`, that `<command>` is actually run inside the virtualenv managed by poetry.
+
+{% elif cookiecutter.package_manager == 'uv' %}
+## Using `uv` for Project Setup
+
+> 🧰 **Note:** You do **not** need to have Python pre-installed.  
+> `uv` includes its own Python runtime and manages everything automatically.
+
+### 🔧 Installing `uv`
+
+Install `uv` using the official script:
+
+> For macOS and Linux (bash):
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+> For Windows (PowerShell):
+
+```powershell
+powershell -c "irm https://astral.sh/uv/install.ps1 | more"
+```
+
+For more install options, see: [https://docs.astral.sh/uv/getting-started/installation/](https://docs.astral.sh/uv/getting-started/installation/)
+
+---
+
+### 🚀 Getting Started
+
+1. **Install all dependencies defined in `pyproject.toml`:**
+
+    ```bash
+    uv sync
+    ```
+
+2. **(Optional) Add new dependencies during development:**
+
+    ```bash
+    uv add <package-name>
+    ```
+
+    Example:
+
+    ```bash
+    uv add requests
+    ```
+
+3. **Run Python or project scripts:**
+
+    Recommended:
+
+    ```bash
+    uv run python
+    ```
+
+    Or, if using scripts defined in `pyproject.toml`:
+
+    ```bash
+    uv run <your-script>
+    ```
+
+---
+
+### ⚙️ Alternative: Manual virtual environment activation
+
+If you prefer using `python` directly, activate the `uv`-managed virtual environment:
+
+- macOS/Linux:
+
+    ```bash
+    source .venv/bin/activate
+    ```
+
+- Windows (CMD):
+
+    ```cmd
+    .venv\Scripts\activate
+    ```
+
+- Windows (PowerShell):
+
+    ```powershell
+    .venv\Scripts\Activate.ps1
+    ```
+
+Then run:
+
+```bash
+python your_script.py
+```
+
+To deactivate:
+
+```bash
+deactivate
+```
 {% endif -%}
 
 {% if cookiecutter.create_cli == 'yes' %}
@@ -56,19 +151,35 @@ this will build the entire project with all dependencies inside a docker contain
 {% endif %}
 ### Testing
 
-We use `pytest` as test framework. To execute the tests, please run
+We use `pytest` as the test framework. To run tests, use:
 
+{% if cookiecutter.package_manager == 'poetry' %}
+    poetry run pytest tests
+{% elif cookiecutter.package_manager == 'uv' %}
+    uv run pytest tests
+{% else %}
     pytest tests
+{% endif %}
 
-To run the tests with coverage information, please use
+To run tests with coverage reporting:
 
+{% if cookiecutter.package_manager == 'poetry' %}
+    poetry run pytest tests --cov=src --cov-report=html --cov-report=term
+{% elif cookiecutter.package_manager == 'uv' %}
+    uv run pytest tests --cov=src --cov-report=html --cov-report=term
+{% else %}
     pytest tests --cov=src --cov-report=html --cov-report=term
+{% endif %}
 
-and have a look at the `htmlcov` folder, after the tests are done.
+After running the tests, open the `htmlcov` directory in your browser to inspect coverage visually.
+
 {% if cookiecutter.use_notebooks == 'yes' %}
 ### Notebooks
+
+You can use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors.
+
 {% if cookiecutter.package_manager == 'poetry' %}
-You can use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors by running:
+Launch the Jupyter server from the project's virtualenv:
 
     poetry run jupyter notebook
 
@@ -76,38 +187,108 @@ or
 
     poetry run jupyter-lab
 
-This starts the jupyter server inside the project's virtualenv.
+{% elif cookiecutter.package_manager == 'uv' %}
+Launch Jupyter notebooks within the `uv` environment:
+
+    uv run jupyter notebook
+
+or
+
+    uv run jupyter-lab
+
+{% elif cookiecutter.package_manager == 'conda' %}
+Make sure your conda environment is activated, then launch:
+
+    jupyter notebook
+
+or
+
+    jupyter lab
+
 {% else %}
-To use your module code (`src/`) in Jupyter notebooks (`notebooks/`) without running into import errors, make sure to install the source locally
+First, make sure to install your package in editable mode:
 
     pip install -e .
 
-This way, you'll always use the latest version of your module code in your notebooks via `import {{ cookiecutter.module_name }}`.
+Then launch Jupyter:
+
+    jupyter notebook
+
+or
+
+    jupyter lab
 {% endif %}
-Assuming you already have Jupyter installed, you can make your virtual environment available as a separate kernel by running:
+
+To make your virtual environment available as a Jupyter kernel, run:
 
     {{ install_command }} ipykernel
-
     {{ py_command }} -m ipykernel install --user --name="{{ cookiecutter.project_slug }}"
 
-Note that we mainly use notebooks for experiments, visualizations and reports. Every piece of functionality that is meant to be reused should go into module code and be imported into notebooks.
+> 💡 This ensures that your notebook environment uses the same dependencies and paths as your project.
+
+Note: We mainly use notebooks for experimentation, visualizations, and reporting. Any reusable logic should live in the `src/` module and be imported into notebooks.
 {% endif %}
 ### Distribution Package
 
-To build a distribution package (wheel), please use
+To build a distribution package (wheel), run:
 
-    {% if cookiecutter.package_manager == 'poetry' %}poetry build{% else %}python setup.py bdist_wheel{% endif %}
+{% if cookiecutter.package_manager == 'poetry' %}
+    poetry build
+{% elif cookiecutter.package_manager == 'uv' %}
+    uv run python -m build
+{% elif cookiecutter.package_manager == 'conda' %}
+    python setup.py sdist bdist_wheel
+{% else %}
+    python setup.py bdist_wheel
+{% endif %}
 
-You can find the build artifacts in the `dist` folder.
+{% if cookiecutter.package_manager == 'uv' %}
+> 💡 If `build` is not yet added to your project, install it with:
+
+    uv add --dev build
+{% elif cookiecutter.package_manager == 'poetry' %}
+> 💡 `poetry build` handles everything including packaging, metadata, and versioning.
+{% elif cookiecutter.package_manager == 'pip' %}
+> 💡 Make sure `wheel` and `build` are installed:
+
+    pip install build wheel
+{% elif cookiecutter.package_manager == 'conda' %}
+> 💡 If needed, install wheel via:
+
+    conda install wheel
+{% endif %}
+
+Build artifacts will be placed in the `dist/` directory.
+
 
 ### Contributions
 
-Before contributing, please set up the pre-commit hooks to reduce errors and ensure consistency
+Before contributing, please set up the pre-commit hooks to ensure consistent formatting and linting.
 
+{% if cookiecutter.package_manager == 'poetry' %}
+Install the hooks with:
+
+    poetry run pre-commit install
+{% elif cookiecutter.package_manager == 'uv' %}
+Install the hooks with:
+
+    uv run pre-commit install
+{% else %}
     pip install -U pre-commit
     pre-commit install
+{% endif %}
 
-If you run into any issues, you can remove the hooks again with `pre-commit uninstall`.
+> This will automatically run checks like code formatting, import sorting, and linting before each commit.
+
+To uninstall the hooks:
+
+{% if cookiecutter.package_manager == 'poetry' %}
+    poetry run pre-commit uninstall
+{% elif cookiecutter.package_manager == 'uv' %}
+    uv run pre-commit uninstall
+{% else %}
+    pre-commit uninstall
+{% endif %}
 
 ## Contact
 
