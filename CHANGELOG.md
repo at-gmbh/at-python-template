@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Placeholder for future updates and new features.
 
+## [1.2.2] - 2025-08-22
+### Changed
+- Aktualisiert: pre-commit Hook `astral-sh/ruff-pre-commit` von `v0.11.12` auf `v0.12.10`.
+- Aktualisiert: pre-commit Hook `pycqa/isort` von `v5.13.2` auf `v6.0.1`.
+- Aktualisiert: Abhängigkeit `typer` von `0.16.0` auf `0.16.1`.
+- Aktualisiert: Dev-Abhängigkeit `pytest` von `8.4.0` auf `8.4.1`.
+- Aktualisierte Lock-Datei (`poetry.lock`) entsprechend neuer Versionsstände.
+
 ## [1.2.1] - 2025-06-05
 ### Changed
 
@@ -133,5 +141,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/at-gmbh/at-python-template/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/at-gmbh/at-python-template/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/at-gmbh/at-python-template/compare/v1.2.1...v1.2.2
+[1.2.1]: https://github.com/at-gmbh/at-python-template/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/at-gmbh/at-python-template/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/at-gmbh/at-python-template/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/at-gmbh/at-python-template/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/at-gmbh/at-python-template/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/at-gmbh/at-python-template/releases/tag/v1.0.0

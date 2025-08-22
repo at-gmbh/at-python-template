@@ -16,12 +16,12 @@ pyhocon = "^0.3.59"
 PyYAML = "^6.0"
 {%- endif %}
 {%- if cookiecutter.create_cli == 'yes' %}
-typer = "^0.16.0"
+typer = "^0.16.1"
 {%- endif %}
 
 [tool.poetry.group.test.dependencies]
-pytest = "^8.4.0"
-pytest-cov = "^4.0"
+pytest = "^8.4.1"
+pytest-cov = "^6.0.1"
 
 [tool.poetry.group.linter.dependencies]
 {%- if cookiecutter.code_formatter == 'black' %}
@@ -32,7 +32,7 @@ ruff = "^0.1.7"
 isort = "^5.12.0"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^3.0"
+pre-commit = "^4.3.0"
 {%- if cookiecutter.use_notebooks == 'yes' %}
 jupyterlab = "^3.5"
 {%- endif %}
@@ -77,7 +77,7 @@ dependencies = [
 "PyYAML>=6.0",
 {%- endif %}
 {%- if cookiecutter.create_cli == 'yes' %}
-"typer>=0.16.0",
+"typer>=0.16.1",
 {%- endif %}
 ]
 
@@ -99,7 +99,7 @@ hello_gui = "{{ cookiecutter.module_name }}.gui:main"
 a = "{{ cookiecutter.module_name }}_plugin_a"
 
 [dependency-groups]
-dev = ["pre-commit>=3.0"{% if cookiecutter.use_notebooks == 'yes' %}, "jupyterlab>=3.5"{% endif %}]
+dev = ["pre-commit>=4.3.0"{% if cookiecutter.use_notebooks == 'yes' %}, "jupyterlab>=3.5"{% endif %}]
 linter = [
 {%- if cookiecutter.code_formatter == 'black' %}
 "black>=25.1.0",
@@ -108,7 +108,7 @@ linter = [
 {%- endif %}
 "isort>=5.12.0"
 ]
-test = ["pytest>=8.4.0", "pytest-cov>=4.0"]
+test = ["pytest>=8.4.1", "pytest-cov>=6.0.1"]
 
 [tool.isort]
 {%- if cookiecutter.code_formatter == 'black' %}
