@@ -8,9 +8,9 @@ channels:
 
 dependencies:
   - python>=3.9
-  - pytest>=8.3.4
-  - pytest-cov>=6.0.0
-  - pre-commit>=4.1.0
+  - pytest>=8.4.1
+  - pytest-cov>=6.2.1
+  - pre-commit>=4.3.0
   - isort>=6.0.0{% if cookiecutter.use_notebooks == 'yes' %}
   - jupyterlab>=4.3.5{% endif %}
   - pip{% if cookiecutter.code_formatter == 'black' %}
