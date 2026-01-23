@@ -5,4 +5,4 @@ black~=25.1.0{% endif %}
 pre-commit~=4.3.0
 pytest~=8.4.1
 pytest-cov~=6.2.1
-wheel~=0.45.1
+wheel~=0.46.2
