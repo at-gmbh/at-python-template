@@ -9,7 +9,7 @@ channels:
 dependencies:
   - python>=3.10{% if cookiecutter.config_file == 'hocon' %}
   - pyhocon>=0.3.61{% elif cookiecutter.config_file == 'yaml' %}
-  - PyYAML>=6.0.2{% endif %}
+  - PyYAML>=6.0.3{% endif %}
   - pip  {% if cookiecutter.create_cli == 'yes' %}
   - pip:
-      - typer==0.15.1{% endif %}
+      - typer==0.21.1{% endif %}

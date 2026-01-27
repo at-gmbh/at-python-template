@@ -8,10 +8,10 @@ channels:
 
 dependencies:
   - python>=3.10
-  - pytest>=8.4.1
-  - pytest-cov>=6.2.1
-  - pre-commit>=4.3.0
-  - isort>=6.0.0{% if cookiecutter.use_notebooks == 'yes' %}
+  - pytest>=9.0.2
+  - pytest-cov>=7.0.0
+  - pre-commit>=4.5.1
+  - isort>=6.1.0{% if cookiecutter.use_notebooks == 'yes' %}
   - jupyterlab>=4.3.5{% endif %}
   - pip{% if cookiecutter.code_formatter == 'black' %}
   - pip:

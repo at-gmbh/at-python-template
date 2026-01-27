@@ -11,17 +11,17 @@ include = ["src/{{ cookiecutter.module_name }}/res/*"]
 [tool.poetry.dependencies]
 python = "^3.10"
 {%- if cookiecutter.config_file == 'hocon' %}
-pyhocon = "^0.3.59"
+pyhocon = "^0.3.61"
 {%- elif cookiecutter.config_file == 'yaml' %}
-PyYAML = "^6.0"
+PyYAML = "^6.0.3"
 {%- endif %}
 {%- if cookiecutter.create_cli == 'yes' %}
-typer = "^0.16.1"
+typer = "^0.21.1"
 {%- endif %}
 
 [tool.poetry.group.test.dependencies]
-pytest = "^8.4.1"
-pytest-cov = "^6.2.1"
+pytest = "^9.0.2"
+pytest-cov = "^7.0.0"
 
 [tool.poetry.group.linter.dependencies]
 {%- if cookiecutter.code_formatter == 'black' %}
@@ -32,7 +32,7 @@ ruff = "^0.1.7"
 isort = "^5.12.0"
 
 [tool.poetry.group.dev.dependencies]
-pre-commit = "^4.3.0"
+pre-commit = "^4.5.1"
 {%- if cookiecutter.use_notebooks == 'yes' %}
 jupyterlab = "^3.5"
 {%- endif %}

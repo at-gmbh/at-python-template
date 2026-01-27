@@ -7,8 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Placeholder for future updates and new features.
+
+## [1.3.0] - 2026-01-27
+
+### ⚠️ Breaking Changes
+- **Minimum Python version increased from 3.9 to 3.10** (required for secure dependency versions)
+
 ### Security
-- **BREAKING CHANGE**: Upgraded minimum Python version from 3.9 to 3.10 to support secure dependency versions
 - Fixed CVE-2024-47081: Updated `requests` from 2.32.3 to 2.32.5 (Moderate - .netrc credentials leak)
 - Fixed CVE-2025-50181: Updated `urllib3` from 2.4.0 to 2.6.3 (Moderate - redirects not disabled with retries)
 - Fixed CVE-2025-50182: Updated `urllib3` to 2.6.3 (Moderate - redirects in browsers/Node.js)
@@ -23,9 +30,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Updated CI/CD workflows to test Python 3.10 and 3.13 (dropped 3.9)
 - Updated all template files and documentation to reflect Python 3.10 minimum requirement
+- Updated GitHub Actions `actions/setup-python` from v5 to v6
+- Updated `cookiecutter` from 2.3 to 2.6
+- Updated `pre-commit` from 4.3.0 to 4.5.1
+- Updated `pytest` from 8.4.1 to 9.0.2
+- Updated `pytest-cov` from 6.2.1 to 7.0.0
+- Updated `pytest-mock` from 3.14.1 to 3.15.1
+- Updated `pyyaml` from 6.0.2 to 6.0.3
+- Updated `typer` from 0.16.1 to 0.21.1
+- Updated `setuptools` from 80.9.0 to 80.10.2
+- Updated pre-commit hook `astral-sh/ruff-pre-commit` from v0.12.10 to v0.14.14
+- Updated pre-commit hook `pycqa/isort` from v6.0.1 to v6.1.0
+- Updated pre-commit hook `asottile/pyupgrade` args from `--py39-plus` to `--py310-plus`
+- Updated Python base images in GitLab CI from 3.9 to 3.10
+- Fixed YAML parsing issue in GitHub Actions workflow (quoted Python versions to prevent 3.10 → 3.1)
 
-### Added
-- Placeholder for future updates and new features.
+### Dependency Updates (Transitive)
+- Updated `arrow` from 1.3.0 to 1.4.0
+- Updated `certifi` from 2025.4.26 to 2026.1.4
+- Updated `cfgv` from 3.4.0 to 3.5.0
+- Updated `charset-normalizer` from 3.4.2 to 3.4.4
+- Updated `click` from 8.1.8 to 8.3.1
+- Updated `coverage` from 7.8.2 to 7.13.2
+- Updated `distlib` from 0.3.9 to 0.4.0
+- Updated `exceptiongroup` from 1.3.0 to 1.3.1
+- Updated `identify` from 2.6.12 to 2.6.16
+- Updated `idna` from 3.10 to 3.11
+- Updated `iniconfig` from 2.1.0 to 2.3.0
+- Updated `markdown-it-py` from 3.0.0 to 4.0.0
+- Updated `markupsafe` from 3.0.2 to 3.0.3
+- Updated `nodeenv` from 1.9.1 to 1.10.0
+- Updated `packaging` from 25.0 to 26.0
+- Updated `platformdirs` from 4.3.8 to 4.5.1
+- Updated `pygments` from 2.19.1 to 2.19.2
+- Updated `pyparsing` from 3.2.3 to 3.3.2
+- Updated `rich` from 14.0.0 to 14.3.1
+- Updated `tomli` from 2.2.1 to 2.4.0
+- Added `tzdata` 2025.3
+
+### Summary
+All 10 Dependabot security vulnerabilities have been resolved (4 High, 6 Moderate).
+All dependencies updated to latest stable versions as of January 2026.
+
 
 ## [1.2.2] - 2025-08-22
 ### Changed
@@ -162,7 +208,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/at-gmbh/at-python-template/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/at-gmbh/at-python-template/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/at-gmbh/at-python-template/compare/v1.2.2...v1.3.0
 [1.2.2]: https://github.com/at-gmbh/at-python-template/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/at-gmbh/at-python-template/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/at-gmbh/at-python-template/compare/v1.1.1...v1.2.0
