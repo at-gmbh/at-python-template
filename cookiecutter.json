@@ -13,6 +13,7 @@
   "create_cli": ["no", "yes"],
   "config_file": ["none", "hocon", "yaml"],
   "code_formatter": ["none", "black", "ruff"],
+  "include_ai_starter_kit": ["no", "yes"],
   "editor_settings": ["none", "pycharm", "vscode"],
   "__prompts__": {
     "full_name": "What's your [bold yellow]name[/]?",
@@ -60,6 +61,11 @@
     "black": "Black",
     "ruff": "Ruff (includes linting)"
   },
+    "include_ai_starter_kit": {
+      "__prompt__": "Do you want to include an [bold yellow]AI Starter Kit[/] (LangChain, RAG setup, Agents)?",
+      "no": "No",
+      "yes": "Yes"
+    },
     "editor_settings": {
       "__prompt__": "Which [bold yellow]editor settings[/] do you want to include?",
       "none": "None",

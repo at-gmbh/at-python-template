@@ -186,6 +186,23 @@ def handle_ci():
         _delete_files(files_ci_all)
 
 
+def handle_ai_starter_kit():
+    include_ai = '{{ cookiecutter.include_ai_starter_kit }}'
+    ai_folder = f'{module_dir}/ai'
+
+    if include_ai == 'no':
+        # Remove AI module if not selected
+        if os.path.exists(ai_folder):
+            shutil.rmtree(ai_folder)
+        # Remove env.example
+        if os.path.exists('env.example'):
+            os.remove('env.example')
+    else:
+        # Rename env.example to .env.example
+        if os.path.exists('env.example'):
+            os.rename('env.example', '.env.example')
+
+
 def print_success():
     full_name = '{{ cookiecutter.full_name }}'
     print(f"Hey {full_name}! Your project was successfully created at {os.getcwd()}. "
@@ -223,4 +240,5 @@ if __name__ == '__main__':
     handle_formatter()
     handle_editor_settings()
     handle_ci()
+    handle_ai_starter_kit()
     print_success()

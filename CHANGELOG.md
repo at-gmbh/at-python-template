@@ -10,6 +10,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Placeholder for future updates and new features.
 
+## [1.5.0] - 2026-01-28
+
+### Added
+- **AI Starter Kit** - Complete AI/LLM development framework (optional)
+  - New `cookiecutter.json` option: `include_ai_starter_kit: ["no", "yes"]`
+  - RAG (Retrieval-Augmented Generation) pipeline with ChromaDB vector store
+  - LangChain agents with pre-built tools (calculator, search, date)
+  - Type-safe configuration management with Pydantic v2 and pydantic-settings
+  - Centralized prompt management system for version-controlled prompt engineering
+  - Comprehensive documentation and examples in module README
+  - Full support for all package managers (Poetry, Conda, Pip, UV)
+  - Dependencies added (when AI kit enabled):
+    - `langchain>=0.3` - LLM application framework
+    - `langchain-openai>=0.2` - OpenAI integration
+    - `langchain-community>=0.3` - Community tools and vectorstores
+    - `pydantic>=2.10` - Data validation and structured outputs
+    - `pydantic-settings>=2.7` - Environment-based configuration
+    - `python-dotenv>=1.0` - Environment variable management
+    - `loguru>=0.7` - Enhanced logging
+    - `chromadb>=0.6` - Local vector database
+    - `tiktoken>=0.8` - OpenAI tokenizer
+  - `.env.example` template with comprehensive configuration documentation
+  - AI-specific `.gitignore` entries (vector databases, model caches, logs)
+  - Best practices for 2026: Structured outputs, function calling, observability
+
+### Changed
+- Updated `.gitignore` with AI/LLM-specific entries (when AI kit enabled)
+  - `chroma_db/` - Vector databases
+  - `.cache/` - Model caches
+  - `*.pkl`, `*.pickle` - Serialized models
+  - `llm_logs/` - LLM API logs
+
+### Fixed
+- **`poetry.toml` no longer generated for non-Poetry package managers**
+  - Previously, `poetry.toml` was incorrectly generated for UV, Pip, and Conda projects
+  - Now only Poetry projects receive `poetry.toml` (virtualenv configuration)
+  - UV projects correctly receive only `pyproject.toml` (without `poetry.toml`)
+  - Improved post-generation hook logic with explicit `files_poetry_only` set
+- Removed erroneous CLI entry from Poetry dependencies section (should only be in scripts)
+
 ## [1.4.0] - 2026-01-27
 
 ### Added

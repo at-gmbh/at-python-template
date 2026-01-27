@@ -18,6 +18,16 @@ PyYAML = "^6.0.3"
 {%- if cookiecutter.create_cli == 'yes' %}
 typer = "^0.21.1"
 {%- endif %}
+{%- if cookiecutter.include_ai_starter_kit == 'yes' %}
+langchain = "^0.3"
+langchain-openai = "^0.2"
+langchain-community = "^0.3"
+pydantic = "^2.10"
+python-dotenv = "^1.0"
+loguru = "^0.7"
+chromadb = "^0.6"
+tiktoken = "^0.8"
+{%- endif %}
 
 [tool.poetry.group.test.dependencies]
 pytest = "^9.0.2"
@@ -110,6 +120,17 @@ dependencies = [
 {%- endif %}
 {%- if cookiecutter.create_cli == 'yes' %}
 "typer>=0.16.1",
+{%- endif %}
+{%- if cookiecutter.include_ai_starter_kit == 'yes' %}
+"langchain>=0.3",
+"langchain-openai>=0.2",
+"langchain-community>=0.3",
+"pydantic>=2.10",
+"pydantic-settings>=2.7",
+"python-dotenv>=1.0",
+"loguru>=0.7",
+"chromadb>=0.6",
+"tiktoken>=0.8",
 {%- endif %}
 ]
 
