@@ -18,7 +18,7 @@ This guide aims to help you set up your environment and get coding in no time.
 
 ## 🛠 Prerequisites
 
-Before you dive in, make sure you have Python 3.9 or higher installed on your machine. To check if Python is installed, open a terminal and run:
+Before you dive in, make sure you have Python 3.10 or higher installed on your machine. To check if Python is installed, open a terminal and run:
 
 ```
 python --version
@@ -114,7 +114,7 @@ For more advanced Docker usage, please refer to the `Dockerfile` and `docker-com
 
 ## 🔗 Additional Dependencies
 
-- Python 3.9 or higher is required.
+- Python 3.10 or higher is required.
 - Jupyter Lab: If you are planning to use Jupyter notebooks.
 - This template requires `cookiecutter>=2.0`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
 

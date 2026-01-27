@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- **BREAKING CHANGE**: Upgraded minimum Python version from 3.9 to 3.10 to support secure dependency versions
+- Fixed CVE-2024-47081: Updated `requests` from 2.32.3 to 2.32.5 (Moderate - .netrc credentials leak)
+- Fixed CVE-2025-50181: Updated `urllib3` from 2.4.0 to 2.6.3 (Moderate - redirects not disabled with retries)
+- Fixed CVE-2025-50182: Updated `urllib3` to 2.6.3 (Moderate - redirects in browsers/Node.js)
+- Fixed CVE-2025-66418: Updated `urllib3` to 2.6.3 (High - unbounded decompression chain)
+- Fixed CVE-2025-66471: Updated `urllib3` to 2.6.3 (High - improper handling of compressed data)
+- Fixed CVE-2026-21441: Updated `urllib3` to 2.6.3 (High - decompression-bomb bypass in redirects)
+- Fixed CVE-2026-24049: Updated `wheel` from 0.45.1 to 0.46.3 (High - path traversal in wheel unpack)
+- Fixed CVE-2025-68146: Updated `filelock` from 3.18.0 to 3.20.3 (Moderate - TOCTOU symlink attack)
+- Fixed CVE-2026-22701: Updated `filelock` to 3.20.3 (Moderate - TOCTOU in SoftFileLock)
+- Fixed CVE-2026-22702: Updated `virtualenv` from 20.31.2 to 20.36.1 (Moderate - TOCTOU in directory creation)
+
+### Changed
+- Updated CI/CD workflows to test Python 3.10 and 3.13 (dropped 3.9)
+- Updated all template files and documentation to reflect Python 3.10 minimum requirement
+
 ### Added
 - Placeholder for future updates and new features.
 
