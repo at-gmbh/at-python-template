@@ -9,7 +9,7 @@ packages = [{ include = "{{ cookiecutter.module_name }}", from = "src" }]
 include = ["src/{{ cookiecutter.module_name }}/res/*"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 {%- if cookiecutter.config_file == 'hocon' %}
 pyhocon = "^0.3.59"
 {%- elif cookiecutter.config_file == 'yaml' %}
