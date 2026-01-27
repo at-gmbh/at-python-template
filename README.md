@@ -1,7 +1,7 @@
 # AT Python Template
 
 [![Build](https://img.shields.io/github/actions/workflow/status/at-gmbh/at-python-template/tests-poetry.yml?branch=master)](https://github.com/at-gmbh/at-python-template/actions?query=branch%3Amaster+)
-![Python Version](https://img.shields.io/badge/python-3.9%20--%203.13-blue)
+![Python Version](https://img.shields.io/badge/python-3.10%20--%203.13-blue)
 [![Latest Version](https://img.shields.io/github/v/tag/at-gmbh/at-python-template?label=version&sort=semver)](https://github.com/at-gmbh/at-python-template/releases)
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/at-gmbh/at-python-template)](https://github.com/at-gmbh/at-python-template/commits/master)
 [![Dependencies](https://img.shields.io/librariesio/github/at-gmbh/at-python-template)](https://libraries.io/github/at-gmbh/at-python-template)
@@ -18,7 +18,7 @@ This guide aims to help you set up your environment and get coding in no time.
 
 ## 🛠 Prerequisites
 
-Before you dive in, make sure you have Python 3.9 or higher installed on your machine. To check if Python is installed, open a terminal and run:
+Before you dive in, make sure you have Python 3.10 or higher installed on your machine. To check if Python is installed, open a terminal and run:
 
 ```
 python --version
@@ -114,7 +114,7 @@ For more advanced Docker usage, please refer to the `Dockerfile` and `docker-com
 
 ## 🔗 Additional Dependencies
 
-- Python 3.9 or higher is required.
+- Python 3.10 or higher is required.
 - Jupyter Lab: If you are planning to use Jupyter notebooks.
 - This template requires `cookiecutter>=2.0`. If you experience issues installing it into your default conda environment, we recommend to create a new clean environment with nothing but the `cookiecutter` package installed.
 

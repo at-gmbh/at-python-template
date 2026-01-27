@@ -2,7 +2,7 @@
 # with this project (e.g. for testing or useful development tools).
 # The regular project dependencies are defined in requirements.txt{% if cookiecutter.code_formatter == 'black' %}
 black~=25.1.0{% endif %}
-pre-commit~=4.3.0
-pytest~=8.4.1
-pytest-cov~=6.2.1
-wheel~=0.45.1
+pre-commit~=4.5.1
+pytest~=9.0.2
+pytest-cov~=7.0.0
+wheel~=0.46.3
