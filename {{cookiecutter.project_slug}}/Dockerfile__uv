@@ -26,5 +26,15 @@ ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
+{%- if cookiecutter.ui_framework == 'chainlit' %}
+EXPOSE 8000
+# Run the Chainlit application
+CMD ["chainlit", "run", "src/{{ cookiecutter.module_name }}/ui/app.py", "-h"]
+{%- elif cookiecutter.ui_framework == 'streamlit' %}
+EXPOSE 8501
+# Run the Streamlit application
+CMD ["streamlit", "run", "src/{{ cookiecutter.module_name }}/ui/app.py"]
+{%- else %}
 # Run the application
 ENTRYPOINT ["python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
+{%- endif %}

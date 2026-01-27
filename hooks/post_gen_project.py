@@ -188,7 +188,10 @@ def handle_ci():
 
 def handle_ai_starter_kit():
     include_ai = '{{ cookiecutter.include_ai_starter_kit }}'
+    ui_framework = '{{ cookiecutter.ui_framework }}'
+    cloud_provider = '{{ cookiecutter.cloud_provider }}'
     ai_folder = f'{module_dir}/ai'
+    ui_folder = f'{module_dir}/ui'
 
     if include_ai == 'no':
         # Remove AI module if not selected
@@ -201,6 +204,34 @@ def handle_ai_starter_kit():
         # Rename env.example to .env.example
         if os.path.exists('env.example'):
             os.rename('env.example', '.env.example')
+
+    # Handle UI framework
+    if ui_framework == 'none':
+        # Remove UI module if no framework selected
+        if os.path.exists(ui_folder):
+            shutil.rmtree(ui_folder)
+
+    # Handle cloud provider deployments
+    if cloud_provider == 'aws':
+        # Keep AWS Terraform, remove Azure
+        if os.path.exists('.github/workflows/deploy_azure.yml.disabled'):
+            os.remove('.github/workflows/deploy_azure.yml.disabled')
+        if os.path.exists('terraform/azure'):
+            shutil.rmtree('terraform/azure')
+    elif cloud_provider == 'azure':
+        # Keep Azure Terraform, remove AWS
+        if os.path.exists('.github/workflows/deploy_aws.yml.disabled'):
+            os.remove('.github/workflows/deploy_aws.yml.disabled')
+        if os.path.exists('terraform/aws'):
+            shutil.rmtree('terraform/aws')
+    elif cloud_provider == 'none':
+        # Remove all cloud deployment files
+        if os.path.exists('.github/workflows/deploy_aws.yml.disabled'):
+            os.remove('.github/workflows/deploy_aws.yml.disabled')
+        if os.path.exists('.github/workflows/deploy_azure.yml.disabled'):
+            os.remove('.github/workflows/deploy_azure.yml.disabled')
+        if os.path.exists('terraform'):
+            shutil.rmtree('terraform')
 
 
 def print_success():

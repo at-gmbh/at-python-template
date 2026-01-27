@@ -16,5 +16,14 @@ SHELL ["mamba", "run", "-n", "{{cookiecutter.module_name}}_env", "/bin/bash", "-
 COPY . .
 RUN python setup.py install
 
+{%- if cookiecutter.ui_framework == 'chainlit' %}
+EXPOSE 8000
+# ENTRYPOINT doesn't use the same shell as RUN so you need the mamba stuff
+CMD ["mamba", "run", "-n", "{{cookiecutter.module_name}}_env", "chainlit", "run", "src/{{ cookiecutter.module_name }}/ui/app.py", "-h"]
+{%- elif cookiecutter.ui_framework == 'streamlit' %}
+EXPOSE 8501
+CMD ["mamba", "run", "-n", "{{cookiecutter.module_name}}_env", "streamlit", "run", "src/{{ cookiecutter.module_name }}/ui/app.py"]
+{%- else %}
 # ENTRYPOINT doesn't use the same shell as RUN so you need the conda stuff
 ENTRYPOINT ["mamba", "run", "-n", "{{cookiecutter.module_name}}_env", "python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
+{%- endif %}

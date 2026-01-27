@@ -35,3 +35,12 @@ chromadb>=0.6
 # OpenAI tokenizer
 tiktoken>=0.8
 {% endif %}
+
+# UI Framework Dependencies
+{% if cookiecutter.ui_framework == 'chainlit' %}
+# Chainlit for async chatbot interfaces
+chainlit>=1.3
+{% elif cookiecutter.ui_framework == 'streamlit' %}
+# Streamlit for data app interfaces
+streamlit>=1.40
+{% endif %}
