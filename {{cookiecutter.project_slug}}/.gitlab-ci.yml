@@ -31,7 +31,7 @@ stages:
 
 {% if cookiecutter.package_manager == 'poetry' -%}
 build-wheel:
-  image: python:3.9
+  image: python:3.10
   stage: build
   artifacts:
     name: 'app-wheel'
@@ -42,7 +42,7 @@ build-wheel:
     - pip install poetry==$POETRY_VERSION
     - poetry build -f wheel{% else -%}
 build-wheel:
-  image: python:3.9
+  image: python:3.10
   stage: build
   artifacts:
     name: 'app-wheel'
@@ -108,7 +108,7 @@ linter-happiness:
 {% if cookiecutter.package_manager == 'poetry' -%}
 test-unit:
   stage: test
-  image: python:3.9
+  image: python:3.10
   cache:
     key:
       files:
@@ -151,7 +151,7 @@ test-unit:
     - pytest tests{% elif cookiecutter.package_manager == 'pip' -%}
 test-unit:
   stage: test
-  image: python:3.9
+  image: python:3.10
   cache:
     key:
       files:

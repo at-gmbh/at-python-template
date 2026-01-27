@@ -19,10 +19,10 @@ import cookiecutter
 
 with warnings.catch_warnings():
     warnings.simplefilter("ignore", category=DeprecationWarning)
-    # check Python version (3.9 or higher)
-    if Version(platform.python_version()) < Version("3.9.0"):
+    # check Python version (3.10 or higher)
+    if Version(platform.python_version()) < Version("3.10.0"):
         print(f"ERROR: You are using Python {platform.python_version()},",
-              "but Python 3.9 or higher is required to use this template")
+              "but Python 3.10 or higher is required to use this template")
         sys.exit(1)
     # check cookiecutter version (1.7.2 or higher)
     if Version(cookiecutter.__version__) < Version('1.7.2'):
