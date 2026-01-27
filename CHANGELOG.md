@@ -10,6 +10,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Placeholder for future updates and new features.
 
+## [1.4.0] - 2026-01-27
+
+### Added
+- **Ruff support as code formatter option** - Ruff can now be selected as an alternative to Black
+  - Ruff replaces Black, isort, pyupgrade, and flake8 in a single tool
+  - Full integration across all package managers (Poetry, Conda, Pip, UV)
+  - Ruff configuration in `pyproject.toml` under `[tool.ruff]`
+  - GitLab CI jobs for `ruff check` and `ruff format --check`
+  - VSCode IDE integration with Ruff extension
+- New `cookiecutter.json` option: `code_formatter: ["none", "black", "ruff"]`
+
+### Changed
+- Updated `jupyterlab` from 3.5 to 4.5.3 (latest stable)
+- Updated `ruff` from 0.1.7 to 0.12.2 (latest stable)
+- Removed redundant `.ruff.toml` - configuration now consolidated in `pyproject.toml`
+- `[tool.isort]` section only generated when `code_formatter != 'ruff'` (Ruff includes import sorting)
+- Synchronized pytest versions across all package managers (9.0.2 / 7.0.0)
+
+### Fixed
+- Removed erroneous CLI entry from Poetry dependencies section (should only be in scripts)
+
 ## [1.3.0] - 2026-01-27
 
 ### ⚠️ Breaking Changes

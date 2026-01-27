@@ -65,9 +65,10 @@ linter-happiness:
       - $POETRY_CACHE_DIR
   before_script:
     - pip install poetry==$POETRY_VERSION
-    - poetry install --no-interaction --no-ansi --only lint
+    - poetry install --no-interaction --no-ansi --only linter
   script:
-    - poetry run ruff check . --config pyproject.toml
+    - poetry run ruff check .
+    - poetry run ruff format --check .
 {% elif cookiecutter.code_formatter == 'ruff' and cookiecutter.package_manager == 'conda' -%}
 linter-happiness:
   stage: lint
@@ -85,7 +86,8 @@ linter-happiness:
     - conda env create -n .venv -f environment-dev.yml environment.yml
     - source activate .venv
   script:
-    - ruff check . --config .ruff.toml
+    - ruff check .
+    - ruff format --check .
 {% elif cookiecutter.code_formatter == 'ruff' and cookiecutter.package_manager == 'pip' -%}
 linter-happiness:
   stage: lint
@@ -102,7 +104,25 @@ linter-happiness:
     - source .venv/bin/activate
     - pip install ruff
   script:
-    - ruff check . --config .ruff.toml
+    - ruff check .
+    - ruff format --check .
+{% elif cookiecutter.code_formatter == 'ruff' and cookiecutter.package_manager == 'uv' -%}
+linter-happiness:
+  stage: lint
+  image: python:3.11
+  cache:
+    key:
+      files:
+        - pyproject.toml
+        - uv.lock
+    paths:
+      - $PIP_CACHE_DIR
+  before_script:
+    - pip install uv
+    - uv sync --group linter
+  script:
+    - uv run ruff check .
+    - uv run ruff format --check .
 {% endif %}
 
 {% if cookiecutter.package_manager == 'poetry' -%}

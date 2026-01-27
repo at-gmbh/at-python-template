@@ -17,7 +17,6 @@ PyYAML = "^6.0.3"
 {%- endif %}
 {%- if cookiecutter.create_cli == 'yes' %}
 typer = "^0.21.1"
-{{ cookiecutter.project_slug }} = "{{ cookiecutter.module_name }}.main:app"
 {%- endif %}
 
 [tool.poetry.group.test.dependencies]
@@ -27,22 +26,14 @@ pytest-cov = "^7.0.0"
 [tool.poetry.group.linter.dependencies]
 {%- if cookiecutter.code_formatter == 'black' %}
 black = "^25.1.0"
-{%- else %}
+isort = "^5.12.0"
+{%- elif cookiecutter.code_formatter == 'ruff' %}
 ruff = "^0.12.2"
 {%- endif %}
-isort = "^5.12.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.5.1"{% if cookiecutter.use_notebooks == 'yes' %}
-jupyterlab = "^4.3.5"{% endif %}
-{% if cookiecutter.code_formatter != 'black' %}
-[tool.ruff]
-line-length = 100
-src = ["src", "tests"]
-ignore = ["F401"]
-target-version = "py39"
-exclude = ["__init__.py"]
-extend-exclude = ["notebooks/*"]
+jupyterlab = "^4.5.3"{% endif %}
 
 [tool.poetry.extras]
 build = ["setuptools", "cython"]
@@ -52,23 +43,47 @@ build = ["setuptools", "cython"]
 {{ cookiecutter.project_slug }} = "{{ cookiecutter.module_name }}.main:app"
 {%- endif %}
 
+{%- if cookiecutter.code_formatter == 'ruff' %}
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+target-version = "py311"
+exclude = ["__init__.py"]
+extend-exclude = ["notebooks/*"]
+
 [tool.ruff.lint]
 select = [
     "E",  # Pycodestyle errors
     "F",  # Pyflakes errors
     "UP", # pyupgrade checks
     "B",  # Bugbear checks
-    "SIM",# Simplifcation checks
+    "SIM",# Simplification checks
     "I",  # Import order checks (isort)
     "N"   # Naming convention checks
 ]
 task-tags = ["TODO", "FIXME", "NOTE"]
-{% endif %}
+
+[tool.ruff.lint.isort]
+known-first-party = ["{{ cookiecutter.module_name }}"]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 100
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "double"
+multiline-quotes = "double"
+docstring-quotes = "double"
+{%- endif %}
+
+{%- if cookiecutter.code_formatter != 'ruff' %}
+
 [tool.isort]{% if cookiecutter.code_formatter == 'black' %}
 profile = "black"{% else %}
 py_version = 310
 line_length = 100
 multi_line_output = 3{% endif %}
+{%- endif %}
 
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -116,16 +131,51 @@ hello_gui = "{{ cookiecutter.module_name }}.gui:main"
 a = "{{ cookiecutter.module_name }}_plugin_a"
 
 [dependency-groups]
-dev = ["pre-commit>=4.3.0"{% if cookiecutter.use_notebooks == 'yes' %}, "jupyterlab>=3.5"{% endif %}]
+dev = ["pre-commit>=4.3.0"{% if cookiecutter.use_notebooks == 'yes' %}, "jupyterlab>=4.5.3"{% endif %}]
 linter = [
 {%- if cookiecutter.code_formatter == 'black' %}
 "black>=25.1.0",
-{%- else %}
-"ruff>=0.12.2",
-{%- endif %}
 "isort>=5.12.0"
+{%- elif cookiecutter.code_formatter == 'ruff' %}
+"ruff>=0.12.2"
+{%- endif %}
 ]
-test = ["pytest>=8.4.1", "pytest-cov>=6.2.1"]
+test = ["pytest>=9.0.2", "pytest-cov>=7.0.0"]
+
+{%- if cookiecutter.code_formatter == 'ruff' %}
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+target-version = "py311"
+exclude = ["__init__.py"]
+extend-exclude = ["notebooks/*"]
+
+[tool.ruff.lint]
+select = [
+    "E",  # Pycodestyle errors
+    "F",  # Pyflakes errors
+    "UP", # pyupgrade checks
+    "B",  # Bugbear checks
+    "SIM",# Simplification checks
+    "I",  # Import order checks (isort)
+    "N"   # Naming convention checks
+]
+task-tags = ["TODO", "FIXME", "NOTE"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["{{ cookiecutter.module_name }}"]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 100
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "double"
+multiline-quotes = "double"
+docstring-quotes = "double"
+{%- endif %}
+
+{%- if cookiecutter.code_formatter != 'ruff' %}
 
 [tool.isort]
 {%- if cookiecutter.code_formatter == 'black' %}
@@ -133,6 +183,7 @@ profile = "black"
 {%- else %}
 line_length = 100
 multi_line_output = 3
+{%- endif %}
 {%- endif %}
 
 [tool.pytest.ini_options]
