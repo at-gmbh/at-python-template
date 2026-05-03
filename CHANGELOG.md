@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Placeholder for future updates and new features.
+## [1.3.1] - 2026-05-04
+
+### Changed
+- Replaced `condaforge/mambaforge` base image with `mambaorg/micromamba:latest` in the conda Dockerfile for faster, smaller builds (closes #74)
+- Removed `SHELL ["mamba", "run", ...]` workaround; environment activation is now handled via `MAMBA_DOCKERFILE_ACTIVATE=1` and `ENV_NAME`, which is the recommended micromamba pattern
+- Improved Docker layer caching by copying `environment.yml` and creating the conda env before copying the full project source
 
 ## [1.3.0] - 2026-01-27
 
