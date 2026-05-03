@@ -1,6 +1,6 @@
 [project]
 name = "at-python-template"
-version = "1.3.1"
+version = "1.4.0"
 description = "This is the official Python Project Template of Alexander Thamm GmbH (AT)"
 authors = [
     { name = "Christian Baur", email = "christian.baur@alexanderthamm.com" },
