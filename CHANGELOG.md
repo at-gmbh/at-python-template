@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-05-04
+
 ### Added
-- Placeholder for future updates and new features.
+- Added `github` as a new `ci_pipeline` option (closes #44). Selecting GitHub Actions generates `.github/workflows/ci.yml` with `build` and `test` jobs, supporting all four package managers (conda with micromamba, pip, poetry, uv). The GitLab CI option is unchanged.
+
+### Changed
+- Updated the README to document the new GitHub Actions CI choice under "Choices explained".
 
 ## [1.3.0] - 2026-01-27
 
