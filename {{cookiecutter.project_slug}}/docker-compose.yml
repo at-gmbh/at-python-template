@@ -15,5 +15,10 @@ services:
         {% else %}
         PYTHON_IMAGE_TAG: "3.9-slim"
         {% endif %}
+    {% if cookiecutter.config_file == 'hocon' %}
+    environment:
+      ENV: dev
+      USERNAME: ${USERNAME:-dear user of the at-python-template}
+    {% endif %}
     command: '{% if cookiecutter.create_cli == "yes" %}--help{% else %}--config /app/config/config.yml{% endif %}'
     tty: true

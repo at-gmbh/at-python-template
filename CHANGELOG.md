@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-05-04
+
 ### Added
-- Placeholder for future updates and new features.
+- HOCON config templates now demonstrate environment variable substitution (closes #95): `dev.conf` and `prod.conf` include `username: ${USERNAME}`, and `docker-compose.yml` passes `ENV` and `USERNAME` environment variables to the container when `config_file=hocon` is selected.
 
 ## [1.3.0] - 2026-01-27
 
