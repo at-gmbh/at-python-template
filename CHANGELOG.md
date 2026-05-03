@@ -7,8 +7,141 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-01-28
+
 ### Added
-- Placeholder for future updates and new features.
+- **AI Starter Kit** - Complete AI/LLM development framework (optional)
+  - New `cookiecutter.json` option: `include_ai_starter_kit: ["no", "yes"]`
+  - **Philosophy: "Launchpads, not Prisons"** - Transparent, flexible, modular code
+  - RAG (Retrieval-Augmented Generation) with transparent LangChain implementation
+    - Function-based approach (no complex wrapper classes)
+    - Direct LCEL code visible and customizable
+    - TODO comments at every customization point
+    - `build_rag_chain()` - Core RAG logic, easy to modify
+    - `load_documents()`, `chunk_documents()`, `create_vector_store()` - Modular functions
+  - LangChain agents with pre-built tools (calculator, search, date)
+  - Type-safe configuration management with Pydantic v2 and pydantic-settings
+    - Runtime overrides supported (`config.temperature = 1.5`)
+    - `frozen=False` for maximum flexibility
+    - Singleton pattern optional, not enforced
+  - Centralized prompt management system for version-controlled prompt engineering
+  - Comprehensive documentation with runnable examples
+  - Full support for all package managers (Poetry, Conda, Pip, UV)
+  - Dependencies added (when AI kit enabled):
+    - `langchain>=0.3` - LLM application framework
+    - `langchain-openai>=0.2` - OpenAI integration
+    - `langchain-community>=0.3` - Community tools and vectorstores
+    - `pydantic>=2.10` - Data validation and structured outputs
+    - `pydantic-settings>=2.7` - Environment-based configuration
+    - `python-dotenv>=1.0` - Environment variable management
+    - `loguru>=0.7` - Enhanced logging
+    - `chromadb>=0.6` - Local vector database
+    - `tiktoken>=0.8` - OpenAI tokenizer
+  - `.env.example` template with comprehensive configuration documentation
+  - AI-specific `.gitignore` entries (vector databases, model caches, logs)
+  - Best practices for 2026: Structured outputs, function calling, observability
+- **UI Framework Support** - Web interfaces for AI applications (optional)
+  - New `cookiecutter.json` option: `ui_framework: ["none", "chainlit", "streamlit"]`
+  - **Chainlit integration** for async chatbot interfaces
+    - Real-time streaming responses
+    - Session management
+    - RAG integration out-of-the-box
+    - Minimal wrapper code (view layer only)
+    - Dependency: `chainlit>=1.3`
+  - **Streamlit integration** for interactive data apps
+    - Chat history management
+    - Streamlit session state
+    - RAG integration
+    - Minimal wrapper code (view layer only)
+    - Dependency: `streamlit>=1.40`
+  - Dynamic Dockerfile configuration based on selected UI framework
+    - Chainlit: `EXPOSE 8000`, runs with `chainlit run`
+    - Streamlit: `EXPOSE 8501`, runs with `streamlit run`
+    - None: Default Python entrypoint
+- **Unified Cloud Deployment with Terraform** 🎯 SINGLE SOURCE OF TRUTH
+  - New `cookiecutter.json` option: `cloud_provider: ["none", "aws", "azure"]`
+  - **AWS Deployment (Terraform)**
+    - Infrastructure: `terraform/aws/` with App Runner + ECR
+    - GitHub Actions workflow: `.github/workflows/deploy_aws.yml.disabled`
+    - Resources: ECR repository, App Runner service, IAM roles
+    - Automatic scaling and deployment
+  - **Azure Deployment (Terraform)** - Now unified with AWS approach!
+    - Infrastructure: `terraform/azure/` with Container Apps + ACR
+    - GitHub Actions workflow: `.github/workflows/deploy_azure.yml.disabled` (Terraform-based)
+    - Resources: Resource Group, ACR, Log Analytics, Container App Environment, Container App
+    - Ingress configuration, auto-scaling, secrets management
+  - **Unified Terraform Approach**
+    - Same HCL syntax for both clouds
+    - Consistent file structure (`terraform/{aws,azure}/`)
+    - Same deployment workflow (init → plan → apply)
+    - State management for both clouds
+    - Comprehensive `terraform/README.md` with examples
+  - **Dynamic Configuration**
+    - Port configuration based on UI framework
+    - Environment variables
+    - Secrets management patterns (AWS Secrets Manager / Azure Key Vault)
+    - Scaling configuration
+  - **CI/CD Integration**
+    - Automated Docker builds
+    - Push to cloud registries (ECR/ACR)
+    - Terraform apply in GitHub Actions
+    - Deployment summaries
+    - Optional rollback support
+
+### Changed
+- Updated `.gitignore` with AI/LLM-specific entries (when AI kit enabled)
+  - `chroma_db/` - Vector databases
+  - `.cache/` - Model caches
+  - `*.pkl`, `*.pickle` - Serialized models
+  - `llm_logs/` - LLM API logs
+- **Dockerfiles made dynamic for UI frameworks**
+  - `Dockerfile__poetry`, `Dockerfile__pip`, `Dockerfile__conda`, `Dockerfile__uv`
+  - Conditional `EXPOSE` and `CMD`/`ENTRYPOINT` based on `ui_framework`
+  - Support for both web apps (Chainlit/Streamlit) and CLI apps
+- **AI Code Architecture - "Launchpads, not Prisons"**
+  - Removed complex wrapper classes in favor of transparent functions
+  - All configuration mutable for easy experimentation
+  - TODO comments guide developers to customization points
+  - Runnable examples in every module (`if __name__ == "__main__"`)
+  - Direct LangChain code visible (no abstraction hiding)
+- **Azure Deployment - Migrated to Terraform**
+  - Changed from Azure CLI commands to Terraform
+  - Same deployment experience as AWS
+  - Better state management and rollback capabilities
+
+### Fixed
+- **`poetry.toml` no longer generated for non-Poetry package managers**
+  - Previously, `poetry.toml` was incorrectly generated for UV, Pip, and Conda projects
+  - Now only Poetry projects receive `poetry.toml` (virtualenv configuration)
+  - UV projects correctly receive only `pyproject.toml` (without `poetry.toml`)
+  - Improved post-generation hook logic with explicit `files_poetry_only` set
+- Removed erroneous CLI entry from Poetry dependencies section (should only be in scripts)
+
+### Documentation
+- Added `terraform/README.md` - Comprehensive Terraform usage guide
+- Enhanced inline code documentation with TODO comments
+- Runnable examples in AI modules
+
+## [1.4.0] - 2026-01-27
+
+### Added
+- **Ruff support as code formatter option** - Ruff can now be selected as an alternative to Black
+  - Ruff replaces Black, isort, pyupgrade, and flake8 in a single tool
+  - Full integration across all package managers (Poetry, Conda, Pip, UV)
+  - Ruff configuration in `pyproject.toml` under `[tool.ruff]`
+  - GitLab CI jobs for `ruff check` and `ruff format --check`
+  - VSCode IDE integration with Ruff extension
+- New `cookiecutter.json` option: `code_formatter: ["none", "black", "ruff"]`
+
+### Changed
+- Updated `jupyterlab` from 3.5 to 4.5.3 (latest stable)
+- Updated `ruff` from 0.1.7 to 0.12.2 (latest stable)
+- Removed redundant `.ruff.toml` - configuration now consolidated in `pyproject.toml`
+- `[tool.isort]` section only generated when `code_formatter != 'ruff'` (Ruff includes import sorting)
+- Synchronized pytest versions across all package managers (9.0.2 / 7.0.0)
+
+### Fixed
+- Removed erroneous CLI entry from Poetry dependencies section (should only be in scripts)
 
 ## [1.3.0] - 2026-01-27
 

@@ -10,11 +10,11 @@ dependencies:
   - python>=3.10
   - pytest>=9.0.2
   - pytest-cov>=7.0.0
-  - pre-commit>=4.5.1
-  - isort>=6.1.0{% if cookiecutter.use_notebooks == 'yes' %}
-  - jupyterlab>=4.3.5{% endif %}
+  - pre-commit>=4.5.1{% if cookiecutter.code_formatter != 'ruff' %}
+  - isort>=6.1.0{% endif %}{% if cookiecutter.use_notebooks == 'yes' %}
+  - jupyterlab>=4.5.3{% endif %}
   - pip{% if cookiecutter.code_formatter == 'black' %}
   - pip:
-    - black>=25.1.0{% else %}
+    - black>=25.1.0{% elif cookiecutter.code_formatter == 'ruff' %}
   - pip:
-    - ruff>=0.11.0{% endif %}
+    - ruff>=0.12.2{% endif %}

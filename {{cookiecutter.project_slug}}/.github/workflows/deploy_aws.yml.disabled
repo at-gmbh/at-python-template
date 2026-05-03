@@ -1,0 +1,173 @@
+# ==============================================================================
+# AWS Deployment with Terraform - GitHub Actions
+# ==============================================================================
+#
+# This workflow deploys your Docker container to AWS App Runner using Terraform.
+#
+# 🎯 TO ENABLE:
+# 1. Rename this file from deploy_aws.yml.disabled to deploy_aws.yml
+# 2. Set up GitHub Secrets (see below)
+# 3. Push to main branch
+#
+# 📋 REQUIRED GITHUB SECRETS:
+# - AWS_ACCESS_KEY_ID: AWS IAM access key
+# - AWS_SECRET_ACCESS_KEY: AWS IAM secret key
+# - AWS_REGION: AWS region (e.g., us-east-1)
+# - OPENAI_API_KEY: OpenAI API key (stored in AWS Secrets Manager by Terraform)
+#
+# ==============================================================================
+
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+      - production
+  workflow_dispatch:  # Manual trigger
+
+env:
+  AWS_REGION: ${{"{{"}} secrets.AWS_REGION || 'us-east-1' {{"}}"}}
+  ECR_REPOSITORY: {{ cookiecutter.project_slug }}
+  IMAGE_TAG: ${{"{{"}} github.sha {{"}}"}}
+  TF_VERSION: 1.7.0
+
+jobs:
+  terraform-deploy:
+    name: Build & Deploy to AWS
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # For OIDC (optional)
+
+    steps:
+      # ========================================================================
+      # 1. Checkout code
+      # ========================================================================
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ========================================================================
+      # 2. Configure AWS credentials
+      # ========================================================================
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{"{{"}} secrets.AWS_ACCESS_KEY_ID {{"}}"}}
+          aws-secret-access-key: ${{"{{"}} secrets.AWS_SECRET_ACCESS_KEY {{"}}"}}
+          aws-region: ${{"{{"}} env.AWS_REGION {{"}}"}}
+
+      # ========================================================================
+      # 3. Login to Amazon ECR
+      # ========================================================================
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # ========================================================================
+      # 4. Build and push Docker image
+      # ========================================================================
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{"{{"}} steps.login-ecr.outputs.registry {{"}}"}}
+        run: |
+          # Build Docker image
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+          # Push to ECR
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+          echo "IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+
+      # ========================================================================
+      # 5. Setup Terraform
+      # ========================================================================
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{"{{"}} env.TF_VERSION {{"}}"}}
+
+      # ========================================================================
+      # 6. Terraform Init
+      # ========================================================================
+      - name: Terraform Init
+        working-directory: terraform/aws
+        run: terraform init
+
+      # ========================================================================
+      # 7. Terraform Plan
+      # ========================================================================
+      - name: Terraform Plan
+        working-directory: terraform/aws
+        run: |
+          terraform plan \
+            -var="image_tag=$IMAGE_TAG" \
+            -var="aws_region=$AWS_REGION" \
+            -out=tfplan
+
+      # ========================================================================
+      # 8. Terraform Apply
+      # ========================================================================
+      - name: Terraform Apply
+        working-directory: terraform/aws
+        run: terraform apply -auto-approve tfplan
+
+      # ========================================================================
+      # 9. Get deployment URL
+      # ========================================================================
+      - name: Get App URL
+        id: app-url
+        working-directory: terraform/aws
+        run: |
+          APP_URL=$(terraform output -raw app_url)
+          echo "APP_URL=$APP_URL" >> $GITHUB_OUTPUT
+          echo "Deployed to: $APP_URL"
+
+      # ========================================================================
+      # 10. Deployment Summary
+      # ========================================================================
+      - name: Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** AWS App Runner" >> $GITHUB_STEP_SUMMARY
+          echo "**Image:** $IMAGE_URI" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** ${{"{{"}} steps.app-url.outputs.APP_URL {{"}}"}}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Commit: ${{"{{"}} github.sha {{"}}"}}" >> $GITHUB_STEP_SUMMARY
+
+# ==============================================================================
+# Optional: Destroy infrastructure (manual trigger only)
+# ==============================================================================
+# Uncomment this job if you want to be able to destroy infrastructure via GitHub Actions
+#
+# destroy:
+#   name: Destroy AWS Infrastructure
+#   runs-on: ubuntu-latest
+#   if: github.event_name == 'workflow_dispatch'
+#
+#   steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+#
+#     - name: Configure AWS credentials
+#       uses: aws-actions/configure-aws-credentials@v4
+#       with:
+#         aws-access-key-id: ${{"{{"}} secrets.AWS_ACCESS_KEY_ID {{"}}"}}
+#         aws-secret-access-key: ${{"{{"}} secrets.AWS_SECRET_ACCESS_KEY {{"}}"}}
+#         aws-region: ${{"{{"}} env.AWS_REGION {{"}}"}}
+#
+#     - name: Setup Terraform
+#       uses: hashicorp/setup-terraform@v3
+#       with:
+#         terraform_version: ${{"{{"}} env.TF_VERSION {{"}}"}}
+#
+#     - name: Terraform Init
+#       working-directory: terraform/aws
+#       run: terraform init
+#
+#     - name: Terraform Destroy
+#       working-directory: terraform/aws
+#       run: terraform destroy -auto-approve

@@ -15,6 +15,17 @@
   // "python.formatting.blackPath": ".venv/bin/black",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "ms-python.python"
+  {% elif cookiecutter.code_formatter == 'ruff' %} // Use ruff as our linter and formatter
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "ruff.lint.run": "onSave",
+  "ruff.format.args": ["--config=pyproject.toml"]
   {% endif -%}
   // Other useful (categories of) settings to look at are
   // "python.linting"

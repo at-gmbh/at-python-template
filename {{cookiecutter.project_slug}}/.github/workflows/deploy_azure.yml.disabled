@@ -1,0 +1,208 @@
+# ==============================================================================
+# Azure Container Apps Deployment with Terraform - GitHub Actions
+# ==============================================================================
+#
+# 🎯 UNIFIED APPROACH: This workflow uses Terraform (same as AWS!)
+#
+# This workflow deploys your Docker container to Azure Container Apps using Terraform.
+#
+# 📋 TO ENABLE:
+# 1. Rename this file from deploy_azure.yml.disabled to deploy_azure.yml
+# 2. Set up GitHub Secrets (see below)
+# 3. Push to main branch
+#
+# 📋 REQUIRED GITHUB SECRETS:
+# - AZURE_CLIENT_ID: Service Principal Client ID (for OIDC)
+# - AZURE_TENANT_ID: Azure Tenant ID
+# - AZURE_SUBSCRIPTION_ID: Azure Subscription ID
+#
+# 📋 ALTERNATIVE: Use Service Principal Credentials
+# - AZURE_CREDENTIALS: JSON with clientId, clientSecret, subscriptionId, tenantId
+#
+# ==============================================================================
+
+name: Deploy to Azure
+
+on:
+  push:
+    branches:
+      - main
+      - production
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  AZURE_REGION: westeurope
+  IMAGE_TAG: ${{"{{"}} github.sha {{"}}"}}
+  TF_VERSION: 1.7.0
+
+  {%- if cookiecutter.ui_framework == 'chainlit' %}
+  # Chainlit configuration
+  PORT: 8000
+  {%- elif cookiecutter.ui_framework == 'streamlit' %}
+  # Streamlit configuration
+  PORT: 8501
+  {%- else %}
+  # Default port
+  PORT: 8080
+  {%- endif %}
+
+jobs:
+  terraform-deploy:
+    name: Build & Deploy to Azure
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Required for OIDC authentication
+
+    steps:
+      # ========================================================================
+      # 1. Checkout code
+      # ========================================================================
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ========================================================================
+      # 2. Azure Login (OIDC)
+      # ========================================================================
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{"{{"}} secrets.AZURE_CLIENT_ID {{"}}"}}
+          tenant-id: ${{"{{"}} secrets.AZURE_TENANT_ID {{"}}"}}
+          subscription-id: ${{"{{"}} secrets.AZURE_SUBSCRIPTION_ID {{"}}"}}
+
+      # ========================================================================
+      # 3. Setup Terraform
+      # ========================================================================
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{"{{"}} env.TF_VERSION {{"}}"}}
+          terraform_wrapper: false  # Get raw outputs
+
+      # ========================================================================
+      # 4. Terraform Init
+      # ========================================================================
+      - name: Terraform Init
+        working-directory: terraform/azure
+        run: terraform init
+
+      # ========================================================================
+      # 5. Get ACR credentials from Terraform
+      # ========================================================================
+      - name: Get or Create ACR
+        id: acr
+        working-directory: terraform/azure
+        run: |
+          # Apply only ACR resources first to get credentials
+          terraform apply -auto-approve \
+            -target=azurerm_resource_group.main \
+            -target=azurerm_container_registry.acr \
+            -var="image_tag=$IMAGE_TAG"
+
+          # Get ACR details
+          ACR_LOGIN_SERVER=$(terraform output -raw acr_login_server)
+          ACR_USERNAME=$(terraform output -raw acr_admin_username)
+          ACR_PASSWORD=$(terraform output -raw acr_admin_password)
+
+          echo "ACR_LOGIN_SERVER=$ACR_LOGIN_SERVER" >> $GITHUB_OUTPUT
+          echo "ACR_USERNAME=$ACR_USERNAME" >> $GITHUB_OUTPUT
+          echo "::add-mask::$ACR_PASSWORD"
+          echo "ACR_PASSWORD=$ACR_PASSWORD" >> $GITHUB_OUTPUT
+
+      # ========================================================================
+      # 6. Build and push Docker image
+      # ========================================================================
+      - name: Build and push Docker image
+        env:
+          ACR_LOGIN_SERVER: ${{"{{"}} steps.acr.outputs.ACR_LOGIN_SERVER {{"}}"}}
+          ACR_USERNAME: ${{"{{"}} steps.acr.outputs.ACR_USERNAME {{"}}"}}
+          ACR_PASSWORD: ${{"{{"}} steps.acr.outputs.ACR_PASSWORD {{"}}"}}
+        run: |
+          # Login to ACR
+          echo "$ACR_PASSWORD" | docker login $ACR_LOGIN_SERVER -u $ACR_USERNAME --password-stdin
+
+          # Build Docker image
+          docker build -t $ACR_LOGIN_SERVER/{{ cookiecutter.project_slug }}:$IMAGE_TAG .
+          docker tag $ACR_LOGIN_SERVER/{{ cookiecutter.project_slug }}:$IMAGE_TAG $ACR_LOGIN_SERVER/{{ cookiecutter.project_slug }}:latest
+
+          # Push to ACR
+          docker push $ACR_LOGIN_SERVER/{{ cookiecutter.project_slug }}:$IMAGE_TAG
+          docker push $ACR_LOGIN_SERVER/{{ cookiecutter.project_slug }}:latest
+
+      # ========================================================================
+      # 7. Terraform Plan
+      # ========================================================================
+      - name: Terraform Plan
+        working-directory: terraform/azure
+        run: |
+          terraform plan \
+            -var="image_tag=$IMAGE_TAG" \
+            -var="location=$AZURE_REGION" \
+            -out=tfplan
+
+      # ========================================================================
+      # 8. Terraform Apply
+      # ========================================================================
+      - name: Terraform Apply
+        working-directory: terraform/azure
+        run: terraform apply -auto-approve tfplan
+
+      # ========================================================================
+      # 9. Get deployment URL
+      # ========================================================================
+      - name: Get App URL
+        id: app-url
+        working-directory: terraform/azure
+        run: |
+          APP_URL=$(terraform output -raw app_url)
+          echo "APP_URL=$APP_URL" >> $GITHUB_OUTPUT
+          echo "Deployed to: $APP_URL"
+
+      # ========================================================================
+      # 10. Deployment Summary
+      # ========================================================================
+      - name: Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Cloud:** Azure Container Apps" >> $GITHUB_STEP_SUMMARY
+          echo "**Infrastructure:** Terraform" >> $GITHUB_STEP_SUMMARY
+          echo "**Image Tag:** $IMAGE_TAG" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** ${{"{{"}} steps.app-url.outputs.APP_URL {{"}}"}}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Commit: ${{"{{"}} github.sha {{"}}"}}" >> $GITHUB_STEP_SUMMARY
+
+# ==============================================================================
+# Optional: Destroy infrastructure (manual trigger only)
+# ==============================================================================
+# Uncomment this job if you want to destroy infrastructure via GitHub Actions
+#
+# destroy:
+#   name: Destroy Azure Infrastructure
+#   runs-on: ubuntu-latest
+#   if: github.event_name == 'workflow_dispatch'
+#
+#   steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v4
+#
+#     - name: Azure Login
+#       uses: azure/login@v2
+#       with:
+#         client-id: ${{"{{"}} secrets.AZURE_CLIENT_ID {{"}}"}}
+#         tenant-id: ${{"{{"}} secrets.AZURE_TENANT_ID {{"}}"}}
+#         subscription-id: ${{"{{"}} secrets.AZURE_SUBSCRIPTION_ID {{"}}"}}
+#
+#     - name: Setup Terraform
+#       uses: hashicorp/setup-terraform@v3
+#       with:
+#         terraform_version: ${{"{{"}} env.TF_VERSION {{"}}"}}
+#
+#     - name: Terraform Init
+#       working-directory: terraform/azure
+#       run: terraform init
+#
+#     - name: Terraform Destroy
+#       working-directory: terraform/azure
+#       run: terraform destroy -auto-approve
