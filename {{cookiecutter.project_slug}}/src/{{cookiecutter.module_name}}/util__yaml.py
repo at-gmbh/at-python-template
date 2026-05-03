@@ -48,3 +48,8 @@ def logging_setup(config: Dict):
         level = logging.NOTSET
     logging.basicConfig(format=fmt, level=logging.WARNING)
     logger.setLevel(level)
+
+
+def setup_logging(config_path: Union[str, Path] = 'config/config.yml'):
+    """Load config and configure logging in one call."""
+    logging_setup(load_config(config_path))

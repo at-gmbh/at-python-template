@@ -76,6 +76,10 @@ files_config_hocon = [
     'config/prod.conf',
 ]
 
+files_config_none = [
+    f'{module_dir}/util__none.py',
+]
+
 files_ci_gitlab = {
     ".gitlab-ci.yml",
 }
@@ -141,16 +145,17 @@ def handle_cli():
 def handle_config():
     config_file = '{{ cookiecutter.config_file }}'
     if config_file == 'yaml':
-        _delete_files(files_config_hocon)
+        _delete_files(files_config_hocon + files_config_none)
         shutil.rmtree(f'{module_dir}/res')
         _rename_files(f'src/**/*__yaml.py', '__yaml', '')
     elif config_file == 'hocon':
-        _delete_files(files_config_yaml)
+        _delete_files(files_config_yaml + files_config_none)
         _rename_files(f'src/**/*__hocon.py', '__hocon', '')
     else:
         _delete_files(files_config_hocon + files_config_yaml + ['tests/test_util.py'])
         os.rmdir(f'{module_dir}/res')
         os.rmdir('config')
+        _rename_files(f'src/**/*__none.py', '__none', '')
 
 
 def handle_formatter():

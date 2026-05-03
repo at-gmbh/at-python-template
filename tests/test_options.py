@@ -99,8 +99,8 @@ def test_config_yaml():
 def test_config_none():
     check_project(
         settings={'config_file': 'none'},
-        files_non_existent=['config', 'src/{module_name}/util.py', 'tests/util.py',
-                            'src/{module_name}/res'])
+        files_existent=['src/{module_name}/util.py'],
+        files_non_existent=['config', 'tests/util.py', 'src/{module_name}/res'])
 
 
 def test_formatter_black_pip():

@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Placeholder for future updates and new features.
+## [1.3.1] - 2026-05-04
+
+### Changed
+- Centralised logging setup (closes #39): all config variants now expose a single `util.setup_logging()` function so `main.py` is uniform regardless of the chosen config format. `util__yaml.py` and `util__hocon.py` gain a `setup_logging()` wrapper; a new `util__none.py` provides a standalone `setup_logging()` for the no-config case (renamed to `util.py` by the post-generate hook).
 
 ## [1.3.0] - 2026-01-27
 
