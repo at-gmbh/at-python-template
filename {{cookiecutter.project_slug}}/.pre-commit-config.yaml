@@ -13,21 +13,32 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace{% if cookiecutter.code_formatter == 'black' %}
   - repo: https://github.com/psf/black
-    rev: 'stable'
+    rev: '25.1.0'
     hooks:
       - id: black
         language_version: python3.10
-        exclude: ^notebooks{% else %}
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.14.14'
-    hooks:
-      - id: ruff{% endif %}
+        exclude: ^notebooks
   - repo: https://github.com/pycqa/isort
-    rev: '6.1.0'
+    rev: '5.13.2'
     hooks:
       - id: isort
   - repo: https://github.com/asottile/pyupgrade
     rev: 'v3.20.0'
     hooks:
       - id: pyupgrade
-        args: [ --py310-plus ]
+        args: [ --py310-plus ]{% elif cookiecutter.code_formatter == 'ruff' %}
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 'v0.12.2'
+    hooks:
+      - id: ruff
+        args: [ --fix ]
+      - id: ruff-format{% else %}
+  - repo: https://github.com/pycqa/isort
+    rev: '5.13.2'
+    hooks:
+      - id: isort
+  - repo: https://github.com/asottile/pyupgrade
+    rev: 'v3.20.0'
+    hooks:
+      - id: pyupgrade
+        args: [ --py310-plus ]{% endif %}

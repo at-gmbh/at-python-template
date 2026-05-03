@@ -136,6 +136,86 @@ def test_formatter_black_poetry():
     )
 
 
+def test_formatter_ruff_pip():
+    def check_ruff(project_dir: Path):
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='ruff-pre-commit')
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='ruff-format')
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', not_contains='psf/black')
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', not_contains='pycqa/isort')
+        assert_file_contains(project_dir / 'requirements-dev.txt', contains='ruff')
+        assert_file_contains(project_dir / 'requirements-dev.txt', not_contains='black')
+        assert_file_contains(project_dir / 'requirements-dev.txt', not_contains='isort')
+
+    check_project(
+        settings={'code_formatter': 'ruff', 'package_manager': 'pip'},
+        files_non_existent=['.ruff.toml'],
+        fun=check_ruff)
+
+
+def test_formatter_ruff_conda():
+    def check_ruff(project_dir: Path):
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='ruff-pre-commit')
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='ruff-format')
+        assert_file_contains(project_dir / 'environment-dev.yml', contains='pip:')
+        assert_file_contains(project_dir / 'environment-dev.yml', contains='ruff>=')
+        assert_file_contains(project_dir / 'environment-dev.yml', not_contains='black>=')
+
+    check_project(
+        settings={'code_formatter': 'ruff', 'package_manager': 'conda'},
+        files_non_existent=['.ruff.toml'],
+        fun=check_ruff)
+
+
+def test_formatter_ruff_poetry():
+    def check_ruff(project_dir: Path):
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='ruff-pre-commit')
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='ruff-format')
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', not_contains='psf/black')
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', not_contains='pycqa/isort')
+        assert_file_contains(project_dir / 'pyproject.toml', contains='ruff')
+        assert_file_contains(project_dir / 'pyproject.toml', contains='[tool.ruff]')
+        assert_file_contains(project_dir / 'pyproject.toml', contains='[tool.ruff.lint]')
+        assert_file_contains(project_dir / 'pyproject.toml', not_contains='black')
+        # isort sollte NICHT in pyproject.toml sein bei ruff
+        content = (project_dir / 'pyproject.toml').read_text()
+        assert '[tool.isort]' not in content or 'code_formatter == \'ruff\'' in content
+
+    check_project(
+        settings={'code_formatter': 'ruff', 'package_manager': 'poetry'},
+        files_non_existent=['.ruff.toml'],
+        fun=check_ruff
+    )
+
+
+def test_formatter_ruff_uv():
+    def check_ruff(project_dir: Path):
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='ruff-pre-commit')
+        assert_file_contains(project_dir / '.pre-commit-config.yaml', contains='ruff-format')
+        assert_file_contains(project_dir / 'pyproject.toml', contains='ruff')
+        assert_file_contains(project_dir / 'pyproject.toml', contains='[tool.ruff]')
+
+    check_project(
+        settings={'code_formatter': 'ruff', 'package_manager': 'uv'},
+        files_non_existent=['.ruff.toml'],
+        fun=check_ruff
+    )
+
+
+def test_formatter_ruff_gitlab_poetry():
+    def check_ruff_gitlab(project_dir: Path):
+        assert_file_contains(project_dir / '.gitlab-ci.yml', contains='ruff check .')
+        assert_file_contains(project_dir / '.gitlab-ci.yml', contains='ruff format --check .')
+        assert_file_contains(project_dir / '.gitlab-ci.yml', not_contains='--config .ruff.toml')
+        assert_file_contains(project_dir / '.gitlab-ci.yml', not_contains='--config pyproject.toml')
+
+    check_project(
+        settings={'code_formatter': 'ruff', 'package_manager': 'poetry', 'ci_pipeline': 'gitlab'},
+        files_existent=['.gitlab-ci.yml'],
+        files_non_existent=['.ruff.toml'],
+        fun=check_ruff_gitlab
+    )
+
+
 def test_formatter_none():
     def check_white(project_dir: Path):
         assert_file_contains(project_dir / '.pre-commit-config.yaml', not_contains='psf/black')
