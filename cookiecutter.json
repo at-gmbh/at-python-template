@@ -9,7 +9,7 @@
   "package_manager": ["conda", "pip", "poetry","uv"],
   "use_notebooks": ["no", "yes"],
   "use_docker": ["no", "yes"],
-  "ci_pipeline": ["none", "gitlab"],
+  "ci_pipeline": ["none", "gitlab", "github"],
   "create_cli": ["no", "yes"],
   "config_file": ["none", "hocon", "yaml"],
   "code_formatter": ["none", "black"],
@@ -41,7 +41,8 @@
     "ci_pipeline": {
       "__prompt__": "What [bold yellow]CI pipeline[/] would you like to use?",
       "none": "None",
-      "gitlab": "GitLab CI"
+      "gitlab": "GitLab CI",
+      "github": "GitHub Actions"
     },
     "create_cli": {
       "__prompt__": "Do you want to create a [bold yellow]CLI[/] for your project?",

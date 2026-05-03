@@ -1,0 +1,140 @@
+name: CI
+
+on:
+  push:
+    branches: ["master", "main"]
+  pull_request:
+    branches: ["master", "main"]
+
+{%- if cookiecutter.package_manager == 'conda' %}
+env:
+  CONDA_PKGS_DIRS: ~/.cache/conda
+{%- elif cookiecutter.package_manager == 'poetry' %}
+env:
+  POETRY_VERSION: "2.1.1"
+  POETRY_CACHE_DIR: ~/.cache/poetry
+{%- endif %}
+
+jobs:
+  build:
+    name: Build package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+{%- if cookiecutter.package_manager == 'poetry' %}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install Poetry
+        run: pip install poetry==$POETRY_VERSION
+      - name: Build wheel
+        run: poetry build -f wheel
+{%- elif cookiecutter.package_manager == 'conda' %}
+      - name: Set up conda (micromamba)
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: environment.yml
+          init-shell: bash
+          cache-environment: true
+      - name: Build wheel
+        shell: micromamba-shell {0}
+        run: python setup.py bdist_wheel
+{%- elif cookiecutter.package_manager == 'uv' %}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Build wheel
+        run: |
+          uv add --dev build
+          uv run python -m build --wheel
+{%- else %}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Build wheel
+        run: |
+          pip install setuptools wheel
+          python setup.py bdist_wheel
+{%- endif %}
+      - name: Upload wheel artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "{{ cookiecutter.module_name }}-wheel"
+          path: dist/{{ cookiecutter.module_name }}-*.whl
+          retention-days: 7
+
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download wheel artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: "{{ cookiecutter.module_name }}-wheel"
+          path: dist/
+{%- if cookiecutter.package_manager == 'poetry' %}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install Poetry & dependencies
+        run: |
+          pip install poetry==$POETRY_VERSION
+          poetry install --only=main,test
+      - name: Run tests
+        run: poetry run pytest tests --cov src --cov-report=xml
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+{%- elif cookiecutter.package_manager == 'conda' %}
+      - name: Set up conda (micromamba)
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: environment-dev.yml
+          init-shell: bash
+          cache-environment: true
+      - name: Install package and run tests
+        shell: micromamba-shell {0}
+        run: |
+          pip install dist/{{ cookiecutter.module_name }}-*.whl
+          pytest tests
+{%- elif cookiecutter.package_manager == 'uv' %}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Run tests
+        run: uv run pytest tests --cov src --cov-report=xml
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+{%- else %}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Install wheel
+        run: pip install dist/{{ cookiecutter.module_name }}-*.whl
+      - name: Run tests
+        run: pytest tests --cov src --cov-report=xml
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+{%- endif %}
