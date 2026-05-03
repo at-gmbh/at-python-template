@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Placeholder for future updates and new features.
+## [1.3.1] - 2026-05-04
+
+### Fixed
+- Added missing `pip install -e .` step to the conda Getting Started instructions in the generated README (closes #106). Without this step, module imports fail when running `pytest` or launching notebooks.
 
 ## [1.3.0] - 2026-01-27
 

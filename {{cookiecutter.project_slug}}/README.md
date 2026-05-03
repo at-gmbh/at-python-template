@@ -21,6 +21,10 @@ Then activate the environment with:
 
     conda activate {{ cookiecutter.project_slug }}
 
+Next, install the module in editable mode so that imports work correctly in tests and notebooks:
+
+    pip install -e .
+
 To update this environment with your production dependencies, please run:
 
     conda env update --file=environment.yml
@@ -43,7 +47,7 @@ Whenever you run `poetry run <command>`, that `<command>` is actually run inside
 {% elif cookiecutter.package_manager == 'uv' %}
 ## Using `uv` for Project Setup
 
-> 🧰 **Note:** You do **not** need to have Python pre-installed.  
+> 🧰 **Note:** You do **not** need to have Python pre-installed.
 > `uv` includes its own Python runtime and manages everything automatically.
 
 ### 🔧 Installing `uv`
