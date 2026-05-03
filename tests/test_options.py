@@ -231,5 +231,34 @@ def test_no_ci_pipeline():
         settings={
             "ci_pipeline": "none"
         },
-        files_non_existent=[".gitlab-ci.yml"]
-    )
+        files_non_existent=[".gitlab-ci.yml", ".github/workflows/ci.yml"])
+
+
+def test_github_pip():
+    check_project(
+        settings={
+            "package_manager": "pip",
+            "ci_pipeline": "github"
+        },
+        files_existent=[".github/workflows/ci.yml"],
+        files_non_existent=[".gitlab-ci.yml"])
+
+
+def test_github_conda():
+    check_project(
+        settings={
+            "package_manager": "conda",
+            "ci_pipeline": "github"
+        },
+        files_existent=[".github/workflows/ci.yml"],
+        files_non_existent=[".gitlab-ci.yml"])
+
+
+def test_github_poetry():
+    check_project(
+        settings={
+            "package_manager": "poetry",
+            "ci_pipeline": "github"
+        },
+        files_existent=[".github/workflows/ci.yml"],
+        files_non_existent=[".gitlab-ci.yml"])
