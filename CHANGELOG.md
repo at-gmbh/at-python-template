@@ -7,8 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Placeholder for future updates and new features.
+## [1.3.1] - 2026-05-04
+
+### Changed
+- Migrated root tooling from Poetry to uv (`pyproject.toml` converted to PEP 621 `[project]` format, `poetry.lock` replaced by `uv.lock`, GitHub Actions workflow updated to use `astral-sh/setup-uv@v5`).
+- Updated `actions/checkout` from v5 to v6 in CI workflow.
+- Updated `typer` from `^0.21.1` to `>=0.25.0`.
+- Updated `setuptools` from `^80.10.2` to `>=82.0.0`.
+- Updated pre-commit hooks in generated project template: `astral-sh/ruff-pre-commit` v0.14.14 → v0.15.12, `pycqa/isort` 6.1.0 → 8.0.1, `asottile/pyupgrade` v3.20.0 → v3.21.2.
+- Updated uv Dockerfile base image from `python:3.13-slim-bookworm` to `python:3.14-slim-bookworm`.
 
 ## [1.3.0] - 2026-01-27
 

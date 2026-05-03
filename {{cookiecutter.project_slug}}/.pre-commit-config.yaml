@@ -19,15 +19,15 @@ repos:
         language_version: python3.10
         exclude: ^notebooks{% else %}
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.14.14'
+    rev: 'v0.15.12'
     hooks:
       - id: ruff{% endif %}
   - repo: https://github.com/pycqa/isort
-    rev: '6.1.0'
+    rev: '8.0.1'
     hooks:
       - id: isort
   - repo: https://github.com/asottile/pyupgrade
-    rev: 'v3.20.0'
+    rev: 'v3.21.2'
     hooks:
       - id: pyupgrade
         args: [ --py310-plus ]
