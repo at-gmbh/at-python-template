@@ -7,8 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-05-04
+
 ### Added
-- Placeholder for future updates and new features.
+- New `lint` job in CI (`tests.yml`) runs `ruff check` and `ruff format --check` on `hooks/` and `tests/` on every push and PR.
+- Added `ruff>=0.15.12` to dev dependencies with `[tool.ruff]` config (excludes Jinja2 template files).
+
+### Changed
+- Migrated root tooling from Poetry to uv: `pyproject.toml` converted to PEP 621 `[project]` format, `poetry.lock` replaced by `uv.lock`, GitHub Actions workflow updated to use `astral-sh/setup-uv@v5` (via `uvx migrate-to-uv`).
+- Renamed CI workflow `tests-poetry.yml` → `tests.yml`; updated badge in README.
+- Updated `actions/checkout` from v5 to v6 in CI.
+- Updated `typer` from `^0.21.1` to `>=0.25.0`, `setuptools` from `^80.10.2` to `>=82.0.0` (Renovate).
+- Updated pre-commit hooks in generated project template: `astral-sh/ruff-pre-commit` v0.14.14 → v0.15.12, `pycqa/isort` 6.1.0 → 8.0.1, `asottile/pyupgrade` v3.20.0 → v3.21.2 (Renovate).
+- Updated uv Dockerfile base image from `python:3.13-slim-bookworm` to `python:3.14-slim-bookworm` (Renovate).
 
 ## [1.3.0] - 2026-01-27
 
