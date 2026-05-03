@@ -1,20 +1,19 @@
-ARG IMAGE_TAG=24.7.1-2
-
-FROM condaforge/mambaforge:${IMAGE_TAG}
+FROM mambaorg/micromamba:latest
 
 LABEL maintainer="{{ cookiecutter.company_name if cookiecutter.company_name else cookiecutter.full_name }}"
 
+# Create env from spec before copying the full source for better layer caching
+COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /tmp/environment.yml
+RUN micromamba env create -n {{cookiecutter.module_name}}_env -f /tmp/environment.yml && \
+    micromamba clean --all --yes
+
+# Activate the named env for all subsequent RUN commands and the final CMD/ENTRYPOINT
+# (see https://github.com/mamba-org/micromamba-docker#activating-the-environment)
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+ENV ENV_NAME={{cookiecutter.module_name}}_env
+
 WORKDIR /{{cookiecutter.module_name}}
-COPY environment.yml .
-
-RUN conda config --set channel_priority strict && \
-    mamba env create -n {{cookiecutter.module_name}}_env -f environment.yml
-
-# Make RUN commands use the new environment (see: https://pythonspeed.com/articles/activate-conda-dockerfile/)
-SHELL ["mamba", "run", "-n", "{{cookiecutter.module_name}}_env", "/bin/bash", "-c"]
-
-COPY . .
+COPY --chown=$MAMBA_USER:$MAMBA_USER . .
 RUN python setup.py install
 
-# ENTRYPOINT doesn't use the same shell as RUN so you need the conda stuff
-ENTRYPOINT ["mamba", "run", "-n", "{{cookiecutter.module_name}}_env", "python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
+ENTRYPOINT ["/usr/local/bin/_entrypoint.sh", "python", "-OO", "-m", "{{ cookiecutter.module_name }}"]
