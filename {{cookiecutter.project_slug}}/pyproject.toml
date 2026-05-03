@@ -13,7 +13,7 @@ python = "^3.10"
 {%- if cookiecutter.config_file == 'hocon' %}
 pyhocon = "^0.3.61"
 {%- elif cookiecutter.config_file == 'yaml' %}
-PyYAML = "^6.0.3"
+omegaconf = "^2.3.0"
 {%- endif %}
 {%- if cookiecutter.create_cli == 'yes' %}
 typer = "^0.21.1"
@@ -74,7 +74,7 @@ dependencies = [
 {%- if cookiecutter.config_file == 'hocon' %}
 "pyhocon>=0.3.59",
 {%- elif cookiecutter.config_file == 'yaml' %}
-"PyYAML>=6.0",
+"omegaconf>=2.3.0",
 {%- endif %}
 {%- if cookiecutter.create_cli == 'yes' %}
 "typer>=0.16.1",

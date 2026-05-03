@@ -1,9 +1,9 @@
 import logging
 from pathlib import Path
-from typing import Any, Dict, Union
+from typing import Union
 
 import importlib.resources as resources
-import yaml
+from omegaconf import DictConfig, OmegaConf
 
 logger = logging.getLogger('{{ cookiecutter.module_name }}')
 
@@ -23,27 +23,29 @@ def get_resource_string(path: str, decode=True) -> Union[str, bytes]:
     return s.decode(errors='ignore') if decode else s
 
 
-def load_config(config_file: Union[str, Path]) -> Dict[str, Any]:
+def load_config(config_file: Union[str, Path]) -> DictConfig:
     """
-    Load the config from the specified yaml file
+    Load the config from the specified YAML file.
+
+    Uses OmegaConf, which supports variable interpolation (${key}) and config
+    merging on top of standard YAML. See https://omegaconf.readthedocs.io/
 
     :param config_file: path of the config file to load
-    :return: the parsed config as dictionary
+    :return: the parsed config as a DictConfig (supports both dict and dot-notation access)
     """
-    with open(config_file) as fp:
-        return yaml.safe_load(fp)
+    return OmegaConf.load(config_file)
 
 
-def logging_setup(config: Dict):
+def logging_setup(config: DictConfig):
     """
-    setup logging based on the configuration
+    Setup logging based on the configuration.
 
     :param config: the parsed config tree
     """
-    log_conf = config['logging']
-    fmt = log_conf['format']
-    if log_conf['enabled']:
-        level = logging._nameToLevel[log_conf['level'].upper()]
+    log_conf = config.logging
+    fmt = log_conf.format
+    if log_conf.enabled:
+        level = logging._nameToLevel[log_conf.level.upper()]
     else:
         level = logging.NOTSET
     logging.basicConfig(format=fmt, level=logging.WARNING)
