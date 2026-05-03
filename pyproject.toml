@@ -28,7 +28,14 @@ dependencies = [
 dev = [
     "pytest>=9.0.2,<10",
     "pytest-cov>=7.0.0,<8",
+    "ruff>=0.15.12",
 ]
 
 [tool.uv]
 package = false
+
+[tool.ruff]
+exclude = ["{{cookiecutter.project_slug}}", "serve"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

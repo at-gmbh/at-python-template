@@ -5,7 +5,7 @@ import subprocess
 import sys
 import tempfile
 
-expect_fail = '--fail' in sys.argv
+expect_fail = "--fail" in sys.argv
 actual_fail = False
 
 # run cookiecutter in a subprocess (so we can catch terminal output)
@@ -14,8 +14,19 @@ temp_dir = tempfile.mkdtemp()
 return_code = 1
 try:
     p = subprocess.Popen(
-        [sys.executable, '-m', 'cookiecutter', '--no-input', '-o', f'"{temp_dir}"', '.'],
-        cwd=root, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        [
+            sys.executable,
+            "-m",
+            "cookiecutter",
+            "--no-input",
+            "-o",
+            f'"{temp_dir}"',
+            ".",
+        ],
+        cwd=root,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
     stdout, stderr = p.communicate()
     return_code = p.returncode
     actual_fail = return_code != 0
@@ -23,7 +34,7 @@ finally:
     shutil.rmtree(temp_dir, ignore_errors=True)
 
 # handle possible issues & give proper return codes
-if b'Python 3.9 or higher' in stdout or b'successfully created' in stdout:
+if b"Python 3.9 or higher" in stdout or b"successfully created" in stdout:
     status = {True: "failed", False: "succeded"}
     if actual_fail == expect_fail:
         print(f"Python {platform.python_version()} {status[expect_fail]} as expected")
@@ -33,7 +44,7 @@ if b'Python 3.9 or higher' in stdout or b'successfully created' in stdout:
             f"but actually {status[actual_fail]}",
         )
         sys.exit(return_code)
-elif b'SyntaxError' in stderr:
+elif b"SyntaxError" in stderr:
     print(f"got a syntax error in pre_gen_project.py:\n{stderr}")
     sys.exit(return_code)
 else:
