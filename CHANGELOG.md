@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Placeholder for future updates and new features.
+## [1.3.1] - 2026-05-04
+
+### Changed
+- `main.py` now includes a working logging example (closes #39). When a config file is selected, it calls `util.load_config()` and `util.logging_setup(config)` so logging is initialised from the config on startup. When no config is selected, it falls back to `logging.basicConfig(level=logging.INFO)`. Both variants log an info message so the generated project works end-to-end immediately.
 
 ## [1.3.0] - 2026-01-27
 
