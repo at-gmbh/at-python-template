@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Placeholder for future updates and new features.
+## [1.4.0] - 2026-05-04
+
+### Changed
+- Replaced `PyYAML` with `omegaconf~=2.3.0` for the `yaml` config option (closes #98). OmegaConf is a superset of PyYAML that adds variable interpolation (`${key}`), config merging, and optional runtime type safety via Structured Configs. The `load_config()` function now returns `DictConfig` instead of `Dict`, which supports both dict-style (`config['key']`) and dot-notation (`config.key`) access.
 
 ## [1.3.0] - 2026-01-27
 

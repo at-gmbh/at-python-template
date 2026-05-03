@@ -7,8 +7,8 @@
 # HOCON configuration parser
 pyhocon~=0.3.61
 {% elif cookiecutter.config_file == 'yaml' %}
-# YAML configuration parser
-PyYAML~=6.0.2
+# YAML configuration parser (with interpolation and merging support)
+omegaconf~=2.3.0
 {% endif %}
 
 # Dependency for Command-Line Interface (CLI) if enabled
