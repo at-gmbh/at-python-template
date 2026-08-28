@@ -14,5 +14,5 @@ PyYAML~=6.0.2
 # Dependency for Command-Line Interface (CLI) if enabled
 {% if cookiecutter.create_cli == 'yes' %}
 # CLI framework (with optional dependencies for enhanced functionality)
-typer~=0.16.1
+typer~=0.27.2
 {% endif %}
